@@ -1,5 +1,7 @@
 {
-  "seen_urls": [],
-  "last_run": "2026-04-24T22:54:21.708886+00:00",
+  "seen_urls": [
+    "https://www.trekbikes.com/us/en_US/"
+  ],
+  "last_run": "2026-04-24T22:57:34.417407+00:00",
   "deals_found": []
 }

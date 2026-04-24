@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """
-Bike Deal Finder v1
-Monitors REI, Jenson USA, Trek, Giant, Specialized, Marin, and The Pro's Closet
-for mountain bike deals matching specific criteria for a teenage rider (5'5").
+Bike Deal Finder v2
+Monitors 9 sources for mountain bike deals matching specific criteria.
 
-Uses Claude Haiku to intelligently evaluate each listing's value.
-Alerts via email when a genuinely good deal is found.
+Scraping strategy by source:
+  - The Pro's Closet, Jenson USA  → Shopify JSON API (pure HTTP, no browser)
+  - Trek, Giant, Specialized, Marin → Playwright + network request interception
+  - REI                            → Playwright + JS DOM extraction
+  - Pinkbike Deals                 → Playwright + HTML scraping
+  - Pinkbike Buy/Sell              → Playwright + HTML scraping (near 48823)
+
+Uses Claude Haiku to intelligently score each listing against fit + value criteria.
 """
 
 import json
@@ -14,6 +19,8 @@ import re
 import smtplib
 import sys
 import time
+import urllib.request
+import urllib.error
 from datetime import datetime, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -45,6 +52,11 @@ EMAIL_PASSWORD = os.environ.get("EMAIL_APP_PASSWORD", "")
 NOTIFY_EMAILS  = ["mattkaz@icloud.com", "jmartello@gmail.com"]
 ANTHROPIC_KEY  = os.environ.get("ANTHROPIC_API_KEY", "")
 
+# Location for Pinkbike buy/sell proximity context
+BUYER_ZIP      = "48823"    # East Lansing, MI
+BUYER_LOCATION = "East Lansing, MI"
+MAX_TRAVEL_MILES = 100
+
 STATE_FILE = Path(__file__).parent / "bike_state.json"
 LOG_FILE   = Path(__file__).parent / "bike_monitor.log"
 
@@ -54,41 +66,75 @@ MIN_SCORE_TO_ALERT = 7   # Claude score out of 10
 #  SOURCES
 # ─────────────────────────────────────────────────────────────────────────────
 
-SOURCES = [
+# Sources split by scraping strategy
+SHOPIFY_SOURCES = [
     {
-        "name": "REI",
-        "url":  "https://www.rei.com/c/hardtail-mountain-bikes?ir=category%3Ahardtail-mountain-bikes&r=q%3A27.5",
-        "type": "rei",
+        "name":       "The Pro's Closet",
+        "shop_url":   "https://www.theproscloset.com",
+        "collection": "hardtail-mountain-bikes",
+        "type":       "shopify",
     },
     {
-        "name": "Jenson USA",
-        "url":  "https://www.jensonusa.com/Bikes/Mountain-Bikes/Hardtail--Cross-Country?sortby=1&inStockOnly=true",
-        "type": "jenson",
+        "name":       "Jenson USA",
+        "shop_url":   "https://www.jensonusa.com",
+        "collection": "hardtail-cross-country",
+        "type":       "shopify",
     },
+]
+
+PLAYWRIGHT_SOURCES = [
     {
         "name": "Trek",
         "url":  "https://www.trekbikes.com/us/en_US/bikes/mountain-bikes/hardtail-mountain-bikes/",
-        "type": "trek",
+        "type": "intercept",
+        "base_url": "https://www.trekbikes.com",
+        "keywords": ["marlin", "roscoe", "hardtail"],
     },
     {
         "name": "Giant",
         "url":  "https://www.giant-bicycles.com/us/bikes/mountain/hardtail",
-        "type": "giant",
+        "type": "intercept",
+        "base_url": "https://www.giant-bicycles.com",
+        "keywords": ["talon", "fathom", "hardtail"],
     },
     {
         "name": "Specialized",
         "url":  "https://www.specialized.com/us/en/shop/bikes/mountain-bikes/hardtail-mountain-bikes",
-        "type": "specialized",
+        "type": "intercept",
+        "base_url": "https://www.specialized.com",
+        "keywords": ["rockhopper", "hardrock", "hardtail"],
     },
     {
         "name": "Marin",
         "url":  "https://www.marinbikes.com/bikes/mountain/hardtail",
-        "type": "marin",
+        "type": "intercept",
+        "base_url": "https://www.marinbikes.com",
+        "keywords": ["bobcat", "hardtail", "trail"],
     },
     {
-        "name": "The Pro's Closet",
-        "url":  "https://www.theproscloset.com/collections/hardtail-mountain-bikes?sort_by=price-ascending&filter.p.m.bike.wheel_size=27.5%22",
-        "type": "pros_closet",
+        "name": "REI",
+        "url":  "https://www.rei.com/c/hardtail-mountain-bikes?r=q%3A27.5",
+        "type": "dom",
+        "base_url": "https://www.rei.com",
+        "keywords": None,
+    },
+    {
+        "name": "Pinkbike Deals",
+        "url":  "https://www.pinkbike.com/product/deals/",
+        "type": "pinkbike_deals",
+        "base_url": "https://www.pinkbike.com",
+        "keywords": ["mountain", "hardtail", "mtb", "27.5"],
+    },
+    {
+        "name": "Pinkbike Buy/Sell",
+        "url":  (
+            "https://www.pinkbike.com/buysell/list/"
+            "?q=hardtail+27.5+small&cat=2&minprice=200&maxprice=900"
+            "&condition=2&country_id=1"
+        ),
+        "type": "pinkbike_buysell",
+        "base_url": "https://www.pinkbike.com",
+        "keywords": None,
     },
 ]
 
@@ -97,7 +143,7 @@ SOURCES = [
 # ─────────────────────────────────────────────────────────────────────────────
 
 def log(msg: str):
-    ts  = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    ts   = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     line = f"[{ts}] {msg}"
     print(line, flush=True)
     with open(LOG_FILE, "a") as f:
@@ -119,88 +165,116 @@ def save_state(state: dict):
     STATE_FILE.write_text(json.dumps(state, indent=2))
 
 # ─────────────────────────────────────────────────────────────────────────────
+#  HELPERS
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _extract_price(text: str) -> float | None:
+    m = re.search(r'\$\s*([\d,]+(?:\.\d{2})?)', text)
+    return float(m.group(1).replace(',', '')) if m else None
+
+def _extract_msrp(text: str) -> float | None:
+    m = re.search(
+        r'(?:msrp|was|reg(?:ular)?|orig(?:inal)?|compare)[^\d$]*\$\s*([\d,]+(?:\.\d{2})?)',
+        text, re.IGNORECASE
+    )
+    return float(m.group(1).replace(',', '')) if m else None
+
+def _extract_size(text: str) -> str:
+    m = re.search(
+        r'\b(x-?small|xsmall|xs|small|sm|\bS\b|medium|med|\bM\b|large|\bL\b|x-?large|xlarge|xl)\b',
+        text, re.IGNORECASE
+    )
+    if not m:
+        return "unknown"
+    mapping = {
+        'XSMALL': 'XS', 'X-SMALL': 'XS', 'XS': 'XS',
+        'SMALL': 'Small', 'SM': 'Small', 'S': 'Small',
+        'MEDIUM': 'Medium', 'MED': 'Medium', 'M': 'Medium',
+        'LARGE': 'Large', 'L': 'Large',
+        'XLARGE': 'XL', 'X-LARGE': 'XL', 'XL': 'XL',
+    }
+    return mapping.get(m.group(1).upper(), m.group(1))
+
+def _strip_html(html: str) -> str:
+    return re.sub(r'<[^>]+>', ' ', html or '').strip()
+
+def _quick_price_filter(price: float | None) -> bool:
+    if price is None:
+        return True
+    return 150 <= price <= 950
+
+# ─────────────────────────────────────────────────────────────────────────────
 #  CLAUDE EVALUATION
 # ─────────────────────────────────────────────────────────────────────────────
 
 CRITERIA_PROMPT = """You are a bike expert evaluating mountain bike listings for a teenage rider.
 
 RIDER: 5'5", beginner-intermediate, neighborhood/bike paths/light trails.
+BUYER LOCATION: East Lansing, MI. Can travel up to 100 miles for pickup, or buy anything that ships.
 
 REQUIRED (hard rules — reject if missing):
 - Frame size: Small (S) — reject XS, Medium, Large, or larger
-- Wheel size: 27.5" (also written as 27.5)
-- Hardtail (front suspension only — no full suspension)
-- Disc brakes (hydraulic strongly preferred, mechanical acceptable)
+- Wheel size: 27.5" — reject 26" or 29"
+- Hardtail (front suspension only)
+- Disc brakes (hydraulic preferred, mechanical acceptable)
 - Aluminum frame
 - Reputable brand: Trek, Giant, Specialized, Marin, Kona, Cannondale only
 
 PREFERRED (boosts score):
 - 1x drivetrain (1x8 minimum, 1x9/10/11/12 better)
-- Hydraulic disc brakes (Shimano MT200+ or equivalent)
-- Shimano Deore, SLX, XT, CUES, or equivalent
-- Modern geometry (short chainstays, slack head angle)
-- Lockout fork
+- Hydraulic disc brakes
+- Shimano Deore, SLX, XT, CUES or equivalent
 
-REJECT OUTRIGHT (score 0, do not alert):
-- 3x drivetrains (e.g., 3x7, 3x8, 3x21 speed)
+REJECT OUTRIGHT (score 0):
+- 3x drivetrains
 - Rim brakes
 - Unknown/department store brands
 - XS, Medium, or larger frames
-- 26" wheels
-- Full suspension at this price point (likely low quality)
+- 26" or 29" wheels
 
-TARGET MODELS — Tier 1 (best value, highest scores):
-- Marin Bobcat Trail 5, Giant Talon 2, Trek Marlin 5 Gen 3, Specialized Rockhopper
+TIER 1 TARGETS (best value): Marin Bobcat Trail 5, Giant Talon 2, Trek Marlin 5, Specialized Rockhopper
+TIER 2 ACCEPTABLE: Giant Talon 3/4, Trek Marlin 4, Marin Bobcat Trail 4, Kona equivalents
 
-ACCEPTABLE — Tier 2 (good if priced right):
-- Giant Talon 3/4, Trek Marlin 4, Marin Bobcat Trail 4, Kona equivalents
-
-BUDGET & VALUE:
+BUDGET:
 - Ideal: $500–$700
-- Acceptable: up to $800 if spec justifies it
-- Stretch: $800–$900 ONLY if genuinely upgrade-tier spec
-- Entry bikes (~$600–700 MSRP): must be priced below ~$650 to alert
-- Mid-tier (~$900–1100 MSRP): good deal at ≤ $800
-- Never alert for overpriced entry-level bikes
+- Acceptable: up to $800 if spec justifies
+- Stretch: $800–$900 ONLY if upgrade-tier spec
+- Entry bikes (~$600-700 MSRP): must be below $650 to alert
+- Mid-tier (~$900-1100 MSRP): good deal at ≤ $800
 
-SIZE NOTE: If size is unclear or not mentioned, assume it may not be Small — score lower."""
+SIZE NOTE: If size is not clearly confirmed as Small/S, score lower and note uncertainty."""
 
 
 def evaluate_listing(listing: dict) -> dict:
-    """
-    Ask Claude Haiku to evaluate a bike listing.
-    Returns dict with score (1-10), verdict, reason, and reject flag.
-    """
     if not ANTHROPIC_KEY:
-        # Fallback: basic rule-based scoring if no API key
         return _rule_based_score(listing)
 
     client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
+    local_note = ""
+    if listing.get("local_only"):
+        local_note = f"\nNOTE: This is a LOCAL PICKUP listing. Buyer is in {BUYER_LOCATION}, max 100 mile travel."
 
     prompt = f"""{CRITERIA_PROMPT}
-
+{local_note}
 ---
-LISTING TO EVALUATE:
-Source: {listing.get('source', 'unknown')}
-Model/Title: {listing.get('title', 'unknown')}
+LISTING:
+Source: {listing.get('source')}
+Title: {listing.get('title')}
 Price: ${listing.get('price', 'unknown')}
-Original MSRP: {f"${listing['msrp']}" if listing.get('msrp') else 'not listed'}
-Size(s) available: {listing.get('size', 'unknown')}
-Specs/Description: {listing.get('specs', 'not provided')}
+MSRP: {f"${listing['msrp']:.0f}" if listing.get('msrp') else 'not listed'}
+Size available: {listing.get('size', 'unknown')}
+Specs/Description: {listing.get('specs', 'not provided')[:400]}
 URL: {listing.get('url', '')}
 ---
-
-Evaluate this listing strictly against the criteria above.
-Respond with ONLY valid JSON in this exact format:
+Respond ONLY with valid JSON:
 {{
-  "score": <integer 1-10>,
+  "score": <1-10>,
   "verdict": "<good_deal|fair|skip|reject>",
-  "reason": "<one clear sentence explaining your verdict>",
+  "reason": "<one clear sentence>",
   "reject": <true|false>,
   "size_confirmed": <true|false>
 }}
-
-Be strict. Score 7+ only for genuinely good deals. Score 0 and reject=true for hard rejections."""
+Be strict. 7+ only for genuine value."""
 
     try:
         response = client.messages.create(
@@ -209,87 +283,249 @@ Be strict. Score 7+ only for genuinely good deals. Score 0 and reject=true for h
             messages=[{"role": "user", "content": prompt}],
         )
         text = response.content[0].text.strip()
-        # Extract JSON even if there's surrounding text
-        json_match = re.search(r'\{.*\}', text, re.DOTALL)
-        if json_match:
-            return json.loads(json_match.group())
-        return {"score": 0, "verdict": "skip", "reason": "Could not parse evaluation", "reject": False, "size_confirmed": False}
+        m = re.search(r'\{.*\}', text, re.DOTALL)
+        if m:
+            return json.loads(m.group())
     except Exception as e:
         log(f"  Claude eval error: {e}")
-        return _rule_based_score(listing)
+
+    return _rule_based_score(listing)
 
 
 def _rule_based_score(listing: dict) -> dict:
-    """Simple fallback scoring when Claude API is unavailable."""
-    title  = (listing.get('title', '') + ' ' + listing.get('specs', '')).lower()
-    price  = listing.get('price', 9999)
-    reject = False
-    reason = ""
+    title = (listing.get('title', '') + ' ' + listing.get('specs', '')).lower()
+    price = listing.get('price', 9999) or 9999
 
-    # Hard rejects
-    if any(x in title for x in ['3x', 'rim brake', 'v-brake', 'xs ', ' xs']):
-        return {"score": 0, "verdict": "reject", "reason": "Hard reject: 3x drivetrain or rim brakes", "reject": True, "size_confirmed": False}
+    if any(x in title for x in ['3x', 'rim brake', 'v-brake']):
+        return {"score": 0, "verdict": "reject", "reason": "3x drivetrain or rim brakes", "reject": True, "size_confirmed": False}
 
     score = 5
+    if price <= 650:   score += 2
+    elif price <= 750: score += 1
+    elif price > 900:  score -= 2
 
-    # Price scoring
-    if price <= 650:
-        score += 2
-    elif price <= 750:
-        score += 1
-    elif price > 900:
-        score -= 2
-
-    # Tier 1 models
     if any(m in title for m in ['bobcat trail 5', 'marlin 5', 'talon 2', 'rockhopper']):
         score += 2
     elif any(m in title for m in ['talon 3', 'talon 4', 'marlin 4', 'bobcat trail 4']):
         score += 1
 
-    # Good components
-    if any(x in title for x in ['deore', 'slx', 'xt ', 'cues', 'hydraulic']):
-        score += 1
-    if '1x' in title or 'single' in title:
-        score += 1
+    if any(x in title for x in ['deore', 'slx', 'xt ', 'cues', 'hydraulic']): score += 1
+    if '1x' in title or 'single' in title: score += 1
 
     score = max(0, min(10, score))
-    verdict = "good_deal" if score >= 7 else "fair" if score >= 5 else "skip"
-    return {"score": score, "verdict": verdict, "reason": "Rule-based evaluation (Claude unavailable)", "reject": reject, "size_confirmed": False}
+    return {
+        "score": score,
+        "verdict": "good_deal" if score >= 7 else "fair" if score >= 5 else "skip",
+        "reason": "Rule-based (Claude unavailable)",
+        "reject": False,
+        "size_confirmed": False,
+    }
 
 # ─────────────────────────────────────────────────────────────────────────────
-#  SCRAPERS
+#  SHOPIFY API SCRAPER (The Pro's Closet, Jenson USA)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _extract_price(text: str) -> float | None:
-    """Pull the first dollar amount from a string."""
-    m = re.search(r'\$\s*([\d,]+(?:\.\d{2})?)', text)
-    if m:
-        return float(m.group(1).replace(',', ''))
-    return None
+def _shopify_fetch(shop_url: str, collection: str, source: str) -> list[dict]:
+    """
+    Fetch products directly from Shopify's public collection JSON endpoint.
+    No browser needed — pure HTTP. Returns clean, structured product data.
+    """
+    listings = []
+    headers  = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+        "Accept":     "application/json",
+    }
 
-def _extract_msrp(text: str) -> float | None:
-    """Pull MSRP / was-price from a string."""
-    m = re.search(r'(?:msrp|was|reg(?:ular)?|orig(?:inal)?|compare)[^\d$]*\$\s*([\d,]+(?:\.\d{2})?)', text, re.IGNORECASE)
-    if m:
-        return float(m.group(1).replace(',', ''))
-    return None
+    page = 1
+    while page <= 5:  # max 5 pages × 250 = 1250 products
+        url = f"{shop_url}/collections/{collection}/products.json?limit=250&page={page}"
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=15) as r:
+                data = json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            if e.code == 404 and page == 1:
+                log(f"  {source}: collection '{collection}' not found — trying 'bikes'")
+                # Try fallback collection name
+                url = f"{shop_url}/collections/bikes/products.json?limit=250"
+                try:
+                    req = urllib.request.Request(url, headers=headers)
+                    with urllib.request.urlopen(req, timeout=15) as r:
+                        data = json.loads(r.read())
+                except Exception as e2:
+                    log(f"  {source} Shopify error: {e2}")
+                    break
+            else:
+                break
+        except Exception as e:
+            log(f"  {source} Shopify fetch error: {e}")
+            break
 
-def _quick_price_filter(price: float | None) -> bool:
-    """Pre-filter: skip if clearly out of budget."""
-    if price is None:
-        return True  # keep — let Claude decide
-    return price <= 950
+        products = data.get("products", [])
+        if not products:
+            break
+
+        for product in products:
+            title   = product.get("title", "")
+            handle  = product.get("handle", "")
+            prod_url = f"{shop_url}/products/{handle}"
+            body    = _strip_html(product.get("body_html", ""))
+            variants = product.get("variants", [])
+
+            # Find the lowest available price
+            avail_prices = [
+                float(v.get("price", 0)) for v in variants
+                if v.get("available", True) and float(v.get("price", 0)) > 0
+            ]
+            if not avail_prices:
+                avail_prices = [float(v.get("price", 0)) for v in variants if float(v.get("price", 0)) > 0]
+
+            price = min(avail_prices) if avail_prices else None
+            if not _quick_price_filter(price):
+                continue
+
+            # Find available sizes from variant options
+            size_options = []
+            for variant in variants:
+                if not variant.get("available", True):
+                    continue
+                for opt_key in ["option1", "option2", "option3"]:
+                    opt_val = variant.get(opt_key, "")
+                    if opt_val and _extract_size(opt_val) != "unknown":
+                        size_options.append(opt_val)
+
+            size_str = ", ".join(sorted(set(size_options))) if size_options else "unknown"
+            specs    = f"{body[:400]}" if body else ""
+
+            listings.append({
+                "source":     source,
+                "title":      title[:120],
+                "price":      price,
+                "msrp":       _extract_msrp(body),
+                "size":       size_str,
+                "specs":      specs,
+                "url":        prod_url,
+                "local_only": False,
+            })
+
+        page += 1
+
+    log(f"  {source} (Shopify API): {len(listings)} product(s) in budget range")
+    return listings
 
 
-# JS snippet: finds product links with prices by walking up the DOM from price elements.
-# Works across different e-commerce platforms regardless of class names.
+# ─────────────────────────────────────────────────────────────────────────────
+#  NETWORK INTERCEPTION SCRAPER (brand sites)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _scrape_with_interception(page, source_config: dict) -> list[dict]:
+    """
+    Navigate to a brand site page and intercept any JSON API responses
+    that look like product listings. Falls back to DOM extraction if no
+    API responses are captured.
+    """
+    source   = source_config["name"]
+    url      = source_config["url"]
+    base_url = source_config["base_url"]
+    keywords = source_config.get("keywords", [])
+
+    captured_products = []
+
+    def handle_response(response):
+        """Capture JSON responses that look like product arrays."""
+        try:
+            content_type = response.headers.get("content-type", "")
+            if "json" not in content_type:
+                return
+            if response.status != 200:
+                return
+            # Only intercept API-looking URLs, not page HTML
+            resp_url = response.url.lower()
+            if any(x in resp_url for x in ["api", "product", "catalog", "search", "item", "bike"]):
+                body = response.json()
+                # Look for arrays of product-like objects
+                candidates = []
+                if isinstance(body, list):
+                    candidates = body
+                elif isinstance(body, dict):
+                    for key in ["products", "items", "results", "bikes", "data", "records"]:
+                        if isinstance(body.get(key), list):
+                            candidates = body[key]
+                            break
+                for item in candidates:
+                    if isinstance(item, dict) and any(
+                        k in item for k in ["name", "title", "productName", "model"]
+                    ):
+                        captured_products.append(item)
+        except Exception:
+            pass
+
+    listings = []
+    try:
+        page.on("response", handle_response)
+        page.goto(url, wait_until="domcontentloaded", timeout=45000)
+        page.wait_for_timeout(4000)
+
+        if captured_products:
+            log(f"  {source}: {len(captured_products)} product(s) from API interception")
+            for item in captured_products:
+                # Normalize various API response shapes
+                title = (item.get("name") or item.get("title") or
+                         item.get("productName") or item.get("model") or "")
+                price_raw = (item.get("price") or item.get("salePrice") or
+                             item.get("currentPrice") or item.get("msrp") or 0)
+                try:
+                    price = float(str(price_raw).replace("$", "").replace(",", ""))
+                except (ValueError, TypeError):
+                    price = None
+
+                if not _quick_price_filter(price):
+                    continue
+
+                href = (item.get("url") or item.get("link") or item.get("pdpUrl") or "")
+                if href and not href.startswith("http"):
+                    href = base_url + href
+
+                specs = json.dumps({k: v for k, v in item.items()
+                                    if k not in ["images", "image", "media"]})[:500]
+
+                if keywords:
+                    if not any(kw.lower() in (title + specs).lower() for kw in keywords):
+                        continue
+
+                listings.append({
+                    "source":     source,
+                    "title":      title[:120],
+                    "price":      price,
+                    "msrp":       None,
+                    "size":       _extract_size(specs),
+                    "specs":      specs,
+                    "url":        href,
+                    "local_only": False,
+                })
+        else:
+            # Fallback: DOM extraction
+            log(f"  {source}: no API responses captured — falling back to DOM extraction")
+            listings = _scrape_dom(page, source, base_url, keywords)
+
+    except Exception as e:
+        log(f"  {source} interception error: {e}")
+        listings = _scrape_dom(page, source, base_url, keywords)
+
+    return listings
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  DOM SCRAPER (fallback + REI)
+# ─────────────────────────────────────────────────────────────────────────────
+
 _EXTRACT_JS = """
 (baseUrl) => {
     const results = [];
     const seen = new Set();
 
-    // Strategy 1: find elements containing price text, walk up to find a product container
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    // Find all text nodes containing prices, walk up to product container
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     const priceNodes = [];
     let node;
     while ((node = walker.nextNode())) {
@@ -299,10 +535,9 @@ _EXTRACT_JS = """
     }
 
     for (const priceEl of priceNodes) {
-        // Walk up to find a container that also has a link
         let container = priceEl;
         let link = null;
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 7; i++) {
             if (!container) break;
             link = container.querySelector('a[href]');
             if (link) break;
@@ -311,7 +546,7 @@ _EXTRACT_JS = """
         if (!link) continue;
 
         let href = link.href || '';
-        if (!href || href === window.location.href) continue;
+        if (!href || href === window.location.href || href === '#') continue;
         if (seen.has(href)) continue;
         seen.add(href);
 
@@ -330,152 +565,168 @@ _EXTRACT_JS = """
             text: text.substring(0, 700),
         });
     }
-
     return results;
 }
 """
 
-
-def _scrape_universal(page, url: str, source: str, base_url: str,
-                      keywords: list | None = None,
-                      wait_ms: int = 4000) -> list[dict]:
-    """
-    Universal product page scraper — works across any e-commerce site by
-    finding price elements and walking up the DOM to find product containers.
-    No brittle CSS class selectors needed.
-    """
+def _scrape_dom(page, source: str, base_url: str,
+                keywords: list | None = None) -> list[dict]:
     listings = []
     try:
-        page.goto(url, wait_until="domcontentloaded", timeout=45000)
-        page.wait_for_timeout(wait_ms)
-
         products = page.evaluate(_EXTRACT_JS, base_url)
-        log(f"  {source}: {len(products)} raw product(s) extracted")
-
-        for p in products:
-            price = p.get("price")
-            if not _quick_price_filter(price):
-                continue
-
-            title = p.get("title", "").strip()
-            text  = p.get("text", "")
-            href  = p.get("url", "")
-
-            # Keyword filter — if caller wants to restrict to certain bike names
-            if keywords:
-                combined = (title + " " + text).lower()
-                if not any(kw.lower() in combined for kw in keywords):
-                    continue
-
-            listings.append({
-                "source": source,
-                "title":  title[:120],
-                "price":  price,
-                "msrp":   _extract_msrp(text),
-                "size":   _extract_size(text),
-                "specs":  text[:500],
-                "url":    href,
-            })
-
-    except Exception as e:
-        log(f"  {source} scrape error: {e}")
-
-    return listings
-
-
-# Keyword lists for filtering — helps on brand sites that show all products
-_MTB_KEYWORDS = [
-    "mountain", "hardtail", "talon", "marlin", "rockhopper",
-    "bobcat", "trail", "XC", "cross country", "27.5",
-]
-
-_TARGET_BRANDS = ["trek", "giant", "specialized", "marin", "kona", "cannondale"]
-
-
-def scrape_rei(page, url: str) -> list[dict]:
-    # REI sometimes blocks GitHub IPs — try with longer wait and retry
-    try:
-        page.goto(url, wait_until="domcontentloaded", timeout=45000)
-        page.wait_for_timeout(5000)
-        products = page.evaluate(_EXTRACT_JS, "https://www.rei.com")
-        log(f"  REI: {len(products)} raw product(s) extracted")
-        listings = []
+        log(f"  {source} (DOM): {len(products)} price elements found")
         for p in products:
             if not _quick_price_filter(p.get("price")):
                 continue
             text = p.get("text", "")
+            if keywords:
+                if not any(kw.lower() in text.lower() for kw in keywords):
+                    continue
             listings.append({
-                "source": "REI",
-                "title":  p.get("title", "")[:120],
-                "price":  p.get("price"),
-                "msrp":   _extract_msrp(text),
-                "size":   _extract_size(text),
-                "specs":  text[:500],
-                "url":    p.get("url", ""),
+                "source":     source,
+                "title":      p.get("title", "")[:120],
+                "price":      p.get("price"),
+                "msrp":       _extract_msrp(text),
+                "size":       _extract_size(text),
+                "specs":      text[:500],
+                "url":        p.get("url", ""),
+                "local_only": False,
             })
-        return listings
     except Exception as e:
-        log(f"  REI scrape error: {e}")
-        return []
+        log(f"  {source} DOM extraction error: {e}")
+    return listings
 
-
-def scrape_jenson(page, url: str) -> list[dict]:
-    return _scrape_universal(page, url, "Jenson USA", "https://www.jensonusa.com",
-                             keywords=_MTB_KEYWORDS, wait_ms=4000)
-
-def scrape_trek(page, url: str) -> list[dict]:
-    return _scrape_universal(page, url, "Trek", "https://www.trekbikes.com",
-                             keywords=["marlin", "roscoe", "hardtail", "27.5"], wait_ms=4000)
-
-def scrape_giant(page, url: str) -> list[dict]:
-    return _scrape_universal(page, url, "Giant", "https://www.giant-bicycles.com",
-                             keywords=["talon", "fathom", "hardtail", "27.5"], wait_ms=4000)
-
-def scrape_specialized(page, url: str) -> list[dict]:
-    return _scrape_universal(page, url, "Specialized", "https://www.specialized.com",
-                             keywords=["rockhopper", "hardrock", "hardtail", "27.5"], wait_ms=5000)
-
-def scrape_marin(page, url: str) -> list[dict]:
-    return _scrape_universal(page, url, "Marin", "https://www.marinbikes.com",
-                             keywords=["bobcat", "hardtail", "27.5", "trail"], wait_ms=4000)
-
-def scrape_pros_closet(page, url: str) -> list[dict]:
-    return _scrape_universal(page, url, "The Pro's Closet", "https://www.theproscloset.com",
-                             keywords=_MTB_KEYWORDS + _TARGET_BRANDS, wait_ms=4000)
-
-
-SCRAPERS = {
-    "rei":         scrape_rei,
-    "jenson":      scrape_jenson,
-    "trek":        scrape_trek,
-    "giant":       scrape_giant,
-    "specialized": scrape_specialized,
-    "marin":       scrape_marin,
-    "pros_closet": scrape_pros_closet,
-}
 
 # ─────────────────────────────────────────────────────────────────────────────
-#  SIZE EXTRACTION
+#  PINKBIKE SCRAPERS
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _extract_size(text: str) -> str:
-    """Try to extract frame size from listing text."""
-    # Look for explicit size mentions
-    m = re.search(
-        r'\b(x-?small|xsmall|xs|small|sm|\bS\b|medium|med|\bM\b|large|\bL\b|x-?large|xlarge|xl)\b',
-        text, re.IGNORECASE
-    )
-    if m:
-        raw = m.group(1).upper()
-        mapping = {
-            'XSMALL': 'XS', 'X-SMALL': 'XS', 'XS': 'XS',
-            'SMALL': 'Small', 'SM': 'Small', 'S': 'Small',
-            'MEDIUM': 'Medium', 'MED': 'Medium', 'M': 'Medium',
-            'LARGE': 'Large', 'L': 'Large',
-            'XLARGE': 'XL', 'X-LARGE': 'XL', 'XL': 'XL',
-        }
-        return mapping.get(raw, raw)
-    return "unknown"
+def _scrape_pinkbike_deals(page, source_config: dict) -> list[dict]:
+    """Scrape Pinkbike's curated deals page."""
+    listings = []
+    keywords = source_config.get("keywords", [])
+    try:
+        page.goto(source_config["url"], wait_until="domcontentloaded", timeout=45000)
+        page.wait_for_timeout(3000)
+
+        # Pinkbike deals are usually in deal cards/rows
+        cards = page.query_selector_all(
+            '.deal-item, [class*="deal"], [class*="product-deal"], '
+            'article, .buysell-item, [class*="item-row"]'
+        )
+
+        if not cards:
+            # Fall back to DOM extraction
+            return _scrape_dom(page, "Pinkbike Deals", "https://www.pinkbike.com", keywords)
+
+        for card in cards:
+            try:
+                text = card.inner_text().strip()
+                if not text:
+                    continue
+
+                if keywords and not any(kw.lower() in text.lower() for kw in keywords):
+                    continue
+
+                link_el = card.query_selector('a')
+                href = link_el.get_attribute('href') if link_el else ''
+                if href and not href.startswith('http'):
+                    href = f"https://www.pinkbike.com{href}"
+
+                price = _extract_price(text)
+                if not _quick_price_filter(price):
+                    continue
+
+                lines = [l.strip() for l in text.split('\n') if l.strip()]
+                title = lines[0][:120] if lines else text[:80]
+
+                listings.append({
+                    "source":     "Pinkbike Deals",
+                    "title":      title,
+                    "price":      price,
+                    "msrp":       _extract_msrp(text),
+                    "size":       _extract_size(text),
+                    "specs":      text[:500],
+                    "url":        href,
+                    "local_only": False,
+                })
+            except Exception:
+                continue
+
+    except Exception as e:
+        log(f"  Pinkbike Deals error: {e}")
+    return listings
+
+
+def _scrape_pinkbike_buysell(page, source_config: dict) -> list[dict]:
+    """
+    Scrape Pinkbike Buy/Sell listings near East Lansing, MI.
+    Flags listings as local_only if no shipping mentioned.
+    """
+    listings = []
+    try:
+        page.goto(source_config["url"], wait_until="domcontentloaded", timeout=45000)
+        page.wait_for_timeout(3000)
+
+        # Pinkbike buy/sell uses table rows or list items
+        items = page.query_selector_all(
+            '.bsitem, [class*="buysell-item"], [class*="bsitem"], '
+            'tr[class*="item"], .item-cell, [id*="item"]'
+        )
+
+        if not items:
+            items = page.query_selector_all('table tr, .buysell-results tr')
+
+        if not items:
+            return _scrape_dom(page, "Pinkbike Buy/Sell", "https://www.pinkbike.com", None)
+
+        for item in items:
+            try:
+                text = item.inner_text().strip()
+                if not text or len(text) < 10:
+                    continue
+
+                link_el = item.query_selector('a[href*="buysell"]')
+                if not link_el:
+                    link_el = item.query_selector('a')
+                href = link_el.get_attribute('href') if link_el else ''
+                if href and not href.startswith('http'):
+                    href = f"https://www.pinkbike.com{href}"
+
+                price = _extract_price(text)
+                if not _quick_price_filter(price):
+                    continue
+
+                lines = [l.strip() for l in text.split('\n') if l.strip()]
+                title = lines[0][:120] if lines else text[:80]
+
+                # Check if ships or local only
+                text_lower = text.lower()
+                ships = any(w in text_lower for w in ["ship", "ships", "shipping", "will ship"])
+                local_only = not ships
+
+                # Extract location if mentioned
+                location_note = ""
+                loc_match = re.search(r'\b([A-Z][a-z]+(?:,\s*[A-Z]{2})?)\b', text)
+                if loc_match:
+                    location_note = f" [Location: {loc_match.group()}]"
+
+                listings.append({
+                    "source":     "Pinkbike Buy/Sell",
+                    "title":      title + location_note,
+                    "price":      price,
+                    "msrp":       None,
+                    "size":       _extract_size(text),
+                    "specs":      text[:500],
+                    "url":        href,
+                    "local_only": local_only,
+                })
+            except Exception:
+                continue
+
+    except Exception as e:
+        log(f"  Pinkbike Buy/Sell error: {e}")
+    return listings
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -489,28 +740,41 @@ def send_alert(deals: list[dict]):
 
     deal_rows = ""
     for d in deals:
-        listing = d["listing"]
+        listing    = d["listing"]
         evaluation = d["evaluation"]
         score_color = "#16a34a" if evaluation["score"] >= 8 else "#d97706"
-        msrp_text = f' <span style="color:#9ca3af;text-decoration:line-through">${listing["msrp"]:.0f} MSRP</span>' if listing.get("msrp") else ""
+        msrp_text   = (f' <span style="color:#9ca3af;text-decoration:line-through">'
+                       f'${listing["msrp"]:.0f} MSRP</span>'
+                       if listing.get("msrp") else "")
+        local_badge = ""
+        if listing.get("local_only"):
+            local_badge = ('<span style="background:#fef3c7;color:#92400e;padding:2px 8px;'
+                          'border-radius:12px;font-size:11px;margin-left:6px;">📍 Local pickup</span>')
+        else:
+            local_badge = ('<span style="background:#d1fae5;color:#065f46;padding:2px 8px;'
+                          'border-radius:12px;font-size:11px;margin-left:6px;">📦 Ships</span>')
 
         deal_rows += f"""
         <div style="background:#fff;border:1px solid #e5e7eb;border-left:4px solid {score_color};
                     border-radius:8px;padding:20px;margin-bottom:16px;">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
-            <div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+            <div style="flex:1;">
               <div style="font-size:16px;font-weight:600;color:#111827;">{listing['title']}</div>
-              <div style="font-size:12px;color:#6b7280;margin-top:2px;">{listing['source']}</div>
+              <div style="font-size:12px;color:#6b7280;margin-top:2px;">
+                {listing['source']}{local_badge}
+              </div>
             </div>
-            <div style="text-align:right;flex-shrink:0;margin-left:16px;">
-              <div style="font-size:20px;font-weight:700;color:#111827;">${listing['price']:.0f}{msrp_text}</div>
+            <div style="text-align:right;flex-shrink:0;">
+              <div style="font-size:20px;font-weight:700;color:#111827;">
+                ${listing['price']:.0f}{msrp_text}
+              </div>
               <div style="font-size:12px;font-weight:600;color:{score_color};">
                 ★ {evaluation['score']}/10 — {evaluation['verdict'].replace('_',' ').title()}
               </div>
             </div>
           </div>
-          <div style="font-size:13px;color:#374151;margin-bottom:12px;">
-            <strong>Why it's a good deal:</strong> {evaluation['reason']}
+          <div style="font-size:13px;color:#374151;margin:10px 0 8px;">
+            <strong>Why it's a deal:</strong> {evaluation['reason']}
           </div>
           <div style="font-size:12px;color:#6b7280;margin-bottom:12px;">
             Size: <strong>{listing['size']}</strong>
@@ -522,30 +786,24 @@ def send_alert(deals: list[dict]):
         </div>"""
 
     html = f"""<!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"></head>
+<html><head><meta charset="UTF-8"></head>
 <body style="margin:0;padding:0;background:#f3f4f6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
   <div style="max-width:600px;margin:32px auto;padding:0 16px;">
-
     <div style="background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:12px;
                 padding:28px;margin-bottom:24px;text-align:center;">
       <div style="font-size:28px;margin-bottom:6px;">🚲</div>
-      <h1 style="color:#fff;font-size:22px;font-weight:700;margin:0 0 6px;">
-        Bike Deal Alert
-      </h1>
+      <h1 style="color:#fff;font-size:22px;font-weight:700;margin:0 0 6px;">Bike Deal Alert</h1>
       <p style="color:rgba(255,255,255,0.8);font-size:14px;margin:0;">
         {len(deals)} new deal{'s' if len(deals) != 1 else ''} found matching your criteria
       </p>
     </div>
-
     {deal_rows}
-
     <div style="text-align:center;font-size:12px;color:#9ca3af;padding:16px 0 32px;">
-      Bike Deal Finder · Checked {datetime.now().strftime('%b %d at %I:%M %p')}
+      Bike Deal Finder · Checked {datetime.now().strftime('%b %d at %I:%M %p')} ·
+      Near {BUYER_LOCATION} ({MAX_TRAVEL_MILES}mi radius for pickup)
     </div>
   </div>
-</body>
-</html>"""
+</body></html>"""
 
     msg = MIMEMultipart("alternative")
     msg["Subject"] = f"🚲 {len(deals)} Bike Deal{'s' if len(deals) != 1 else ''} Found!"
@@ -568,12 +826,20 @@ def send_alert(deals: list[dict]):
 # ─────────────────────────────────────────────────────────────────────────────
 
 def main():
-    log("═══ Bike Deal Finder — run started ═══")
+    log("═══ Bike Deal Finder v2 — run started ═══")
 
-    state = load_state()
+    state     = load_state()
     seen_urls = set(state.get("seen_urls", []))
-    new_deals  = []
+    new_deals = []
 
+    # ── Phase 1: Shopify API sources (no browser needed) ──────────────────────
+    for source in SHOPIFY_SOURCES:
+        log(f"Checking: {source['name']} (Shopify API)")
+        listings = _shopify_fetch(source["shop_url"], source["collection"], source["name"])
+        for listing in _evaluate_listings(listings, seen_urls):
+            new_deals.append(listing)
+
+    # ── Phase 2: Playwright sources ───────────────────────────────────────────
     with sync_playwright() as pw:
         browser = pw.chromium.launch(
             headless=True,
@@ -591,66 +857,47 @@ def main():
         )
         _stealth.apply_stealth_sync(ctx)
 
-        for source in SOURCES:
-            name = source["name"]
-            log(f"Checking: {name}")
-
+        for source in PLAYWRIGHT_SOURCES:
+            log(f"Checking: {source['name']}")
             try:
                 page = ctx.new_page()
-                scraper = SCRAPERS[source["type"]]
-                listings = scraper(page, source["url"])
+                src_type = source["type"]
+
+                if src_type == "intercept":
+                    listings = _scrape_with_interception(page, source)
+                elif src_type == "pinkbike_deals":
+                    listings = _scrape_pinkbike_deals(page, source)
+                elif src_type == "pinkbike_buysell":
+                    listings = _scrape_pinkbike_buysell(page, source)
+                else:  # dom
+                    page.goto(source["url"], wait_until="domcontentloaded", timeout=45000)
+                    page.wait_for_timeout(4000)
+                    listings = _scrape_dom(page, source["name"], source["base_url"],
+                                           source.get("keywords"))
+
                 page.close()
             except Exception as e:
-                log(f"  ERROR on {name}: {e}")
-                continue
+                log(f"  ERROR on {source['name']}: {e}")
+                listings = []
 
-            log(f"  {len(listings)} listing(s) found — evaluating...")
+            for deal in _evaluate_listings(listings, seen_urls):
+                new_deals.append(deal)
 
-            for listing in listings:
-                # Skip already-seen URLs
-                url = listing.get("url", "")
-                if url and url in seen_urls:
-                    continue
-
-                # Skip if no meaningful title
-                if not listing.get("title") or len(listing["title"]) < 5:
-                    continue
-
-                # Evaluate with Claude
-                try:
-                    evaluation = evaluate_listing(listing)
-                except Exception as e:
-                    log(f"    Eval error for '{listing.get('title', '?')}': {e}")
-                    continue
-
-                score   = evaluation.get("score", 0)
-                verdict = evaluation.get("verdict", "skip")
-                reject  = evaluation.get("reject", False)
-
-                log(f"    [{score}/10] {listing.get('title', '?')[:60]} — {verdict}")
-
-                if url:
-                    seen_urls.add(url)
-
-                if not reject and score >= MIN_SCORE_TO_ALERT:
-                    new_deals.append({"listing": listing, "evaluation": evaluation})
-                    log(f"    ★ DEAL FOUND: {listing.get('title', '?')}")
-
-            time.sleep(2)  # Be polite between sources
+            time.sleep(2)
 
         browser.close()
 
-    # Save state
-    state["seen_urls"]   = list(seen_urls)[-2000:]  # Cap to prevent unbounded growth
+    # ── Save state ─────────────────────────────────────────────────────────────
+    state["seen_urls"]   = list(seen_urls)[-3000:]
     state["last_run"]    = datetime.now(timezone.utc).isoformat()
     state["deals_found"] = state.get("deals_found", []) + [
         {
-            "title":   d["listing"].get("title"),
-            "price":   d["listing"].get("price"),
-            "source":  d["listing"].get("source"),
-            "score":   d["evaluation"].get("score"),
-            "reason":  d["evaluation"].get("reason"),
-            "url":     d["listing"].get("url"),
+            "title":    d["listing"].get("title"),
+            "price":    d["listing"].get("price"),
+            "source":   d["listing"].get("source"),
+            "score":    d["evaluation"].get("score"),
+            "reason":   d["evaluation"].get("reason"),
+            "url":      d["listing"].get("url"),
             "found_at": datetime.now(timezone.utc).isoformat(),
         }
         for d in new_deals
@@ -664,6 +911,36 @@ def main():
         log("No new deals found. No email sent.")
 
     log("═══ Run complete ═══\n")
+
+
+def _evaluate_listings(listings: list[dict], seen_urls: set) -> list[dict]:
+    """Evaluate a batch of listings, skip seen ones, return deals scoring 7+."""
+    deals = []
+    for listing in listings:
+        url = listing.get("url", "")
+        if url and url in seen_urls:
+            continue
+        if not listing.get("title") or len(listing["title"]) < 5:
+            continue
+
+        try:
+            evaluation = evaluate_listing(listing)
+        except Exception as e:
+            log(f"    Eval error: {e}")
+            continue
+
+        score  = evaluation.get("score", 0)
+        reject = evaluation.get("reject", False)
+        log(f"    [{score}/10] {listing.get('title', '?')[:60]} — {evaluation.get('verdict', '?')}")
+
+        if url:
+            seen_urls.add(url)
+
+        if not reject and score >= MIN_SCORE_TO_ALERT:
+            log(f"    ★ DEAL: {listing.get('title', '?')}")
+            deals.append({"listing": listing, "evaluation": evaluation})
+
+    return deals
 
 
 if __name__ == "__main__":

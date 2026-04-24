@@ -67,18 +67,75 @@ MIN_SCORE_TO_ALERT = 7   # Claude score out of 10
 # ─────────────────────────────────────────────────────────────────────────────
 
 # Sources split by scraping strategy
+#
+# Shopify stores expose a public JSON endpoint at:
+#   /collections/{collection-slug}/products.json
+# No auth required. collection_slugs is a list of candidates to try in order.
 SHOPIFY_SOURCES = [
     {
-        "name":       "The Pro's Closet",
-        "shop_url":   "https://www.theproscloset.com",
-        "collection": "hardtail-mountain-bikes",
-        "type":       "shopify",
+        "name":             "The Pro's Closet",
+        "shop_url":         "https://www.theproscloset.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
     },
     {
-        "name":       "Jenson USA",
-        "shop_url":   "https://www.jensonusa.com",
-        "collection": "hardtail-cross-country",
-        "type":       "shopify",
+        "name":             "Jenson USA",
+        "shop_url":         "https://www.jensonusa.com",
+        "collection_slugs": ["hardtail-cross-country", "hardtail-mountain-bikes", "mountain-bikes"],
+    },
+    {
+        "name":             "Worldwide Cyclery",
+        "shop_url":         "https://www.worldwidecyclery.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes-hardtail", "mountain-bikes"],
+    },
+    {
+        "name":             "Fanatik Bike",
+        "shop_url":         "https://www.fanatikbike.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
+    },
+    {
+        "name":             "Cambria Bike",
+        "shop_url":         "https://www.cambriabike.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes-hardtail", "mountain-bikes"],
+    },
+    {
+        "name":             "Bicycle Warehouse",
+        "shop_url":         "https://bicyclewarehouse.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
+    },
+    {
+        "name":             "Mike's Bikes",
+        "shop_url":         "https://www.mikesbikes.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
+    },
+    {
+        "name":             "ERIK'S Bike Shop",
+        "shop_url":         "https://www.eriksbikeshop.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
+    },
+    {
+        "name":             "Universal Cycles",
+        "shop_url":         "https://www.universalcycles.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
+    },
+    {
+        "name":             "Velomine",
+        "shop_url":         "https://www.velomine.com",
+        "collection_slugs": ["mountain-bikes", "hardtail", "bikes"],
+    },
+    {
+        "name":             "Bicycle Blue Book",
+        "shop_url":         "https://www.bicyclebluebook.com",
+        "collection_slugs": ["mountain-bikes", "hardtail-mountain-bikes", "bikes"],
+    },
+    {
+        "name":             "Competitive Cyclist",
+        "shop_url":         "https://www.competitivecyclist.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
+    },
+    {
+        "name":             "Backcountry Bikes",
+        "shop_url":         "https://www.backcountry.com",
+        "collection_slugs": ["mountain-bikes-hardtail", "hardtail-mountain-bikes", "mountain-bikes"],
     },
 ]
 
@@ -325,10 +382,11 @@ def _rule_based_score(listing: dict) -> dict:
 #  SHOPIFY API SCRAPER (The Pro's Closet, Jenson USA)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _shopify_fetch(shop_url: str, collection: str, source: str) -> list[dict]:
+def _shopify_fetch(shop_url: str, collection_slugs: list, source: str) -> list[dict]:
     """
-    Fetch products directly from Shopify's public collection JSON endpoint.
-    No browser needed — pure HTTP. Returns clean, structured product data.
+    Fetch products from a Shopify store's public collection JSON endpoint.
+    Tries each slug in collection_slugs until one returns results.
+    No browser needed — pure HTTP.
     """
     listings = []
     headers  = {
@@ -336,27 +394,31 @@ def _shopify_fetch(shop_url: str, collection: str, source: str) -> list[dict]:
         "Accept":     "application/json",
     }
 
+    # Find the first working collection slug
+    working_slug = None
+    for slug in collection_slugs:
+        test_url = f"{shop_url}/collections/{slug}/products.json?limit=1"
+        try:
+            req = urllib.request.Request(test_url, headers=headers)
+            with urllib.request.urlopen(req, timeout=10) as r:
+                data = json.loads(r.read())
+            if data.get("products") is not None:
+                working_slug = slug
+                break
+        except Exception:
+            continue
+
+    if not working_slug:
+        log(f"  {source}: no working Shopify collection found — skipping")
+        return []
+
     page = 1
     while page <= 5:  # max 5 pages × 250 = 1250 products
-        url = f"{shop_url}/collections/{collection}/products.json?limit=250&page={page}"
+        url = f"{shop_url}/collections/{working_slug}/products.json?limit=250&page={page}"
         try:
             req = urllib.request.Request(url, headers=headers)
             with urllib.request.urlopen(req, timeout=15) as r:
                 data = json.loads(r.read())
-        except urllib.error.HTTPError as e:
-            if e.code == 404 and page == 1:
-                log(f"  {source}: collection '{collection}' not found — trying 'bikes'")
-                # Try fallback collection name
-                url = f"{shop_url}/collections/bikes/products.json?limit=250"
-                try:
-                    req = urllib.request.Request(url, headers=headers)
-                    with urllib.request.urlopen(req, timeout=15) as r:
-                        data = json.loads(r.read())
-                except Exception as e2:
-                    log(f"  {source} Shopify error: {e2}")
-                    break
-            else:
-                break
         except Exception as e:
             log(f"  {source} Shopify fetch error: {e}")
             break
@@ -835,7 +897,7 @@ def main():
     # ── Phase 1: Shopify API sources (no browser needed) ──────────────────────
     for source in SHOPIFY_SOURCES:
         log(f"Checking: {source['name']} (Shopify API)")
-        listings = _shopify_fetch(source["shop_url"], source["collection"], source["name"])
+        listings = _shopify_fetch(source["shop_url"], source["collection_slugs"], source["name"])
         for listing in _evaluate_listings(listings, seen_urls):
             new_deals.append(listing)
 

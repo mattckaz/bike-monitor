@@ -281,267 +281,167 @@ def _quick_price_filter(price: float | None) -> bool:
     return price <= 950
 
 
-def scrape_rei(page, url: str) -> list[dict]:
+# JS snippet: finds product links with prices by walking up the DOM from price elements.
+# Works across different e-commerce platforms regardless of class names.
+_EXTRACT_JS = """
+(baseUrl) => {
+    const results = [];
+    const seen = new Set();
+
+    // Strategy 1: find elements containing price text, walk up to find a product container
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    const priceNodes = [];
+    let node;
+    while ((node = walker.nextNode())) {
+        if (/\\$\\s*[2-9]\\d{2}/.test(node.textContent)) {
+            priceNodes.push(node.parentElement);
+        }
+    }
+
+    for (const priceEl of priceNodes) {
+        // Walk up to find a container that also has a link
+        let container = priceEl;
+        let link = null;
+        for (let i = 0; i < 6; i++) {
+            if (!container) break;
+            link = container.querySelector('a[href]');
+            if (link) break;
+            container = container.parentElement;
+        }
+        if (!link) continue;
+
+        let href = link.href || '';
+        if (!href || href === window.location.href) continue;
+        if (seen.has(href)) continue;
+        seen.add(href);
+
+        const text = (container || priceEl).innerText || '';
+        const lines = text.split('\\n').map(l => l.trim()).filter(l => l.length > 2);
+        const title = lines[0] || link.innerText?.trim() || '';
+
+        const priceMatch = text.match(/\\$\\s*([\\d,]+(?:\\.\\d{2})?)/);
+        const price = priceMatch ? parseFloat(priceMatch[1].replace(',', '')) : null;
+        if (!price || price < 150 || price > 2000) continue;
+
+        results.push({
+            title: title.substring(0, 150),
+            price: price,
+            url: href,
+            text: text.substring(0, 700),
+        });
+    }
+
+    return results;
+}
+"""
+
+
+def _scrape_universal(page, url: str, source: str, base_url: str,
+                      keywords: list | None = None,
+                      wait_ms: int = 4000) -> list[dict]:
+    """
+    Universal product page scraper — works across any e-commerce site by
+    finding price elements and walking up the DOM to find product containers.
+    No brittle CSS class selectors needed.
+    """
     listings = []
     try:
-        page.goto(url, wait_until="domcontentloaded", timeout=30000)
-        page.wait_for_timeout(3000)
+        page.goto(url, wait_until="domcontentloaded", timeout=45000)
+        page.wait_for_timeout(wait_ms)
 
-        cards = page.query_selector_all('[data-ui="product-card"], .VcGDsKAw, [class*="product-card"]')
-        if not cards:
-            # Fallback: try generic product containers
-            cards = page.query_selector_all('li[class*="grid"], div[class*="ProductCard"]')
+        products = page.evaluate(_EXTRACT_JS, base_url)
+        log(f"  {source}: {len(products)} raw product(s) extracted")
 
-        for card in cards:
-            try:
-                text = card.inner_text()
-                link_el = card.query_selector('a')
-                href = link_el.get_attribute('href') if link_el else ''
-                if href and not href.startswith('http'):
-                    href = f"https://www.rei.com{href}"
+        for p in products:
+            price = p.get("price")
+            if not _quick_price_filter(price):
+                continue
 
-                price = _extract_price(text)
-                if not _quick_price_filter(price):
+            title = p.get("title", "").strip()
+            text  = p.get("text", "")
+            href  = p.get("url", "")
+
+            # Keyword filter — if caller wants to restrict to certain bike names
+            if keywords:
+                combined = (title + " " + text).lower()
+                if not any(kw.lower() in combined for kw in keywords):
                     continue
 
-                listings.append({
-                    "source": "REI",
-                    "title":  text.split('\n')[0].strip()[:120],
-                    "price":  price,
-                    "msrp":   _extract_msrp(text),
-                    "size":   _extract_size(text),
-                    "specs":  text[:500],
-                    "url":    href,
-                })
-            except Exception:
+            listings.append({
+                "source": source,
+                "title":  title[:120],
+                "price":  price,
+                "msrp":   _extract_msrp(text),
+                "size":   _extract_size(text),
+                "specs":  text[:500],
+                "url":    href,
+            })
+
+    except Exception as e:
+        log(f"  {source} scrape error: {e}")
+
+    return listings
+
+
+# Keyword lists for filtering — helps on brand sites that show all products
+_MTB_KEYWORDS = [
+    "mountain", "hardtail", "talon", "marlin", "rockhopper",
+    "bobcat", "trail", "XC", "cross country", "27.5",
+]
+
+_TARGET_BRANDS = ["trek", "giant", "specialized", "marin", "kona", "cannondale"]
+
+
+def scrape_rei(page, url: str) -> list[dict]:
+    # REI sometimes blocks GitHub IPs — try with longer wait and retry
+    try:
+        page.goto(url, wait_until="domcontentloaded", timeout=45000)
+        page.wait_for_timeout(5000)
+        products = page.evaluate(_EXTRACT_JS, "https://www.rei.com")
+        log(f"  REI: {len(products)} raw product(s) extracted")
+        listings = []
+        for p in products:
+            if not _quick_price_filter(p.get("price")):
                 continue
+            text = p.get("text", "")
+            listings.append({
+                "source": "REI",
+                "title":  p.get("title", "")[:120],
+                "price":  p.get("price"),
+                "msrp":   _extract_msrp(text),
+                "size":   _extract_size(text),
+                "specs":  text[:500],
+                "url":    p.get("url", ""),
+            })
+        return listings
     except Exception as e:
         log(f"  REI scrape error: {e}")
-    return listings
+        return []
 
 
 def scrape_jenson(page, url: str) -> list[dict]:
-    listings = []
-    try:
-        page.goto(url, wait_until="domcontentloaded", timeout=30000)
-        page.wait_for_timeout(3000)
-
-        cards = page.query_selector_all('.product-item, [class*="product-card"], [class*="ProductItem"]')
-        if not cards:
-            cards = page.query_selector_all('div[data-product-id], li.product')
-
-        for card in cards:
-            try:
-                text = card.inner_text()
-                link_el = card.query_selector('a')
-                href = link_el.get_attribute('href') if link_el else ''
-                if href and not href.startswith('http'):
-                    href = f"https://www.jensonusa.com{href}"
-
-                price = _extract_price(text)
-                if not _quick_price_filter(price):
-                    continue
-
-                listings.append({
-                    "source": "Jenson USA",
-                    "title":  text.split('\n')[0].strip()[:120],
-                    "price":  price,
-                    "msrp":   _extract_msrp(text),
-                    "size":   _extract_size(text),
-                    "specs":  text[:500],
-                    "url":    href,
-                })
-            except Exception:
-                continue
-    except Exception as e:
-        log(f"  Jenson USA scrape error: {e}")
-    return listings
-
+    return _scrape_universal(page, url, "Jenson USA", "https://www.jensonusa.com",
+                             keywords=_MTB_KEYWORDS, wait_ms=4000)
 
 def scrape_trek(page, url: str) -> list[dict]:
-    listings = []
-    try:
-        page.goto(url, wait_until="domcontentloaded", timeout=30000)
-        page.wait_for_timeout(3000)
-
-        cards = page.query_selector_all('.product-card, [class*="ProductCard"], [class*="product-tile"]')
-        if not cards:
-            cards = page.query_selector_all('article, .grid-item')
-
-        for card in cards:
-            try:
-                text = card.inner_text()
-                link_el = card.query_selector('a')
-                href = link_el.get_attribute('href') if link_el else ''
-                if href and not href.startswith('http'):
-                    href = f"https://www.trekbikes.com{href}"
-
-                price = _extract_price(text)
-                if not _quick_price_filter(price):
-                    continue
-
-                listings.append({
-                    "source": "Trek",
-                    "title":  text.split('\n')[0].strip()[:120],
-                    "price":  price,
-                    "msrp":   _extract_msrp(text),
-                    "size":   _extract_size(text),
-                    "specs":  text[:500],
-                    "url":    href,
-                })
-            except Exception:
-                continue
-    except Exception as e:
-        log(f"  Trek scrape error: {e}")
-    return listings
-
+    return _scrape_universal(page, url, "Trek", "https://www.trekbikes.com",
+                             keywords=["marlin", "roscoe", "hardtail", "27.5"], wait_ms=4000)
 
 def scrape_giant(page, url: str) -> list[dict]:
-    listings = []
-    try:
-        page.goto(url, wait_until="domcontentloaded", timeout=30000)
-        page.wait_for_timeout(3000)
-
-        cards = page.query_selector_all('.product-item, [class*="product-card"], [class*="ProductCard"], .bike-card')
-        if not cards:
-            cards = page.query_selector_all('li[class*="product"], div[class*="bike"]')
-
-        for card in cards:
-            try:
-                text = card.inner_text()
-                link_el = card.query_selector('a')
-                href = link_el.get_attribute('href') if link_el else ''
-                if href and not href.startswith('http'):
-                    href = f"https://www.giant-bicycles.com{href}"
-
-                price = _extract_price(text)
-                if not _quick_price_filter(price):
-                    continue
-
-                listings.append({
-                    "source": "Giant",
-                    "title":  text.split('\n')[0].strip()[:120],
-                    "price":  price,
-                    "msrp":   _extract_msrp(text),
-                    "size":   _extract_size(text),
-                    "specs":  text[:500],
-                    "url":    href,
-                })
-            except Exception:
-                continue
-    except Exception as e:
-        log(f"  Giant scrape error: {e}")
-    return listings
-
+    return _scrape_universal(page, url, "Giant", "https://www.giant-bicycles.com",
+                             keywords=["talon", "fathom", "hardtail", "27.5"], wait_ms=4000)
 
 def scrape_specialized(page, url: str) -> list[dict]:
-    listings = []
-    try:
-        page.goto(url, wait_until="domcontentloaded", timeout=30000)
-        page.wait_for_timeout(4000)  # Specialized is JS-heavy
-
-        cards = page.query_selector_all('[class*="ProductCard"], [class*="product-card"], [data-testid*="product"]')
-        if not cards:
-            cards = page.query_selector_all('li[class*="grid"], article')
-
-        for card in cards:
-            try:
-                text = card.inner_text()
-                link_el = card.query_selector('a')
-                href = link_el.get_attribute('href') if link_el else ''
-                if href and not href.startswith('http'):
-                    href = f"https://www.specialized.com{href}"
-
-                price = _extract_price(text)
-                if not _quick_price_filter(price):
-                    continue
-
-                listings.append({
-                    "source": "Specialized",
-                    "title":  text.split('\n')[0].strip()[:120],
-                    "price":  price,
-                    "msrp":   _extract_msrp(text),
-                    "size":   _extract_size(text),
-                    "specs":  text[:500],
-                    "url":    href,
-                })
-            except Exception:
-                continue
-    except Exception as e:
-        log(f"  Specialized scrape error: {e}")
-    return listings
-
+    return _scrape_universal(page, url, "Specialized", "https://www.specialized.com",
+                             keywords=["rockhopper", "hardrock", "hardtail", "27.5"], wait_ms=5000)
 
 def scrape_marin(page, url: str) -> list[dict]:
-    listings = []
-    try:
-        page.goto(url, wait_until="domcontentloaded", timeout=30000)
-        page.wait_for_timeout(3000)
-
-        cards = page.query_selector_all('.product-card, [class*="product"], [class*="bike-card"], article')
-
-        for card in cards:
-            try:
-                text = card.inner_text()
-                link_el = card.query_selector('a')
-                href = link_el.get_attribute('href') if link_el else ''
-                if href and not href.startswith('http'):
-                    href = f"https://www.marinbikes.com{href}"
-
-                price = _extract_price(text)
-                if not _quick_price_filter(price):
-                    continue
-
-                listings.append({
-                    "source": "Marin",
-                    "title":  text.split('\n')[0].strip()[:120],
-                    "price":  price,
-                    "msrp":   _extract_msrp(text),
-                    "size":   _extract_size(text),
-                    "specs":  text[:500],
-                    "url":    href,
-                })
-            except Exception:
-                continue
-    except Exception as e:
-        log(f"  Marin scrape error: {e}")
-    return listings
-
+    return _scrape_universal(page, url, "Marin", "https://www.marinbikes.com",
+                             keywords=["bobcat", "hardtail", "27.5", "trail"], wait_ms=4000)
 
 def scrape_pros_closet(page, url: str) -> list[dict]:
-    listings = []
-    try:
-        page.goto(url, wait_until="domcontentloaded", timeout=30000)
-        page.wait_for_timeout(3000)
-
-        cards = page.query_selector_all('.product-item, [class*="ProductCard"], [class*="product-card"], .grid__item')
-
-        for card in cards:
-            try:
-                text = card.inner_text()
-                link_el = card.query_selector('a')
-                href = link_el.get_attribute('href') if link_el else ''
-                if href and not href.startswith('http'):
-                    href = f"https://www.theproscloset.com{href}"
-
-                price = _extract_price(text)
-                if not _quick_price_filter(price):
-                    continue
-
-                listings.append({
-                    "source": "The Pro's Closet",
-                    "title":  text.split('\n')[0].strip()[:120],
-                    "price":  price,
-                    "msrp":   _extract_msrp(text),
-                    "size":   _extract_size(text),
-                    "specs":  text[:500],
-                    "url":    href,
-                })
-            except Exception:
-                continue
-    except Exception as e:
-        log(f"  Pro's Closet scrape error: {e}")
-    return listings
+    return _scrape_universal(page, url, "The Pro's Closet", "https://www.theproscloset.com",
+                             keywords=_MTB_KEYWORDS + _TARGET_BRANDS, wait_ms=4000)
 
 
 SCRAPERS = {

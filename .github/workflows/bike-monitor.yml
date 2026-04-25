@@ -75,5 +75,16 @@ jobs:
             echo "No state changes — skipping commit."
           else
             git commit -m "chore: update bike state [skip ci]"
-            git push
+            for attempt in 1 2 3; do
+              if git push; then
+                echo "State pushed on attempt ${attempt}."
+                break
+              fi
+              echo "Push rejected (attempt ${attempt}) — pulling and retrying..."
+              if ! git pull --rebase; then
+                git rebase --abort
+                echo "Rebase conflict — skipping state update. Next run will re-sync."
+                break
+              fi
+            done
           fi

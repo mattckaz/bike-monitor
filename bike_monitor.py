@@ -79,72 +79,16 @@ MIN_SCORE_TO_ALERT = 7   # Claude score out of 10
 #   /collections/{collection-slug}/products.json
 # No auth required. collection_slugs is a list of candidates to try in order.
 SHOPIFY_SOURCES = [
-    # ── Certified pre-owned / used specialists ────────────────────────────────
+    # ── Confirmed working — verified inventory ────────────────────────────────
     {
         "name":             "The Pro's Closet",
         "shop_url":         "https://www.theproscloset.com",
-        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
-    },
-    # ── Major multi-brand retailers ───────────────────────────────────────────
-    {
-        "name":             "Jenson USA",
-        "shop_url":         "https://www.jensonusa.com",
-        "collection_slugs": ["hardtail-cross-country", "hardtail-mountain-bikes", "mountain-bikes"],
-    },
-    {
-        "name":             "Worldwide Cyclery",
-        "shop_url":         "https://www.worldwidecyclery.com",
-        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes-hardtail", "mountain-bikes"],
-    },
-    {
-        "name":             "Fanatik Bike",
-        "shop_url":         "https://www.fanatikbike.com",
-        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
-    },
-    {
-        "name":             "Cambria Bike",
-        "shop_url":         "https://www.cambriabike.com",
-        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes-hardtail", "mountain-bikes"],
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes"],
     },
     {
         "name":             "Bicycle Warehouse",
         "shop_url":         "https://bicyclewarehouse.com",
         "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
-    },
-    {
-        "name":             "Mike's Bikes",
-        "shop_url":         "https://www.mikesbikes.com",
-        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
-    },
-    {
-        "name":             "ERIK'S Bike Shop",
-        "shop_url":         "https://www.eriksbikeshop.com",
-        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
-    },
-    {
-        "name":             "Universal Cycles",
-        "shop_url":         "https://www.universalcycles.com",
-        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
-    },
-    {
-        "name":             "Velomine",
-        "shop_url":         "https://www.velomine.com",
-        "collection_slugs": ["mountain-bikes", "hardtail", "bikes"],
-    },
-    {
-        "name":             "Bicycle Blue Book",
-        "shop_url":         "https://www.bicyclebluebook.com",
-        "collection_slugs": ["mountain-bikes", "hardtail-mountain-bikes", "bikes"],
-    },
-    {
-        "name":             "Competitive Cyclist",
-        "shop_url":         "https://www.competitivecyclist.com",
-        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
-    },
-    {
-        "name":             "Backcountry",
-        "shop_url":         "https://www.backcountry.com",
-        "collection_slugs": ["mountain-bikes-hardtail", "hardtail-mountain-bikes", "mountain-bikes"],
     },
     {
         "name":             "Incycle",
@@ -159,9 +103,8 @@ SHOPIFY_SOURCES = [
     {
         "name":             "BikesOnline",
         "shop_url":         "https://www.bikesonline.com",
-        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "hardtail", "bikes"],
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "hardtail"],
     },
-    # ── Brand direct Shopify stores ───────────────────────────────────────────
     {
         "name":             "Kona (Direct)",
         "shop_url":         "https://konaworld.com",
@@ -182,124 +125,157 @@ SHOPIFY_SOURCES = [
         "shop_url":         "https://www.diamondbackbikes.com",
         "collection_slugs": ["mountain-bikes", "bikes"],
     },
-    # ── Clearance / deal-focused ──────────────────────────────────────────────
+    # ── Low/no inventory right now but watch for restocks ─────────────────────
+    {
+        "name":             "Worldwide Cyclery",
+        "shop_url":         "https://www.worldwidecyclery.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes"],
+    },
+    {
+        "name":             "Fanatik Bike",
+        "shop_url":         "https://www.fanatikbike.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes"],
+    },
+    {
+        "name":             "Cambria Bike",
+        "shop_url":         "https://www.cambriabike.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes"],
+    },
+    {
+        "name":             "Mike's Bikes",
+        "shop_url":         "https://www.mikesbikes.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes"],
+    },
+    {
+        "name":             "ERIK'S Bike Shop",
+        "shop_url":         "https://www.eriksbikeshop.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes"],
+    },
+    {
+        "name":             "Velomine",
+        "shop_url":         "https://www.velomine.com",
+        "collection_slugs": ["mountain-bikes", "hardtail", "bikes"],
+    },
     {
         "name":             "Ari Bikes",
         "shop_url":         "https://www.aribikes.com",
         "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
     },
+    # REMOVED (no longer Shopify or API blocked):
+    # Jenson USA (308 redirect), Universal Cycles (404),
+    # Competitive Cyclist (403), Backcountry (403), Bicycle Blue Book (404)
 ]
 
 PLAYWRIGHT_SOURCES = [
+    # ── Brand sites — clearance pages more reliable + higher deal probability ──
     {
-        "name": "Trek",
-        "url":  "https://www.trekbikes.com/us/en_US/bikes/mountain-bikes/hardtail-mountain-bikes/",
-        "type": "intercept",
+        "name":     "Trek Sale",
+        "url":      "https://www.trekbikes.com/us/en_US/sale_and_clearance/bikes/mountain_bikes/",
+        "type":     "dom",
         "base_url": "https://www.trekbikes.com",
         "keywords": ["marlin", "roscoe", "hardtail"],
+        "wait_ms":  6000,
     },
     {
-        "name": "Giant",
-        "url":  "https://www.giant-bicycles.com/us/bikes/mountain/hardtail",
-        "type": "intercept",
+        "name":     "Giant Clearance",
+        "url":      "https://www.giant-bicycles.com/us/clearance-sale",
+        "type":     "dom",
         "base_url": "https://www.giant-bicycles.com",
         "keywords": ["talon", "fathom", "hardtail"],
+        "wait_ms":  6000,
     },
     {
-        "name": "Specialized",
-        "url":  "https://www.specialized.com/us/en/shop/bikes/mountain-bikes/hardtail-mountain-bikes",
-        "type": "intercept",
+        "name":     "Specialized Sale",
+        "url":      "https://www.specialized.com/us/en/shop/sale/bikes",
+        "type":     "dom",
         "base_url": "https://www.specialized.com",
         "keywords": ["rockhopper", "hardrock", "hardtail"],
+        "wait_ms":  7000,
     },
     {
-        "name": "Marin",
-        "url":  "https://www.marinbikes.com/bikes/mountain/hardtail",
-        "type": "intercept",
+        "name":     "Marin",
+        "url":      "https://www.marinbikes.com/bikes/mountain/hardtail",
+        "type":     "dom",
         "base_url": "https://www.marinbikes.com",
         "keywords": ["bobcat", "hardtail", "trail"],
+        "wait_ms":  5000,
     },
+    # ── Pinkbike ─────────────────────────────────────────────────────────────
     {
-        # Major chain — carries Trek, Specialized; good source for clearance/sale
-        "name": "Dick's Sporting Goods",
-        "url":  "https://www.dickssportinggoods.com/c/hardtail-mountain-bikes",
-        "type": "dom",
-        "base_url": "https://www.dickssportinggoods.com",
-        "keywords": None,
-    },
-    {
-        "name": "REI",
-        "url":  "https://www.rei.com/c/hardtail-mountain-bikes?r=q%3A27.5",
-        "type": "dom",
-        "base_url": "https://www.rei.com",
-        "keywords": None,
-    },
-    {
-        "name": "Pinkbike Deals",
-        "url":  "https://www.pinkbike.com/product/deals/",
-        "type": "pinkbike_deals",
+        "name":     "Pinkbike Deals",
+        "url":      "https://www.pinkbike.com/product/deals/",
+        "type":     "pinkbike_deals",
         "base_url": "https://www.pinkbike.com",
         "keywords": ["mountain", "hardtail", "mtb", "27.5"],
+        "wait_ms":  4000,
     },
     {
-        "name": "Pinkbike Buy/Sell",
-        "url":  (
-            "https://www.pinkbike.com/buysell/list/"
-            "?q=hardtail+27.5+small&cat=2&minprice=200&maxprice=900"
-            "&condition=2&country_id=1"
-        ),
-        "type": "pinkbike_buysell",
+        "name":     "Pinkbike Buy/Sell (Small)",
+        "url":      "https://www.pinkbike.com/buysell/list/?q=hardtail+27.5+small&cat=2&minprice=200&maxprice=900&country_id=1",
+        "type":     "pinkbike_buysell",
         "base_url": "https://www.pinkbike.com",
         "keywords": None,
+        "wait_ms":  4000,
     },
     {
-        # Local Michigan shop — Lightspeed eCom platform
-        "name": "SweetWater Bicycles",
-        "url":  "https://www.sweetwaterbicycles.com/bikes/mountain/",
-        "type": "dom",
+        "name":     "Pinkbike Buy/Sell (Medium)",
+        "url":      "https://www.pinkbike.com/buysell/list/?q=hardtail+27.5+medium&cat=2&minprice=200&maxprice=900&country_id=1",
+        "type":     "pinkbike_buysell",
+        "base_url": "https://www.pinkbike.com",
+        "keywords": None,
+        "wait_ms":  4000,
+    },
+    # ── Local Michigan shops ──────────────────────────────────────────────────
+    {
+        "name":     "SweetWater Bicycles",
+        "url":      "https://www.sweetwaterbicycles.com/bikes/mountain/",
+        "type":     "dom",
         "base_url": "https://www.sweetwaterbicycles.com",
         "keywords": None,
+        "wait_ms":  4000,
     },
     {
-        # Local Michigan shop — custom platform, product list page
-        "name": "Trailhead Cycling",
-        "url":  "https://www.trailheadcycling.com/product-list/bikes-1000/mountain-1006/",
-        "type": "dom",
+        "name":     "Trailhead Cycling",
+        "url":      "https://www.trailheadcycling.com/product-list/bikes-1000/mountain-1006/",
+        "type":     "dom",
         "base_url": "https://www.trailheadcycling.com",
         "keywords": None,
+        "wait_ms":  4000,
+    },
+    # ── Other online retailers ────────────────────────────────────────────────
+    {
+        "name":     "Dick's Sporting Goods",
+        "url":      "https://www.dickssportinggoods.com/c/hardtail-mountain-bikes",
+        "type":     "dom",
+        "base_url": "https://www.dickssportinggoods.com",
+        "keywords": None,
+        "wait_ms":  5000,
     },
     {
-        # Miami, FL — ships nationwide, Vue.js SPA needs Playwright
-        "name": "88 Cycling",
-        "url":  "https://88cycling.com/products",
-        "type": "dom",
+        "name":     "88 Cycling",
+        "url":      "https://88cycling.com/products",
+        "type":     "dom",
         "base_url": "https://88cycling.com",
         "keywords": None,
+        "wait_ms":  5000,
     },
     {
-        # Direct-to-consumer German brand with US warehouse — excellent value, often 30%+ off prior year
-        "name": "Canyon",
-        "url":  "https://www.canyon.com/en-us/mountain-bikes/hardtail/",
-        "type": "dom",
+        "name":     "Canyon",
+        "url":      "https://www.canyon.com/en-us/mountain-bikes/hardtail/",
+        "type":     "dom",
         "base_url": "https://www.canyon.com",
         "keywords": ["hardtail", "27.5", "grand canyon", "stoic"],
+        "wait_ms":  6000,
     },
     {
-        # Direct-to-consumer — The Mountain Bike $499 is one of the best value hardtails available
-        "name": "Batch Bicycles",
-        "url":  "https://www.batchbicycles.com/products",
-        "type": "dom",
+        "name":     "Batch Bicycles",
+        "url":      "https://www.batchbicycles.com/products",
+        "type":     "dom",
         "base_url": "https://www.batchbicycles.com",
         "keywords": ["mountain", "hardtail"],
+        "wait_ms":  5000,
     },
-    {
-        # REI sale section specifically — catches clearance on Co-op Cycles DRT and other brands
-        "name": "REI Sale",
-        "url":  "https://www.rei.com/c/hardtail-mountain-bikes?r=q%3A27.5&r=sale%3Atrue",
-        "type": "dom",
-        "base_url": "https://www.rei.com",
-        "keywords": None,
-    },
+    # REMOVED: REI + REI Sale — permanently blocked from GitHub Actions IPs
 ]
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1495,8 +1471,9 @@ def main():
                 elif src_type == "pinkbike_buysell":
                     listings = _scrape_pinkbike_buysell(page, source)
                 else:  # dom
+                    wait_ms = source.get("wait_ms", 4000)
                     page.goto(source["url"], wait_until="domcontentloaded", timeout=45000)
-                    page.wait_for_timeout(4000)
+                    page.wait_for_timeout(wait_ms)
                     listings = _scrape_dom(page, source["name"], source["base_url"],
                                            source.get("keywords"))
 

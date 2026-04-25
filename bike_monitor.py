@@ -72,11 +72,13 @@ MIN_SCORE_TO_ALERT = 7   # Claude score out of 10
 #   /collections/{collection-slug}/products.json
 # No auth required. collection_slugs is a list of candidates to try in order.
 SHOPIFY_SOURCES = [
+    # ── Certified pre-owned / used specialists ────────────────────────────────
     {
         "name":             "The Pro's Closet",
         "shop_url":         "https://www.theproscloset.com",
         "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
     },
+    # ── Major multi-brand retailers ───────────────────────────────────────────
     {
         "name":             "Jenson USA",
         "shop_url":         "https://www.jensonusa.com",
@@ -133,9 +135,51 @@ SHOPIFY_SOURCES = [
         "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
     },
     {
-        "name":             "Backcountry Bikes",
+        "name":             "Backcountry",
         "shop_url":         "https://www.backcountry.com",
         "collection_slugs": ["mountain-bikes-hardtail", "hardtail-mountain-bikes", "mountain-bikes"],
+    },
+    {
+        "name":             "Incycle",
+        "shop_url":         "https://www.incycle.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
+    },
+    {
+        "name":             "Colorado Cyclist",
+        "shop_url":         "https://www.coloradocyclist.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
+    },
+    {
+        "name":             "BikesOnline",
+        "shop_url":         "https://www.bikesonline.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "hardtail", "bikes"],
+    },
+    # ── Brand direct Shopify stores ───────────────────────────────────────────
+    {
+        "name":             "Kona (Direct)",
+        "shop_url":         "https://konaworld.com",
+        "collection_slugs": ["mountain-bikes", "hardtail-mountain-bikes", "bikes"],
+    },
+    {
+        "name":             "Fuji (Direct)",
+        "shop_url":         "https://www.fujibikes.com",
+        "collection_slugs": ["mountain", "sale", "all-bikes"],
+    },
+    {
+        "name":             "GT Bicycles (Direct)",
+        "shop_url":         "https://www.gtbicycles.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
+    },
+    {
+        "name":             "Diamondback (Direct)",
+        "shop_url":         "https://www.diamondbackbikes.com",
+        "collection_slugs": ["mountain-bikes", "bikes"],
+    },
+    # ── Clearance / deal-focused ──────────────────────────────────────────────
+    {
+        "name":             "Ari Bikes",
+        "shop_url":         "https://www.aribikes.com",
+        "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
     },
 ]
 
@@ -217,6 +261,30 @@ PLAYWRIGHT_SOURCES = [
         "base_url": "https://88cycling.com",
         "keywords": None,
     },
+    {
+        # Direct-to-consumer German brand with US warehouse — excellent value, often 30%+ off prior year
+        "name": "Canyon",
+        "url":  "https://www.canyon.com/en-us/mountain-bikes/hardtail/",
+        "type": "dom",
+        "base_url": "https://www.canyon.com",
+        "keywords": ["hardtail", "27.5", "grand canyon", "stoic"],
+    },
+    {
+        # Direct-to-consumer — The Mountain Bike $499 is one of the best value hardtails available
+        "name": "Batch Bicycles",
+        "url":  "https://www.batchbicycles.com/products",
+        "type": "dom",
+        "base_url": "https://www.batchbicycles.com",
+        "keywords": ["mountain", "hardtail"],
+    },
+    {
+        # REI sale section specifically — catches clearance on Co-op Cycles DRT and other brands
+        "name": "REI Sale",
+        "url":  "https://www.rei.com/c/hardtail-mountain-bikes?r=q%3A27.5&r=sale%3Atrue",
+        "type": "dom",
+        "base_url": "https://www.rei.com",
+        "keywords": None,
+    },
 ]
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -287,22 +355,26 @@ _TARGET_MODELS = {
     "rockhopper", "hardrock",
     # Marin
     "bobcat", "cobia",
-    # Kona  (removed honzo=29er, growler=fat bike)
-    "kahuna", "lava dome",
+    # Kona (removed honzo=29er, growler=fat bike)
+    "kahuna", "cinder cone", "lava dome", "mahuna",
     # Cannondale
-    "trail", "catalyst", "quick cx",
+    "trail", "catalyst", "quick cx", "habit",
     # Diamondback
-    "hook", "trace", "sync",
+    "hook", "trace", "sync", "line",
     # Norco
     "storm", "fluid",
     # GT
-    "aggressor", "palomar",
+    "aggressor", "palomar", "zaskar",
     # Fuji
-    "nevada", "addy",
-    # Co-op Cycles
+    "nevada", "addy", "rakan",
+    # Co-op Cycles (REI house brand — outstanding value)
     "drt",
     # Polygon
-    "xtrada", "cascade",
+    "xtrada", "cascade", "heist",
+    # Ari Bikes (formerly Fezzari)
+    "ari ", "signal peak", "wire peak",
+    # Batch
+    "the mountain bike", "batch",
     # Generic hardtail keywords
     "hardtail",
 }

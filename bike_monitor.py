@@ -193,6 +193,30 @@ PLAYWRIGHT_SOURCES = [
         "base_url": "https://www.pinkbike.com",
         "keywords": None,
     },
+    {
+        # Local Michigan shop — Lightspeed eCom platform
+        "name": "SweetWater Bicycles",
+        "url":  "https://www.sweetwaterbicycles.com/bikes/mountain/",
+        "type": "dom",
+        "base_url": "https://www.sweetwaterbicycles.com",
+        "keywords": None,
+    },
+    {
+        # Local Michigan shop — custom platform, product list page
+        "name": "Trailhead Cycling",
+        "url":  "https://www.trailheadcycling.com/product-list/bikes-1000/mountain-1006/",
+        "type": "dom",
+        "base_url": "https://www.trailheadcycling.com",
+        "keywords": None,
+    },
+    {
+        # Miami, FL — ships nationwide, Vue.js SPA needs Playwright
+        "name": "88 Cycling",
+        "url":  "https://88cycling.com/products",
+        "type": "dom",
+        "base_url": "https://88cycling.com",
+        "keywords": None,
+    },
 ]
 
 # ─────────────────────────────────────────────────────────────────────────────

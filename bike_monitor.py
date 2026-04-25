@@ -444,8 +444,9 @@ def _pre_filter(listing: dict) -> tuple[bool, str]:
         return True, "wrong wheel size in title"
 
     # Hard reject: wrong frame size — ONLY use the extracted size field
-    # Do NOT search combined text — listing may say "also available in M, L"
-    if size_raw in ("medium", "large", "xl", "xxl", "xs", "x-small"):
+    # Accept Small AND Medium — rider is 5'5" which is on the border for many brands
+    # Do NOT search combined text — listing may say "also available in S, M, L"
+    if size_raw in ("large", "xl", "xxl", "xs", "x-small"):
         return True, f"wrong size ({size_raw})"
 
     # Must have a recognizable brand or model name
@@ -495,7 +496,10 @@ RIDER: Female, 5'5", beginner-intermediate skill, neighborhood/bike paths/light 
 BUYER: East Lansing, MI. Will travel up to 100 miles for pickup. Will buy anything that ships.
 
 ━━━ HARD REQUIREMENTS (reject if missing) ━━━
-- Frame size: Small (S) only — reject XS, Medium, Large, XL
+- Frame size: Small (S) OR Medium (M) — rider is 5'5", right on the border for many brands
+  · Small is ideal for Trek, Marin; Medium may actually fit better on Giant, Specialized, Kona
+  · Reject XS (too small), Large/XL/XXL (too big)
+  · If Medium, note in reason that fit should be verified before buying
 - Wheel size: 27.5" or 650b (same thing) — reject 26", 29", 24", 27.5+
 - Hardtail only (front fork suspension, rigid rear)
 - Disc brakes (hydraulic preferred, mechanical disc acceptable)
@@ -1296,7 +1300,7 @@ def write_status_page(state: dict):
 <header class="hero">
   <div class="hero-inner">
     <h1>🚲 Bike Deal Finder</h1>
-    <p class="hero-sub">Watching {total_sources} sources · Small 27.5" hardtail · $400–$900 · Near {BUYER_LOCATION}</p>
+    <p class="hero-sub">Watching {total_sources} sources · Small/Medium 27.5" hardtail · $400–$900 · Near {BUYER_LOCATION}</p>
     <div class="chips">
       <span class="chip"><span class="live-dot"></span>Monitoring active</span>
       <span class="chip">Checks every 4 hours</span>

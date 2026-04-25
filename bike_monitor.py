@@ -49,7 +49,7 @@ if _env_file.exists():
 
 EMAIL_ADDRESS  = "mattkaz@icloud.com"
 EMAIL_PASSWORD = os.environ.get("EMAIL_APP_PASSWORD", "")
-NOTIFY_EMAILS  = ["mattkaz@icloud.com", "jmartello@gmail.com"]
+NOTIFY_EMAILS  = ["mattkaz@icloud.com"]
 ANTHROPIC_KEY  = os.environ.get("ANTHROPIC_API_KEY", "")
 
 # Location for Pinkbike buy/sell proximity context
@@ -235,6 +235,55 @@ def _extract_msrp(text: str) -> float | None:
         text, re.IGNORECASE
     )
     return float(m.group(1).replace(',', '')) if m else None
+
+# Target brands and models for pre-filtering
+_TARGET_BRANDS  = {"trek", "giant", "specialized", "marin", "kona", "cannondale"}
+_TARGET_MODELS  = {"marlin", "talon", "rockhopper", "bobcat", "honzo", "fathom",
+                   "roscoe", "hardrock", "cobia", "growler"}
+_REJECT_WHEELS  = {"26\"", "26 ", "29\"", "29 ", "700c", "24\"", "24 ", "20\"", "20 ", "16\""}
+_REJECT_SIZES   = {" medium", " large", " xl", " xxl", "/m ", "/l ", "/xl ", "size: m",
+                   "size: l", "size: xl", " xs ", "x-small", "xsmall", "size: xs"}
+_REJECT_TYPES   = {"full suspension", "full-suspension", "e-bike", "ebike", "fat bike",
+                   "fatbike", "dirt jump", "dirtjump", "bmx", "kids", "children",
+                   "youth", "24 lite", "jr ", "junior"}
+
+def _pre_filter(listing: dict) -> tuple[bool, str]:
+    """
+    Fast rule-based pre-filter before calling Claude.
+    Returns (should_skip, reason).
+    Rejects obvious mismatches to avoid burning API credits.
+    """
+    title = (listing.get("title", "") or "").lower()
+    specs = (listing.get("specs", "") or "").lower()
+    size  = (listing.get("size",  "") or "").lower()
+    combined = title + " " + specs
+
+    # Hard reject: wrong bike type
+    if any(t in combined for t in _REJECT_TYPES):
+        return True, "wrong type (kids/FS/ebike/fat/dirt)"
+
+    # Hard reject: wrong wheel size (only if explicitly stated)
+    if any(w in combined for w in _REJECT_WHEELS):
+        return True, "wrong wheel size"
+
+    # Hard reject: wrong frame size (only if explicitly stated)
+    if size in ("medium", "large", "xl", "xxl", "xs"):
+        return True, f"wrong size ({size})"
+    if any(s in combined for s in _REJECT_SIZES):
+        return True, "wrong size mentioned in text"
+
+    # Must be a reputable brand (if brand is detectable)
+    has_brand = any(b in combined for b in _TARGET_BRANDS)
+    has_model = any(m in combined for m in _TARGET_MODELS)
+    if not has_brand and not has_model:
+        return True, "unknown brand/model"
+
+    # Price sanity
+    price = listing.get("price")
+    if price and (price < 150 or price > 950):
+        return True, f"price ${price} out of range"
+
+    return False, ""
 
 def _extract_size(text: str) -> str:
     m = re.search(
@@ -976,15 +1025,40 @@ def main():
 
 
 def _evaluate_listings(listings: list[dict], seen_urls: set) -> list[dict]:
-    """Evaluate a batch of listings, skip seen ones, return deals scoring 7+."""
-    deals = []
+    """
+    Evaluate a batch of listings against criteria.
+    Pre-filters obvious rejects before calling Claude to minimize API cost.
+    Deduplicates by URL within this batch.
+    Returns deals scoring MIN_SCORE_TO_ALERT or higher.
+    """
+    deals    = []
+    batch_seen = set()  # dedup within this source's batch
+
+    pre_filtered = 0
     for listing in listings:
         url = listing.get("url", "")
+
+        # Skip already-seen URLs (across all runs)
         if url and url in seen_urls:
             continue
+
+        # Dedup within current batch (same product, multiple variants)
+        if url and url in batch_seen:
+            continue
+
         if not listing.get("title") or len(listing["title"]) < 5:
             continue
 
+        # ── Pre-filter: skip obvious rejects without calling Claude ──────────
+        skip, reason = _pre_filter(listing)
+        if skip:
+            pre_filtered += 1
+            if url:
+                seen_urls.add(url)
+                batch_seen.add(url)
+            continue
+
+        # ── Claude evaluation ─────────────────────────────────────────────────
         try:
             evaluation = evaluate_listing(listing)
         except Exception as e:
@@ -997,10 +1071,14 @@ def _evaluate_listings(listings: list[dict], seen_urls: set) -> list[dict]:
 
         if url:
             seen_urls.add(url)
+            batch_seen.add(url)
 
         if not reject and score >= MIN_SCORE_TO_ALERT:
             log(f"    ★ DEAL: {listing.get('title', '?')}")
             deals.append({"listing": listing, "evaluation": evaluation})
+
+    if pre_filtered:
+        log(f"    ({pre_filtered} listing(s) pre-filtered — saved {pre_filtered} Claude calls)")
 
     return deals
 

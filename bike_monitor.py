@@ -236,52 +236,117 @@ def _extract_msrp(text: str) -> float | None:
     )
     return float(m.group(1).replace(',', '')) if m else None
 
-# Target brands and models for pre-filtering
-_TARGET_BRANDS  = {"trek", "giant", "specialized", "marin", "kona", "cannondale"}
-_TARGET_MODELS  = {"marlin", "talon", "rockhopper", "bobcat", "honzo", "fathom",
-                   "roscoe", "hardrock", "cobia", "growler"}
-_REJECT_WHEELS  = {"26\"", "26 ", "29\"", "29 ", "700c", "24\"", "24 ", "20\"", "20 ", "16\""}
-_REJECT_SIZES   = {" medium", " large", " xl", " xxl", "/m ", "/l ", "/xl ", "size: m",
-                   "size: l", "size: xl", " xs ", "x-small", "xsmall", "size: xs"}
-_REJECT_TYPES   = {"full suspension", "full-suspension", "e-bike", "ebike", "fat bike",
-                   "fatbike", "dirt jump", "dirtjump", "bmx", "kids", "children",
-                   "youth", "24 lite", "jr ", "junior"}
+# ── Target brands and models for pre-filtering ───────────────────────────────
+# Expanded beyond the original brief to include strong value alternatives
+
+_TARGET_BRANDS = {
+    # Original tier 1/2
+    "trek", "giant", "specialized", "marin", "kona", "cannondale",
+    # Strong value alternatives worth monitoring
+    "diamondback",  # Hook, Trace — excellent spec/dollar
+    "norco",        # Storm — Canadian brand, great value
+    "gt",           # Aggressor — solid budget hardtail
+    "fuji",         # Nevada — underrated, often discounted
+    "co-op",        # Co-op Cycles DRT 1.1/1.2 — REI house brand, outstanding value
+    "coop",         # alternate spelling
+    "liv",          # Giant's women's sub-brand — quality bikes, appropriate for teen girls
+    "polygon",      # Xtrada, Cascade — incredible spec/dollar, sold via bikes.com
+    "vitus",        # Nucleus — good spec, sometimes available in US
+}
+
+_TARGET_MODELS = {
+    # Trek
+    "marlin", "roscoe",
+    # Giant / Liv
+    "talon", "fathom", "tempt", "bliss",
+    # Specialized
+    "rockhopper", "hardrock",
+    # Marin
+    "bobcat", "cobia",
+    # Kona  (removed honzo=29er, growler=fat bike)
+    "kahuna", "lava dome",
+    # Cannondale
+    "trail", "catalyst", "quick cx",
+    # Diamondback
+    "hook", "trace", "sync",
+    # Norco
+    "storm", "fluid",
+    # GT
+    "aggressor", "palomar",
+    # Fuji
+    "nevada", "addy",
+    # Co-op Cycles
+    "drt",
+    # Polygon
+    "xtrada", "cascade",
+    # Generic hardtail keywords
+    "hardtail",
+}
+
+_REJECT_WHEELS = {
+    # Explicit wrong wheel sizes — 650b is SAME as 27.5, do NOT reject it
+    "26\"", " 26 ", "29\"", " 29 ", "700c",
+    "24\"", " 24 ", "20\"", " 20 ", "16\"",
+    "27.5+",   # plus-size / 3.0" tire — different geometry, not ideal for beginner
+}
+
+_REJECT_TYPES = {
+    "full suspension", "full-suspension", "e-bike", "ebike", "electric bike",
+    "fat bike", "fatbike", "fat-bike",
+    "dirt jump", "dirtjump",
+    "bmx", "pump track",
+    "kids bike", "children", "youth bike",
+    "24 lite", "jr ", "junior",
+    "downhill", "enduro",   # too aggressive for beginner
+    "cargo", "gravel",      # wrong category
+}
+
+# Component quality reference for Claude's criteria prompt (not used in pre-filter)
+# Acceptable drivetrains: Shimano Altus 1x, Alivio 1x, Deore, SLX, XT, CUES
+#                         SRAM NX, SX, GX, MicroShift Advent 1x
+# Reject: any 3x drivetrain regardless of brand
+# Acceptable brakes: Shimano MT200/M315/M395 hydraulic, Tektro HD-E350/E500 hydraulic
+#                    Shimano mechanical disc (acceptable on budget builds)
+# Reject: rim brakes, v-brakes
+
 
 def _pre_filter(listing: dict) -> tuple[bool, str]:
     """
     Fast rule-based pre-filter before calling Claude.
     Returns (should_skip, reason).
-    Rejects obvious mismatches to avoid burning API credits.
+
+    Key principle: when in doubt, KEEP it and let Claude decide.
+    Only reject things that are unambiguously wrong.
     """
-    title = (listing.get("title", "") or "").lower()
-    specs = (listing.get("specs", "") or "").lower()
-    size  = (listing.get("size",  "") or "").lower()
+    title    = (listing.get("title", "") or "").lower()
+    specs    = (listing.get("specs", "") or "").lower()
+    size_raw = (listing.get("size",  "") or "").lower()
     combined = title + " " + specs
 
-    # Hard reject: wrong bike type
+    # Hard reject: wrong bike type (unambiguous)
     if any(t in combined for t in _REJECT_TYPES):
-        return True, "wrong type (kids/FS/ebike/fat/dirt)"
+        return True, "wrong type"
 
-    # Hard reject: wrong wheel size (only if explicitly stated)
-    if any(w in combined for w in _REJECT_WHEELS):
-        return True, "wrong wheel size"
+    # Hard reject: wrong wheel size — only based on TITLE, not full specs
+    # (specs may mention other sizes in comparisons or accessory info)
+    if any(w in title for w in _REJECT_WHEELS):
+        return True, "wrong wheel size in title"
 
-    # Hard reject: wrong frame size (only if explicitly stated)
-    if size in ("medium", "large", "xl", "xxl", "xs"):
-        return True, f"wrong size ({size})"
-    if any(s in combined for s in _REJECT_SIZES):
-        return True, "wrong size mentioned in text"
+    # Hard reject: wrong frame size — ONLY use the extracted size field
+    # Do NOT search combined text — listing may say "also available in M, L"
+    if size_raw in ("medium", "large", "xl", "xxl", "xs", "x-small"):
+        return True, f"wrong size ({size_raw})"
 
-    # Must be a reputable brand (if brand is detectable)
+    # Must have a recognizable brand or model name
     has_brand = any(b in combined for b in _TARGET_BRANDS)
     has_model = any(m in combined for m in _TARGET_MODELS)
     if not has_brand and not has_model:
-        return True, "unknown brand/model"
+        return True, "no recognized brand or model"
 
-    # Price sanity
+    # Price sanity check
     price = listing.get("price")
     if price and (price < 150 or price > 950):
-        return True, f"price ${price} out of range"
+        return True, f"price ${price:.0f} out of range"
 
     return False, ""
 
@@ -313,42 +378,66 @@ def _quick_price_filter(price: float | None) -> bool:
 #  CLAUDE EVALUATION
 # ─────────────────────────────────────────────────────────────────────────────
 
-CRITERIA_PROMPT = """You are a bike expert evaluating mountain bike listings for a teenage rider.
+CRITERIA_PROMPT = """You are an experienced mountain bike expert evaluating listings for a teenage rider.
 
-RIDER: 5'5", beginner-intermediate, neighborhood/bike paths/light trails.
-BUYER LOCATION: East Lansing, MI. Can travel up to 100 miles for pickup, or buy anything that ships.
+RIDER: Female, 5'5", beginner-intermediate skill, neighborhood/bike paths/light trails.
+BUYER: East Lansing, MI. Will travel up to 100 miles for pickup. Will buy anything that ships.
 
-REQUIRED (hard rules — reject if missing):
-- Frame size: Small (S) — reject XS, Medium, Large, or larger
-- Wheel size: 27.5" — reject 26" or 29"
-- Hardtail (front suspension only)
-- Disc brakes (hydraulic preferred, mechanical acceptable)
-- Aluminum frame
-- Reputable brand: Trek, Giant, Specialized, Marin, Kona, Cannondale only
+━━━ HARD REQUIREMENTS (reject if missing) ━━━
+- Frame size: Small (S) only — reject XS, Medium, Large, XL
+- Wheel size: 27.5" or 650b (same thing) — reject 26", 29", 24", 27.5+
+- Hardtail only (front fork suspension, rigid rear)
+- Disc brakes (hydraulic preferred, mechanical disc acceptable)
+- Aluminum or carbon frame (no steel/hi-ten on new bikes at this price)
+- Reputable brand (see brand tiers below)
 
-PREFERRED (boosts score):
-- 1x drivetrain (1x8 minimum, 1x9/10/11/12 better)
-- Hydraulic disc brakes
-- Shimano Deore, SLX, XT, CUES or equivalent
+━━━ BRAND TIERS ━━━
+Tier 1 — Best value targets:
+  Trek (Marlin 5), Giant (Talon 2), Specialized (Rockhopper), Marin (Bobcat Trail 5)
 
-REJECT OUTRIGHT (score 0):
-- 3x drivetrains
-- Rim brakes
-- Unknown/department store brands
-- XS, Medium, or larger frames
-- 26" or 29" wheels
+Tier 2 — Strong alternatives:
+  Trek (Marlin 4), Giant (Talon 3/4), Marin (Bobcat Trail 4), Kona, Cannondale (Trail, Catalyst)
+  Diamondback (Hook, Trace) — excellent spec/dollar, often deeply discounted
+  Norco (Storm) — well-respected Canadian brand, great value hardtails
+  GT (Aggressor) — solid entry hardtail, good deals available
+  Co-op Cycles DRT 1.1/1.2 — REI house brand, outstanding value ($699 MSRP, hydraulic brakes, 1x10)
+  Fuji (Nevada) — underrated, often discounted significantly
+  Polygon (Xtrada, Cascade) — exceptional spec/dollar, some models have Deore at $600
 
-TIER 1 TARGETS (best value): Marin Bobcat Trail 5, Giant Talon 2, Trek Marlin 5, Specialized Rockhopper
-TIER 2 ACCEPTABLE: Giant Talon 3/4, Trek Marlin 4, Marin Bobcat Trail 4, Kona equivalents
+Tier 3 — Accept only if deeply discounted or exceptional spec:
+  Liv (Giant's women's sub-brand) — Tempt, Bliss are quality but verify they fit teen rider
+  Other reputable brands with verifiable components
 
-BUDGET:
-- Ideal: $500–$700
-- Acceptable: up to $800 if spec justifies
-- Stretch: $800–$900 ONLY if upgrade-tier spec
-- Entry bikes (~$600-700 MSRP): must be below $650 to alert
-- Mid-tier (~$900-1100 MSRP): good deal at ≤ $800
+Reject outright: Mongoose, Huffy, Kent, Hyper, Pacific, Walmart/Target brands, unknown brands
 
-SIZE NOTE: If size is not clearly confirmed as Small/S, score lower and note uncertainty."""
+━━━ DRIVETRAIN ━━━
+Best: Shimano Deore 1x10/1x11/1x12, SLX, XT, CUES; SRAM NX/GX 1x
+Good: Shimano Alivio 1x, Altus 1x, MicroShift Advent 1x — acceptable on budget builds
+Acceptable: Shimano mechanical with 1x setup
+Reject: ANY 3x drivetrain (3x7, 3x8, 3x21-speed) — outdated, harder to maintain
+
+━━━ BRAKES ━━━
+Best: Shimano MT200, M315, M395, M446 hydraulic; Tektro HD-E350/E500 hydraulic
+Good: Shimano mechanical disc (Acera BR-M315)
+Reject: Rim brakes, V-brakes
+
+━━━ BUDGET & VALUE ━━━
+- Ideal price: $400–$650
+- Good deal: $651–$750 only if spec justifies (hydraulic brakes + 1x drivetrain)
+- Acceptable stretch: $751–$900 ONLY if genuinely upgrade-tier (Deore/SLX, hydraulic, 2024+)
+- Clearance/prior-year bikes: excellent opportunity — a 2023 Tier 1 bike at 30% off is a great deal
+- Used bikes: score highly if condition is stated as good/excellent and price is 40-60% of MSRP
+- Red flag: paying entry-level prices for entry-level spec (e.g., $750 for 3x mechanical)
+
+━━━ SCORING GUIDANCE ━━━
+9-10: Exceptional — Tier 1 bike, right size/wheels, hydraulic+1x, at or below ideal price
+7-8:  Good deal — correct spec, right size, reasonable price, worth buying
+5-6:  Fair — passes requirements but price/spec ratio is just OK
+3-4:  Marginal — meets minimums but overpriced or spec is borderline
+1-2:  Poor value — technically passes requirements but not worth it
+0:    Reject — fails a hard requirement
+
+SIZE NOTE: If size is ambiguous or not confirmed as Small/S, score conservatively and flag it."""
 
 
 def evaluate_listing(listing: dict) -> dict:

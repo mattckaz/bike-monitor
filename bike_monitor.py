@@ -161,6 +161,13 @@ SHOPIFY_SOURCES = [
         "shop_url":         "https://www.aribikes.com",
         "collection_slugs": ["hardtail-mountain-bikes", "mountain-bikes", "bikes"],
     },
+    # ── New additions ─────────────────────────────────────────────────────────
+    {
+        # DFW-based chain, carries Trek — confirmed has Marlin 4 Gen 3 in stock
+        "name":             "Bike Mart",
+        "shop_url":         "https://www.bikemart.com",
+        "collection_slugs": ["bikes", "mountain-bikes", "trek"],
+    },
     # REMOVED (no longer Shopify or API blocked):
     # Jenson USA (308 redirect), Universal Cycles (404),
     # Competitive Cyclist (403), Backcountry (403), Bicycle Blue Book (404)
@@ -275,7 +282,37 @@ PLAYWRIGHT_SOURCES = [
         "keywords": ["mountain", "hardtail"],
         "wait_ms":  5000,
     },
+    # ── eBay — largest used bike marketplace ──────────────────────────────────
+    {
+        "name":     "eBay (Small)",
+        "url":      (
+            "https://www.ebay.com/sch/i.html"
+            "?_nkw=hardtail+mountain+bike+27.5+small"
+            "&_sacat=177831&LH_BIN=1&_udhi=900&LH_ItemCondition=3000&_sop=10"
+        ),
+        "type":     "ebay",
+        "base_url": "https://www.ebay.com",
+        "keywords": None,
+        "wait_ms":  5000,
+    },
+    {
+        "name":     "eBay (Medium)",
+        "url":      (
+            "https://www.ebay.com/sch/i.html"
+            "?_nkw=hardtail+mountain+bike+27.5+medium"
+            "&_sacat=177831&LH_BIN=1&_udhi=900&LH_ItemCondition=3000&_sop=10"
+        ),
+        "type":     "ebay",
+        "base_url": "https://www.ebay.com",
+        "keywords": None,
+        "wait_ms":  5000,
+    },
     # REMOVED: REI + REI Sale — permanently blocked from GitHub Actions IPs
+]
+
+# HTTP-only sources (no browser needed)
+HTTP_SOURCES = [
+    {"name": "Slickdeals", "type": "slickdeals"},
 ]
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -889,6 +926,139 @@ def _scrape_dom(page, source: str, base_url: str,
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+#  EBAY SCRAPER
+# ─────────────────────────────────────────────────────────────────────────────
+
+def scrape_ebay(page, source_config: dict) -> list[dict]:
+    """
+    Scrape eBay hardtail mountain bike listings.
+    Uses Buy It Now filter, under $900, sorted by newly listed.
+    """
+    listings = []
+    try:
+        page.goto(source_config["url"], wait_until="domcontentloaded", timeout=45000)
+        page.wait_for_timeout(4000)
+
+        # eBay listing items
+        items = page.query_selector_all('.s-item, [class*="s-item"]')
+        if not items:
+            items = page.query_selector_all('li[id^="item"]')
+
+        for item in items:
+            try:
+                text = item.inner_text().strip()
+                if not text or len(text) < 10:
+                    continue
+
+                # Skip the first "ghost" item eBay always includes
+                if "shop on ebay" in text.lower():
+                    continue
+
+                title_el = item.query_selector('.s-item__title, [class*="item__title"]')
+                title = title_el.inner_text().strip() if title_el else text.split('\n')[0]
+
+                price_el = item.query_selector('.s-item__price, [class*="item__price"]')
+                price_text = price_el.inner_text() if price_el else text
+                price = _extract_price(price_text)
+
+                link_el = item.query_selector('a.s-item__link, a[class*="item__link"], a[href*="ebay.com/itm"]')
+                href = link_el.get_attribute('href') if link_el else ''
+                # Clean eBay tracking params
+                if href and '?' in href:
+                    href = href.split('?')[0]
+
+                if not _quick_price_filter(price):
+                    continue
+
+                # Note location if mentioned
+                loc_el = item.query_selector('.s-item__location, [class*="location"]')
+                location = loc_el.inner_text().strip() if loc_el else ""
+                specs = text[:500]
+                if location:
+                    specs = f"Location: {location}\n{specs}"
+
+                listings.append({
+                    "source":     "eBay",
+                    "title":      title[:120],
+                    "price":      price,
+                    "msrp":       None,
+                    "size":       _extract_size(title + " " + text),
+                    "specs":      specs,
+                    "url":        href,
+                    "local_only": False,  # most eBay listings ship
+                })
+            except Exception:
+                continue
+
+        log(f"  eBay: {len(listings)} listing(s) found")
+    except Exception as e:
+        log(f"  eBay scrape error: {e}")
+    return listings
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  SLICKDEALS SCRAPER (RSS feed — no browser needed)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def scrape_slickdeals() -> list[dict]:
+    """
+    Fetch Slickdeals RSS feed for mountain bike deals.
+    Pure HTTP — no Playwright needed.
+    """
+    listings = []
+    headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"}
+    urls = [
+        "https://slickdeals.net/newsearch.php?src=frontpage&q=mountain+bike+hardtail&rss=1&pp=20",
+        "https://slickdeals.net/newsearch.php?src=frontpage&q=mountain+bike+27.5&rss=1&pp=20",
+    ]
+    seen = set()
+    for rss_url in urls:
+        try:
+            req = urllib.request.Request(rss_url, headers=headers)
+            with urllib.request.urlopen(req, timeout=15) as r:
+                content = r.read().decode("utf-8", errors="ignore")
+
+            # Parse RSS items simply with regex (no xml parser needed)
+            items = re.findall(r'<item>(.*?)</item>', content, re.DOTALL)
+            for item_xml in items:
+                title_m = re.search(r'<title><!\[CDATA\[(.*?)\]\]></title>', item_xml)
+                link_m  = re.search(r'<link>(.*?)</link>', item_xml)
+                desc_m  = re.search(r'<description><!\[CDATA\[(.*?)\]\]></description>', item_xml)
+
+                if not title_m:
+                    continue
+                title = title_m.group(1).strip()
+                href  = link_m.group(1).strip() if link_m else ""
+                desc  = _strip_html(desc_m.group(1)) if desc_m else ""
+
+                if href in seen:
+                    continue
+                seen.add(href)
+
+                combined = (title + " " + desc).lower()
+                price = _extract_price(title) or _extract_price(desc)
+
+                if not _quick_price_filter(price):
+                    continue
+
+                listings.append({
+                    "source":     "Slickdeals",
+                    "title":      title[:120],
+                    "price":      price,
+                    "msrp":       _extract_msrp(desc),
+                    "size":       _extract_size(combined),
+                    "specs":      (title + " " + desc)[:500],
+                    "url":        href,
+                    "local_only": False,
+                })
+        except Exception as e:
+            log(f"  Slickdeals error: {e}")
+
+    log(f"  Slickdeals: {len(listings)} deal(s) found")
+    return listings
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 #  PINKBIKE SCRAPERS
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -1119,7 +1289,8 @@ def send_alert(deals: list[dict]):
 def _all_sources() -> list[str]:
     return (
         [s["name"] for s in SHOPIFY_SOURCES] +
-        [s["name"] for s in PLAYWRIGHT_SOURCES]
+        [s["name"] for s in PLAYWRIGHT_SOURCES] +
+        [s["name"] for s in HTTP_SOURCES]
     )
 
 def write_status_page(state: dict):
@@ -1470,6 +1641,8 @@ def main():
                     listings = _scrape_pinkbike_deals(page, source)
                 elif src_type == "pinkbike_buysell":
                     listings = _scrape_pinkbike_buysell(page, source)
+                elif src_type == "ebay":
+                    listings = scrape_ebay(page, source)
                 else:  # dom
                     wait_ms = source.get("wait_ms", 4000)
                     page.goto(source["url"], wait_until="domcontentloaded", timeout=45000)
@@ -1490,6 +1663,21 @@ def main():
             time.sleep(2)
 
         browser.close()
+
+    # ── Phase 3: HTTP-only sources (no browser needed) ────────────────────────
+    for source in HTTP_SOURCES:
+        log(f"Checking: {source['name']}")
+        try:
+            if source["type"] == "slickdeals":
+                listings = scrape_slickdeals()
+            else:
+                listings = []
+            deals = _evaluate_listings(listings, seen_urls)
+            new_deals.extend(deals)
+            _record_source(source["name"], len(listings), True)
+        except Exception as e:
+            log(f"  ERROR on {source['name']}: {e}")
+            _record_source(source["name"], 0, False)
 
     # ── Save state ─────────────────────────────────────────────────────────────
     state["seen_urls"]     = list(seen_urls)[-3000:]

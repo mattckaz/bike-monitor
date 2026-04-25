@@ -213,6 +213,14 @@ PLAYWRIGHT_SOURCES = [
         "keywords": ["bobcat", "hardtail", "trail"],
     },
     {
+        # Major chain — carries Trek, Specialized; good source for clearance/sale
+        "name": "Dick's Sporting Goods",
+        "url":  "https://www.dickssportinggoods.com/c/hardtail-mountain-bikes",
+        "type": "dom",
+        "base_url": "https://www.dickssportinggoods.com",
+        "keywords": None,
+    },
+    {
         "name": "REI",
         "url":  "https://www.rei.com/c/hardtail-mountain-bikes?r=q%3A27.5",
         "type": "dom",

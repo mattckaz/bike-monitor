@@ -52,13 +52,20 @@ EMAIL_PASSWORD = os.environ.get("EMAIL_APP_PASSWORD", "")
 NOTIFY_EMAILS  = ["mattkaz@icloud.com"]
 ANTHROPIC_KEY  = os.environ.get("ANTHROPIC_API_KEY", "")
 
+# GitHub dashboard deployment
+GITHUB_TOKEN   = os.environ.get("GITHUB_TOKEN", os.environ.get("GH_TOKEN", ""))
+DEPLOY_TOKEN   = os.environ.get("GH_TOKEN", GITHUB_TOKEN)
+DASHBOARD_REPO = "mattckaz/bike-status"
+DASHBOARD_URL  = "https://mattckaz.github.io/bike-status/"
+
 # Location for Pinkbike buy/sell proximity context
-BUYER_ZIP      = "48823"    # East Lansing, MI
-BUYER_LOCATION = "East Lansing, MI"
+BUYER_ZIP        = "48823"    # East Lansing, MI
+BUYER_LOCATION   = "East Lansing, MI"
 MAX_TRAVEL_MILES = 100
 
-STATE_FILE = Path(__file__).parent / "bike_state.json"
-LOG_FILE   = Path(__file__).parent / "bike_monitor.log"
+STATE_FILE  = Path(__file__).parent / "bike_state.json"
+LOG_FILE    = Path(__file__).parent / "bike_monitor.log"
+STATUS_FILE = Path(__file__).parent / "bike_status.html"
 
 MIN_SCORE_TO_ALERT = 7   # Claude score out of 10
 
@@ -1126,22 +1133,332 @@ def send_alert(deals: list[dict]):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+#  DASHBOARD
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _all_sources() -> list[str]:
+    return (
+        [s["name"] for s in SHOPIFY_SOURCES] +
+        [s["name"] for s in PLAYWRIGHT_SOURCES]
+    )
+
+def write_status_page(state: dict):
+    """Generate the HTML dashboard and save to STATUS_FILE."""
+    now_utc       = datetime.now(timezone.utc).isoformat()
+    last_run      = state.get("last_run", "")
+    deals_found   = state.get("deals_found", [])
+    source_checks = state.get("source_checks", {})
+    total_sources = len(_all_sources())
+
+    # Log lines
+    log_html = ""
+    if LOG_FILE.exists():
+        lines = LOG_FILE.read_text().splitlines()[-50:]
+        for line in lines:
+            cls = "log-line"
+            if "ERROR" in line or "error" in line:    cls += " error"
+            elif "DEAL" in line or "★" in line:       cls += " success"
+            elif "WARNING" in line or "bot" in line:  cls += " warn"
+            elif "═══" in line:                       cls += " sep"
+            log_html += f'<div class="{cls}">{line}</div>\n'
+    if not log_html:
+        log_html = '<div class="log-line">No activity yet.</div>'
+
+    # Recent deals (last 20)
+    recent_deals = list(reversed(deals_found[-20:])) if deals_found else []
+    deals_html = ""
+    if recent_deals:
+        for d in recent_deals:
+            score      = d.get("score", 0)
+            score_color = "#16a34a" if score >= 8 else "#d97706" if score >= 6 else "#6b7280"
+            found_dt   = d.get("found_at", "")
+            try:
+                found_label = datetime.fromisoformat(found_dt).strftime("%b %d, %Y")
+            except Exception:
+                found_label = found_dt[:10] if found_dt else ""
+            price = d.get("price")
+            price_str = f"${price:.0f}" if price else "?"
+            deals_html += f"""
+            <div class="deal-row">
+              <div class="deal-score" style="color:{score_color}">★ {score}/10</div>
+              <div class="deal-info">
+                <div class="deal-title"><a href="{d.get('url','#')}" target="_blank">{d.get('title','?')[:80]}</a></div>
+                <div class="deal-meta">{d.get('source','?')} · {price_str} · {found_label}</div>
+                <div class="deal-reason">{d.get('reason','')}</div>
+              </div>
+            </div>"""
+    else:
+        deals_html = '<p class="no-deals">No deals found yet — monitor is actively watching.</p>'
+
+    # Source status grid
+    sources_html = ""
+    for name in _all_sources():
+        info    = source_checks.get(name, {})
+        checked = info.get("last_checked", "")
+        status  = info.get("status", "pending")
+        count   = info.get("count_evaluated", 0)
+        dot_cls = "dot-ok" if status == "ok" else "dot-err" if status == "error" else "dot-pending"
+        try:
+            checked_label = datetime.fromisoformat(checked).strftime("%I:%M %p") if checked else "–"
+        except Exception:
+            checked_label = "–"
+        sources_html += f"""
+        <div class="source-chip {dot_cls}">
+          <span class="src-name">{name}</span>
+          <span class="src-meta">{checked_label} · {count} evaluated</span>
+        </div>"""
+
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="refresh" content="14400">
+  <title>Bike Deal Finder</title>
+  <style>
+    :root {{
+      --indigo:#6366f1;--purple:#7c3aed;
+      --green:#16a34a;--green-100:#dcfce7;--green-700:#15803d;
+      --amber:#d97706;--amber-100:#fef3c7;
+      --gray-100:#f3f4f6;--gray-200:#e5e7eb;--gray-400:#9ca3af;
+      --gray-500:#6b7280;--gray-700:#374151;--gray-800:#1f2937;--gray-900:#111827;
+      --shadow:0 4px 8px -2px rgba(0,0,0,.08),0 2px 4px -2px rgba(0,0,0,.04);
+    }}
+    *{{box-sizing:border-box;margin:0;padding:0}}
+    body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",sans-serif;
+          background:#eef2f7;color:var(--gray-900);min-height:100vh}}
+    .hero{{background:linear-gradient(135deg,#312e81 0%,#4f46e5 55%,#7c3aed 100%);
+           padding:44px 24px 64px;position:relative;overflow:hidden}}
+    .hero::before{{content:'';position:absolute;top:-60px;right:-60px;width:360px;height:360px;
+                  background:radial-gradient(circle,rgba(255,255,255,.07) 0%,transparent 65%);
+                  border-radius:50%;pointer-events:none}}
+    .hero-inner{{max-width:960px;margin:auto;position:relative;z-index:1}}
+    .hero h1{{font-size:30px;font-weight:700;color:#fff;letter-spacing:-.5px;margin-bottom:8px}}
+    .hero-sub{{color:rgba(255,255,255,.65);font-size:14px;margin-bottom:22px}}
+    .chips{{display:flex;gap:8px;flex-wrap:wrap}}
+    .chip{{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.11);
+           border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.88);
+           border-radius:20px;padding:5px 14px;font-size:12px;font-weight:500}}
+    .live-dot{{width:7px;height:7px;background:#4ade80;border-radius:50%;
+               animation:pulse 2.2s ease-in-out infinite}}
+    @keyframes pulse{{0%,100%{{opacity:1;transform:scale(1)}}50%{{opacity:.5;transform:scale(1.45)}}}}
+    .container{{max-width:960px;margin:-26px auto 0;padding:0 24px 56px;position:relative;z-index:2}}
+    .stats-grid{{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}}
+    .stat-card{{background:#fff;border-radius:14px;padding:18px 20px 16px;box-shadow:var(--shadow)}}
+    .stat-label{{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;
+                 color:var(--gray-400);margin-bottom:6px}}
+    .stat-value{{font-size:26px;font-weight:700;color:var(--gray-900);line-height:1.1}}
+    .stat-value.green{{color:var(--green)}}
+    .stat-value.sm{{font-size:15px;font-weight:600}}
+    .stat-sub{{font-size:11px;color:var(--gray-400);margin-top:2px}}
+    .card{{background:#fff;border-radius:14px;box-shadow:var(--shadow);
+           padding:20px 22px;margin-bottom:16px}}
+    .section-title{{font-size:15px;font-weight:600;color:var(--gray-800);margin-bottom:4px}}
+    .section-sub{{font-size:12px;color:var(--gray-400);margin-bottom:16px}}
+    /* Deals */
+    .deal-row{{display:flex;gap:14px;align-items:flex-start;padding:14px 0;
+               border-bottom:1px solid var(--gray-100)}}
+    .deal-row:last-child{{border-bottom:none}}
+    .deal-score{{font-size:13px;font-weight:700;flex-shrink:0;width:52px;padding-top:2px}}
+    .deal-title{{font-size:14px;font-weight:600;margin-bottom:3px}}
+    .deal-title a{{color:var(--gray-900);text-decoration:none}}
+    .deal-title a:hover{{color:var(--indigo);text-decoration:underline}}
+    .deal-meta{{font-size:11px;color:var(--gray-400);margin-bottom:3px}}
+    .deal-reason{{font-size:12px;color:var(--gray-500)}}
+    .no-deals{{font-size:13px;color:var(--gray-400);font-style:italic;padding:8px 0}}
+    /* Sources grid */
+    .sources-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}}
+    .source-chip{{background:var(--gray-100);border-radius:8px;padding:10px 12px;
+                  border-left:3px solid var(--gray-200)}}
+    .source-chip.dot-ok{{border-left-color:var(--green)}}
+    .source-chip.dot-err{{border-left-color:#ef4444}}
+    .source-chip.dot-pending{{border-left-color:var(--gray-200)}}
+    .src-name{{display:block;font-size:12px;font-weight:600;color:var(--gray-800);margin-bottom:2px}}
+    .src-meta{{display:block;font-size:10px;color:var(--gray-400)}}
+    /* Log */
+    .log-terminal{{background:#0d1117;border-radius:8px;padding:16px;max-height:320px;
+                   overflow-y:auto;font-family:"SF Mono","Cascadia Code",ui-monospace,monospace;
+                   scrollbar-width:thin;scrollbar-color:#30363d transparent}}
+    .log-line{{font-size:11.5px;line-height:1.75;color:#8b949e}}
+    .log-line.error{{color:#f85149}}.log-line.warn{{color:#d29922}}
+    .log-line.success{{color:#3fb950}}.log-line.sep{{color:#4d5566;font-weight:600}}
+    .footer{{text-align:center;font-size:12px;color:var(--gray-400);padding-bottom:36px}}
+    .footer a{{color:var(--indigo);text-decoration:none}}
+    @media(max-width:600px){{
+      .hero{{padding:28px 16px 52px}}.hero h1{{font-size:24px}}
+      .container{{padding:0 16px 36px}}
+      .stats-grid{{grid-template-columns:repeat(2,1fr)}}
+      .sources-grid{{grid-template-columns:1fr 1fr}}
+    }}
+  </style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <h1>🚲 Bike Deal Finder</h1>
+    <p class="hero-sub">Watching {total_sources} sources · Small 27.5" hardtail · $400–$900 · Near {BUYER_LOCATION}</p>
+    <div class="chips">
+      <span class="chip"><span class="live-dot"></span>Monitoring active</span>
+      <span class="chip">Checks every 4 hours</span>
+      <span class="chip">Updated <time class="local-time" data-utc="{now_utc}">–</time></span>
+      <span class="chip">{len(deals_found)} deal{'s' if len(deals_found) != 1 else ''} found all-time</span>
+    </div>
+  </div>
+</header>
+<main class="container">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Deals Found</div>
+      <div class="stat-value{'  green' if deals_found else ''}">{len(deals_found)}</div>
+      <div class="stat-sub">all time</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Last Check</div>
+      <div class="stat-value sm"><time class="local-time" data-utc="{last_run}">–</time></div>
+      <div class="stat-sub">runs every 4 hours</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Sources</div>
+      <div class="stat-value">{total_sources}</div>
+      <div class="stat-sub">shops monitored</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Coverage</div>
+      <div class="stat-value sm">22 API · {total_sources - 22} scraped</div>
+      <div class="stat-sub">Shopify + Playwright</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:10px">
+    <div class="section-title">Deals Found</div>
+    <div class="section-sub">All listings that scored {MIN_SCORE_TO_ALERT}+ / 10 — most recent first</div>
+  </div>
+  <div class="card">
+    {deals_html}
+  </div>
+
+  <div style="margin-bottom:10px;margin-top:8px">
+    <div class="section-title">Source Status</div>
+    <div class="section-sub">{total_sources} sources · green = last run OK · red = error</div>
+  </div>
+  <div class="card">
+    <div class="sources-grid">{sources_html}</div>
+  </div>
+
+  <div style="margin-bottom:10px;margin-top:8px">
+    <div class="section-title">Recent Activity</div>
+  </div>
+  <div class="card">
+    <div class="log-terminal">{log_html}</div>
+  </div>
+</main>
+<footer class="footer">
+  <a href="{DASHBOARD_URL}">{DASHBOARD_URL}</a>
+  &nbsp;·&nbsp; Rider: 5\'5", beginner, East Lansing MI
+  &nbsp;·&nbsp; Alert threshold: {MIN_SCORE_TO_ALERT}/10
+</footer>
+<script>
+  document.querySelectorAll('time.local-time[data-utc]').forEach(function(el) {{
+    var raw = el.dataset.utc;
+    if (!raw) return;
+    try {{
+      var d = new Date(raw);
+      if (isNaN(d)) return;
+      el.textContent = d.toLocaleString(undefined, {{
+        month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'
+      }});
+    }} catch(e) {{}}
+  }});
+  // Auto-scroll log to bottom
+  var log = document.querySelector('.log-terminal');
+  if (log) log.scrollTop = log.scrollHeight;
+</script>
+</body>
+</html>"""
+
+    STATUS_FILE.write_text(html)
+
+
+def _gh_request(path: str, method: str = "GET", data: dict | None = None,
+                token: str = "") -> tuple[int, dict]:
+    url     = f"https://api.github.com{path}"
+    headers = {
+        "Authorization": f"token {token or DEPLOY_TOKEN}",
+        "Accept":        "application/vnd.github.v3+json",
+        "Content-Type":  "application/json",
+    }
+    body = json.dumps(data).encode() if data else None
+    req  = urllib.request.Request(url, data=body, headers=headers, method=method)
+    try:
+        with urllib.request.urlopen(req, timeout=20) as r:
+            return r.status, json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        try:
+            return e.code, json.loads(e.read())
+        except Exception:
+            return e.code, {}
+    except Exception as e:
+        return 0, {"error": str(e)}
+
+
+def deploy_to_github():
+    """Push the status page HTML to the public bike-status GitHub Pages repo."""
+    if not DEPLOY_TOKEN or not DASHBOARD_REPO:
+        return
+    try:
+        import base64
+        content = base64.b64encode(STATUS_FILE.read_bytes()).decode()
+        sha = ""
+        status, existing = _gh_request(f"/repos/{DASHBOARD_REPO}/contents/index.html")
+        if status == 200:
+            sha = existing.get("sha", "")
+        payload = {
+            "message": f"Update dashboard {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+            "content": content,
+        }
+        if sha:
+            payload["sha"] = sha
+        status, result = _gh_request(
+            f"/repos/{DASHBOARD_REPO}/contents/index.html",
+            method="PUT", data=payload,
+        )
+        commit = result.get("commit", {}).get("sha", "")[:7]
+        if commit:
+            log(f"  Dashboard deployed: {commit} → {DASHBOARD_URL}")
+    except Exception as e:
+        log(f"  Dashboard deploy error: {e}")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 #  MAIN
 # ─────────────────────────────────────────────────────────────────────────────
 
 def main():
     log("═══ Bike Deal Finder v2 — run started ═══")
 
-    state     = load_state()
-    seen_urls = set(state.get("seen_urls", []))
-    new_deals = []
+    state         = load_state()
+    seen_urls     = set(state.get("seen_urls", []))
+    source_checks = state.get("source_checks", {})
+    new_deals     = []
+
+    def _record_source(name: str, count: int, ok: bool):
+        source_checks[name] = {
+            "last_checked":    datetime.now(timezone.utc).isoformat(),
+            "count_evaluated": count,
+            "status":          "ok" if ok else "error",
+        }
 
     # ── Phase 1: Shopify API sources (no browser needed) ──────────────────────
     for source in SHOPIFY_SOURCES:
         log(f"Checking: {source['name']} (Shopify API)")
-        listings = _shopify_fetch(source["shop_url"], source["collection_slugs"], source["name"])
-        for listing in _evaluate_listings(listings, seen_urls):
-            new_deals.append(listing)
+        try:
+            listings = _shopify_fetch(source["shop_url"], source["collection_slugs"], source["name"])
+            deals    = _evaluate_listings(listings, seen_urls)
+            new_deals.extend(deals)
+            _record_source(source["name"], len(listings), True)
+        except Exception as e:
+            log(f"  ERROR on {source['name']}: {e}")
+            _record_source(source["name"], 0, False)
 
     # ── Phase 2: Playwright sources ───────────────────────────────────────────
     with sync_playwright() as pw:
@@ -1180,9 +1497,11 @@ def main():
                                            source.get("keywords"))
 
                 page.close()
+                _record_source(source["name"], len(listings), True)
             except Exception as e:
                 log(f"  ERROR on {source['name']}: {e}")
                 listings = []
+                _record_source(source["name"], 0, False)
 
             for deal in _evaluate_listings(listings, seen_urls):
                 new_deals.append(deal)
@@ -1192,8 +1511,9 @@ def main():
         browser.close()
 
     # ── Save state ─────────────────────────────────────────────────────────────
-    state["seen_urls"]   = list(seen_urls)[-3000:]
-    state["last_run"]    = datetime.now(timezone.utc).isoformat()
+    state["seen_urls"]     = list(seen_urls)[-3000:]
+    state["last_run"]      = datetime.now(timezone.utc).isoformat()
+    state["source_checks"] = source_checks
     state["deals_found"] = state.get("deals_found", []) + [
         {
             "title":    d["listing"].get("title"),
@@ -1207,6 +1527,8 @@ def main():
         for d in new_deals
     ]
     save_state(state)
+    write_status_page(state)
+    deploy_to_github()
 
     if new_deals:
         log(f"Sending alert for {len(new_deals)} deal(s)...")

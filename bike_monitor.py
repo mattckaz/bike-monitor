@@ -217,20 +217,22 @@ PLAYWRIGHT_SOURCES = [
         "wait_ms":  4000,
     },
     {
-        "name":     "Pinkbike Buy/Sell (Small)",
-        "url":      "https://www.pinkbike.com/buysell/list/?q=hardtail+27.5+small&cat=2&minprice=200&maxprice=900&country_id=1",
+        # Search by size + wheel
+        "name":     "Pinkbike Buy/Sell (27.5 S/M)",
+        "url":      "https://www.pinkbike.com/buysell/list/?q=hardtail+27.5&cat=2&minprice=200&maxprice=900&country_id=1",
         "type":     "pinkbike_buysell",
         "base_url": "https://www.pinkbike.com",
         "keywords": None,
-        "wait_ms":  4000,
+        "wait_ms":  5000,
     },
     {
-        "name":     "Pinkbike Buy/Sell (Medium)",
-        "url":      "https://www.pinkbike.com/buysell/list/?q=hardtail+27.5+medium&cat=2&minprice=200&maxprice=900&country_id=1",
+        # Search by Tier 1 model names specifically
+        "name":     "Pinkbike Buy/Sell (Marlin/Talon/Rockhopper)",
+        "url":      "https://www.pinkbike.com/buysell/list/?q=marlin+OR+talon+OR+rockhopper+OR+bobcat&cat=2&minprice=200&maxprice=900&country_id=1",
         "type":     "pinkbike_buysell",
         "base_url": "https://www.pinkbike.com",
         "keywords": None,
-        "wait_ms":  4000,
+        "wait_ms":  5000,
     },
     # ── Local Michigan shops ──────────────────────────────────────────────────
     {
@@ -282,9 +284,9 @@ PLAYWRIGHT_SOURCES = [
         "keywords": ["mountain", "hardtail"],
         "wait_ms":  5000,
     },
-    # ── eBay — largest used bike marketplace ──────────────────────────────────
+    # ── eBay — new + used, Small + Medium ────────────────────────────────────
     {
-        "name":     "eBay (Small)",
+        "name":     "eBay Used (Small)",
         "url":      (
             "https://www.ebay.com/sch/i.html"
             "?_nkw=hardtail+mountain+bike+27.5+small"
@@ -296,11 +298,35 @@ PLAYWRIGHT_SOURCES = [
         "wait_ms":  5000,
     },
     {
-        "name":     "eBay (Medium)",
+        "name":     "eBay Used (Medium)",
         "url":      (
             "https://www.ebay.com/sch/i.html"
             "?_nkw=hardtail+mountain+bike+27.5+medium"
             "&_sacat=177831&LH_BIN=1&_udhi=900&LH_ItemCondition=3000&_sop=10"
+        ),
+        "type":     "ebay",
+        "base_url": "https://www.ebay.com",
+        "keywords": None,
+        "wait_ms":  5000,
+    },
+    {
+        "name":     "eBay New (Small)",
+        "url":      (
+            "https://www.ebay.com/sch/i.html"
+            "?_nkw=hardtail+mountain+bike+27.5+small"
+            "&_sacat=177831&LH_BIN=1&_udhi=900&LH_ItemCondition=1000&_sop=10"
+        ),
+        "type":     "ebay",
+        "base_url": "https://www.ebay.com",
+        "keywords": None,
+        "wait_ms":  5000,
+    },
+    {
+        "name":     "eBay New (Medium)",
+        "url":      (
+            "https://www.ebay.com/sch/i.html"
+            "?_nkw=hardtail+mountain+bike+27.5+medium"
+            "&_sacat=177831&LH_BIN=1&_udhi=900&LH_ItemCondition=1000&_sop=10"
         ),
         "type":     "ebay",
         "base_url": "https://www.ebay.com",
@@ -1121,20 +1147,37 @@ def _scrape_pinkbike_deals(page, source_config: dict) -> list[dict]:
 
 def _scrape_pinkbike_buysell(page, source_config: dict) -> list[dict]:
     """
-    Scrape Pinkbike Buy/Sell listings near East Lansing, MI.
+    Scrape Pinkbike Buy/Sell listings.
+    Uses DOM extractor since Pinkbike's CSS classes change frequently.
     Flags listings as local_only if no shipping mentioned.
     """
     listings = []
     try:
         page.goto(source_config["url"], wait_until="domcontentloaded", timeout=45000)
-        page.wait_for_timeout(3000)
+        page.wait_for_timeout(5000)
 
-        # Pinkbike buy/sell uses table rows or list items
-        items = page.query_selector_all(
-            '.bsitem, [class*="buysell-item"], [class*="bsitem"], '
-            'tr[class*="item"], .item-cell, [id*="item"]'
-        )
+        # Use the robust DOM price-based extractor
+        raw = _scrape_dom(page, source_config["name"], "https://www.pinkbike.com", None)
 
+        for listing in raw:
+            text = listing.get("specs", "")
+            text_lower = text.lower()
+            ships = any(w in text_lower for w in ["ship", "ships", "shipping", "will ship"])
+
+            listing["local_only"] = not ships
+            listing["source"]     = "Pinkbike Buy/Sell"
+
+            # Extract location if mentioned
+            loc_match = re.search(r'\b([A-Z][a-z]+(?:,\s*[A-Z]{2})?)\b', text)
+            if loc_match and listing.get("title"):
+                listing["title"] = listing["title"]  # keep as-is, location in specs
+
+            listings.append(listing)
+
+        return listings
+
+        # Legacy CSS selector approach kept as reference but not used:
+        items = []
         if not items:
             items = page.query_selector_all('table tr, .buysell-results tr')
 

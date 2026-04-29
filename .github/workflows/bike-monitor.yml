@@ -56,6 +56,16 @@ jobs:
       - name: Install Playwright system dependencies
         run: python -m playwright install-deps chromium
 
+      - name: Verify Playwright browsers (auto-heal if cache is stale)
+        run: |
+          python -c "
+          from playwright.sync_api import sync_playwright
+          with sync_playwright() as p:
+              b = p.chromium.launch(headless=True)
+              b.close()
+          print('Chromium OK')
+          " || (echo "Browser check failed — reinstalling..." && python -m playwright install chromium)
+
       - name: Restore state
         run: |
           if [ ! -f bike_state.json ]; then

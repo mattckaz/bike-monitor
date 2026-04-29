@@ -1810,5 +1810,36 @@ def _evaluate_listings(listings: list[dict], seen_urls: set) -> list[dict]:
     return deals
 
 
+def notify_failure():
+    """Send an email when the workflow fails — called by GitHub Actions on failure."""
+    if not EMAIL_PASSWORD:
+        print("No EMAIL_APP_PASSWORD — skipping failure email.")
+        return
+    try:
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = "⚠️ Bike Deal Finder — Workflow Failed"
+        msg["From"]    = EMAIL_ADDRESS
+        msg["To"]      = EMAIL_ADDRESS
+        body = (
+            "<p>The Bike Deal Finder workflow failed on GitHub Actions.</p>"
+            f"<p>Check the run logs: "
+            f"<a href='https://github.com/{DASHBOARD_REPO.replace('bike-status','bike-monitor')}/actions'>"
+            f"github.com/mattckaz/bike-monitor/actions</a></p>"
+            "<p>This is an automated alert.</p>"
+        )
+        msg.attach(MIMEText(body, "html"))
+        with smtplib.SMTP("smtp.mail.me.com", 587) as smtp:
+            smtp.starttls()
+            smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+            smtp.sendmail(EMAIL_ADDRESS, [EMAIL_ADDRESS], msg.as_string())
+        print("Failure email sent.")
+    except Exception as e:
+        print(f"Failed to send failure email: {e}")
+
+
 if __name__ == "__main__":
-    main()
+    import sys
+    if "--notify-failure" in sys.argv:
+        notify_failure()
+    else:
+        main()

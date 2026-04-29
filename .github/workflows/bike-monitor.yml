@@ -95,10 +95,13 @@ jobs:
                 break
               fi
               echo "Push rejected (attempt ${attempt}) — pulling and retrying..."
+              git stash
               if ! git pull --rebase; then
                 git rebase --abort
+                git stash pop || true
                 echo "Rebase conflict — skipping state update. Next run will re-sync."
                 break
               fi
+              git stash pop || true
             done
           fi

@@ -80,6 +80,12 @@ jobs:
           GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
         run: python bike_monitor.py
 
+      - name: Email on workflow failure
+        if: failure()
+        env:
+          EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
+        run: python bike_monitor.py --notify-failure
+
       - name: Commit updated state
         run: |
           git config user.name  "bike-monitor[bot]"

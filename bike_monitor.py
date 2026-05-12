@@ -632,9 +632,14 @@ Be strict. 7+ only for genuine value."""
             messages=[{"role": "user", "content": prompt}],
         )
         text = response.content[0].text.strip()
-        m = re.search(r'\{.*\}', text, re.DOTALL)
+        m = re.search(r'\{.*?\}', text, re.DOTALL)
         if m:
-            return json.loads(m.group())
+            raw = m.group()
+            # Clean common JSON issues: smart quotes, trailing commas
+            raw = raw.replace('‘', "'").replace('’', "'")
+            raw = raw.replace('“', '"').replace('”', '"')
+            raw = re.sub(r',\s*([}\]])', r'\1', raw)  # trailing commas
+            return json.loads(raw)
     except Exception as e:
         log(f"  Claude eval error: {e}")
 
@@ -958,63 +963,38 @@ def _scrape_dom(page, source: str, base_url: str,
 def scrape_ebay(page, source_config: dict) -> list[dict]:
     """
     Scrape eBay hardtail mountain bike listings.
-    Uses Buy It Now filter, under $900, sorted by newly listed.
+    Uses the universal DOM price extractor since eBay changes CSS classes frequently.
+    Filters out non-bike items and eBay ghost listings.
     """
     listings = []
     try:
         page.goto(source_config["url"], wait_until="domcontentloaded", timeout=45000)
-        page.wait_for_timeout(4000)
+        page.wait_for_timeout(5000)
 
-        # eBay listing items
-        items = page.query_selector_all('.s-item, [class*="s-item"]')
-        if not items:
-            items = page.query_selector_all('li[id^="item"]')
+        # Use universal price-based DOM extractor — resilient to eBay class changes
+        raw = _scrape_dom(page, "eBay", "https://www.ebay.com", None)
 
-        for item in items:
-            try:
-                text = item.inner_text().strip()
-                if not text or len(text) < 10:
-                    continue
+        for item in raw:
+            title = item.get("title", "")
+            text  = item.get("specs", "")
+            href  = item.get("url", "")
 
-                # Skip the first "ghost" item eBay always includes
-                if "shop on ebay" in text.lower():
-                    continue
-
-                title_el = item.query_selector('.s-item__title, [class*="item__title"]')
-                title = title_el.inner_text().strip() if title_el else text.split('\n')[0]
-
-                price_el = item.query_selector('.s-item__price, [class*="item__price"]')
-                price_text = price_el.inner_text() if price_el else text
-                price = _extract_price(price_text)
-
-                link_el = item.query_selector('a.s-item__link, a[class*="item__link"], a[href*="ebay.com/itm"]')
-                href = link_el.get_attribute('href') if link_el else ''
-                # Clean eBay tracking params
-                if href and '?' in href:
-                    href = href.split('?')[0]
-
-                if not _quick_price_filter(price):
-                    continue
-
-                # Note location if mentioned
-                loc_el = item.query_selector('.s-item__location, [class*="location"]')
-                location = loc_el.inner_text().strip() if loc_el else ""
-                specs = text[:500]
-                if location:
-                    specs = f"Location: {location}\n{specs}"
-
-                listings.append({
-                    "source":     "eBay",
-                    "title":      title[:120],
-                    "price":      price,
-                    "msrp":       None,
-                    "size":       _extract_size(title + " " + text),
-                    "specs":      specs,
-                    "url":        href,
-                    "local_only": False,  # most eBay listings ship
-                })
-            except Exception:
+            # Skip eBay ghost/promo items
+            if any(x in title.lower() for x in ["shop on ebay", "results for", "sponsored"]):
                 continue
+
+            # eBay item URLs should contain /itm/ — filter navigation links
+            if href and "/itm/" not in href and "ebay.com" in href:
+                continue
+
+            # Clean tracking params from URL
+            if href and '?' in href:
+                href = href.split('?')[0]
+
+            item["url"]        = href
+            item["source"]     = "eBay"
+            item["local_only"] = False
+            listings.append(item)
 
         log(f"  eBay: {len(listings)} listing(s) found")
     except Exception as e:

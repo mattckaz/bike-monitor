@@ -1,6 +1,36 @@
 {
-  "seen_urls": [],
-  "last_run": "2026-05-12T18:29:01.827972+00:00",
+  "seen_urls": [
+    "https://www.bikemart.com/products/2026-marlin-4-gen-3-hardtail-mountain-bike",
+    "https://www.bikemart.com/products/sunday-scout-gloss-maroon-with-21-tt-bikes",
+    "https://bicyclewarehouse.com/products/talon-4-2025",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-2",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-m-eclipse-3",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-desert-sage-20",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-5",
+    "https://www.theproscloset.com/products/2021-liv-bliss-26-xs-desert-sage-2",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-3",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-6",
+    "https://www.incycle.com/products/2026-specialized-rockhopper-sport",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-16",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-22",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-18",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-4",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-12",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-17",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-21",
+    "https://www.bikemart.com/products/2026-marlin-5-gen-3-hardtail-mountain-bike",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-desert-sage-13",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-10",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-8",
+    "https://www.theproscloset.com/products/2021-liv-bliss-26-xs-desert-sage-13",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-23",
+    "https://www.fujibikes.com/products/adventure-275-st-22",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-11",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-7",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-20",
+    "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-19"
+  ],
+  "last_run": "2026-05-12T20:34:32.629216+00:00",
   "deals_found": [
     {
       "title": "Talon 4 (2026)",
@@ -46,11 +76,272 @@
       "reason": "2026 Marlin 5 Gen 3 (Tier 1 target) in Small with correct 27.5\" wheels and Shimano CUES 1x9 drivetrain; $849.99 is above ideal range but justified for current-year model with updated CUES groupset and suspension fork\u2014verify hydraulic brake type before committing.",
       "url": "https://www.bikemart.com/products/2026-marlin-5-gen-3-hardtail-mountain-bike",
       "found_at": "2026-04-25T16:42:30.717811+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 229.99,
+      "source": "The Pro's Closet",
+      "score": 8,
+      "reason": "2021 Liv Bliss in Small (confirmed fit for 5'5\" rider), 27.5\" wheels, hardtail with disc brakes at $229.99 is exceptional value for a used bike from reputable seller; verify drivetrain and brake type before purchase.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-23",
+      "found_at": "2026-05-12T20:34:32.629224+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 300.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "Rule-based (Claude unavailable)",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-22",
+      "found_at": "2026-05-12T20:34:32.629230+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 300.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "Liv Bliss (Giant's women's sub-brand, Tier 3) in Small with 27.5\" wheels at $301 is exceptional used value (~40% of typical MSRP); verify geometry fits 5'5\" rider and confirm drivetrain/brake specs before purchase.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-21",
+      "found_at": "2026-05-12T20:34:32.629234+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 300.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "2021 Liv Bliss in Small (confirmed fit for 5'5\"), 27.5\" wheels, hardtail with disc brakes at $301 is exceptional used value (~40% of typical MSRP); verify drivetrain spec and condition before committing.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-19",
+      "found_at": "2026-05-12T20:34:32.629239+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 300.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "2021 Liv Bliss in Small at $301 is excellent value for a used Tier 3 women's-specific hardtail; confirm 27.5\" wheels and hydraulic brakes before purchase, but the price is 40-50% of likely MSRP (~$600-700).",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-20",
+      "found_at": "2026-05-12T20:34:32.629243+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 300.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "2021 Liv Bliss in Small (women's-specific geometry suits teen rider), 27.5\" wheels, hardtail with disc brakes at $300.99\u2014excellent used-bike value at ~40% MSRP; verify drivetrain spec and frame material before purchase.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-18",
+      "found_at": "2026-05-12T20:34:32.629249+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 375.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "Liv Bliss (Giant's women's sub-brand) in Small, 27.5\", hardtail with hydraulic disc brakes and 1x drivetrain at $376 is strong value, though 2021 model age and Liv fit (designed for women but teen fit unconfirmed) warrant verification before purchase.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-17",
+      "found_at": "2026-05-12T20:34:32.629254+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 300.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "2021 Liv Bliss in Small (confirmed fit for 5'5\"), 27.5\" wheels, hardtail with disc brakes at $301 is exceptional used value (~40% of typical $700+ MSRP); verify component spec (drivetrain/brake type) before committing, but price alone justifies the deal.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-16",
+      "found_at": "2026-05-12T20:34:32.629259+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 300.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "2021 Liv Bliss in Small (confirmed women's fit for 5'5\") at $301 is 40\u201350% of likely MSRP (~$600\u2013650); used/clearance Tier 3 bike with solid spec; verify drivetrain and brake type before purchase.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-12",
+      "found_at": "2026-05-12T20:34:32.629265+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 300.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "2021 Liv Bliss in Small (confirmed women's fit for 5'5\") at $300.99 is exceptional value for a used hardtail from a reputable brand; verify component spec (drivetrain/brakes) and condition before purchase.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-10",
+      "found_at": "2026-05-12T20:34:32.629270+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 469.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "Liv Bliss is a quality women's hardtail in Small (confirmed), 27.5\" wheels, 2021 clearance model at $469.99\u2014well below ideal price\u2014but verify drivetrain/brake spec and that fit suits a 5'5\" teen before committing.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-11",
+      "found_at": "2026-05-12T20:34:32.629274+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 300.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "2021 Liv Bliss in Small (confirmed women's fit for 5'5\") at $300.99 is 40\u201350% of typical MSRP (~$600\u2013700); need to verify 27.5\" wheels, hardtail, disc brakes, and drivetrain spec from URL, but The Pro's Closet is reputable and this price strongly suggests quality used condition.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-8",
+      "found_at": "2026-05-12T20:34:32.629278+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 300.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "Liv Bliss 2021 (Tier 3, Giant's women's brand) in confirmed Small with 27.5\" wheels and disc brakes at $301 is exceptional value\u2014well below ideal price range\u2014though geometry/fit for a teen rider should be verified since it's designed for women.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-7",
+      "found_at": "2026-05-12T20:34:32.629282+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 300.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "Liv Bliss (Giant's women's sub-brand, Tier 3) in confirmed Small + 27.5\" wheels at $300.99 is exceptional value for a used/clearance bike; verify drivetrain/brake specs on listing before purchase, but price alone justifies consideration.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-5",
+      "found_at": "2026-05-12T20:34:32.629286+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 469.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "Liv Bliss (Giant's women's sub-brand, Tier 3) in Small with 27.5\" wheels, confirmed disc brakes, at $469.99 is well below ideal price; strong used/clearance value despite Tier 3 status, though component spec should be verified before purchase.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-6",
+      "found_at": "2026-05-12T20:34:32.629290+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 300.99,
+      "source": "The Pro's Closet",
+      "score": 8,
+      "reason": "2021 Liv Bliss in Small (confirmed fit for 5'5\"), 27.5\" wheels, hardtail with disc brakes at $300.99\u2014excellent used pricing (likely 50%+ off MSRP), though drivetrain spec should be verified before purchase.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-4",
+      "found_at": "2026-05-12T20:34:32.629294+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 300.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "Liv Bliss (Giant's women's brand) in confirmed Small with 27.5\" wheels at $301 is excellent value for a used/clearance bike; verify complete drivetrain and brake specs on product page, but price alone justifies consideration as a potential steal.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-3",
+      "found_at": "2026-05-12T20:34:32.629298+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 469.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "Liv Bliss is a quality women's hardtail in confirmed Small with 27.5\" wheels at $469.99 (well below ideal budget); Liv is Tier 3 but acceptable here due to deep discount, Giant's engineering, and The Pro's Closet's reputation for vetted used/clearance inventory\u2014verify component spec (brakes/drivetrain) before purchase.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-eclipse-2",
+      "found_at": "2026-05-12T20:34:32.629302+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 375.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "Liv Bliss (Giant women's sub-brand) in Small with 27.5\" wheels at $375.99 is well below ideal price; confirm frame spec (drivetrain/brakes) and that Small fits a 5'5\" teen before purchasing.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-desert-sage-20",
+      "found_at": "2026-05-12T20:34:32.629306+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Small",
+      "price": 469.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "Liv Bliss (Giant's women's sub-brand) in confirmed Small, 27.5\", hardtail with hydraulic disc brakes and 1x drivetrain at $469.99 (well below $650 ideal price); 2021 model at strong discount represents genuine value, though spec details (drivetrain component level) should be verified before purchase.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-s-desert-sage-13",
+      "found_at": "2026-05-12T20:34:32.629310+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, Medium",
+      "price": 300.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "2021 Liv Bliss (Giant's women's sub-brand, Tier 3) in Medium with 27.5\" wheels at $300.99 is excellent used pricing (~40% of estimated MSRP), but Medium should be verified for 5'5\" rider and full spec must be confirmed before purchase.",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-27-5-m-eclipse-3",
+      "found_at": "2026-05-12T20:34:32.629314+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, X-Small",
+      "price": 300.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "Rule-based (Claude unavailable)",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-26-xs-desert-sage-13",
+      "found_at": "2026-05-12T20:34:32.629318+00:00"
+    },
+    {
+      "title": "Liv Bliss Women's Mountain Bike - 2021, X-Small",
+      "price": 469.99,
+      "source": "The Pro's Closet",
+      "score": 7,
+      "reason": "Rule-based (Claude unavailable)",
+      "url": "https://www.theproscloset.com/products/2021-liv-bliss-26-xs-desert-sage-2",
+      "found_at": "2026-05-12T20:34:32.629322+00:00"
+    },
+    {
+      "title": "Talon 4 (2026)",
+      "price": 650.0,
+      "source": "Bicycle Warehouse",
+      "score": 7,
+      "reason": "Giant Talon 4 (2026) in Medium is a Tier 2 hardtail with 1x drivetrain and modern geometry at $650 MSRP; size should be verified before purchase since rider is 5'5\" (borderline S/M for Giant), but spec and price are solid.",
+      "url": "https://bicyclewarehouse.com/products/talon-4-2025",
+      "found_at": "2026-05-12T20:34:32.629326+00:00"
+    },
+    {
+      "title": "2026 Specialized Rockhopper Sport",
+      "price": 849.99,
+      "source": "Incycle",
+      "score": 9,
+      "reason": "Tier 1 Specialized Rockhopper Sport with 27.5\" wheels, Small frame (perfect fit for 5'5\"), Shimano CUES 1x drivetrain, and MT200 hydraulic disc brakes\u2014all hallmarks of a $699\u2013750 bike priced at $849.99, which is premium but justified by 2026 model year and exceptional component spec.",
+      "url": "https://www.incycle.com/products/2026-specialized-rockhopper-sport",
+      "found_at": "2026-05-12T20:34:32.629331+00:00"
+    },
+    {
+      "title": "Adventure 27.5 ST",
+      "price": 529.99,
+      "source": "Fuji (Direct)",
+      "score": 7,
+      "reason": "Rule-based (Claude unavailable)",
+      "url": "https://www.fujibikes.com/products/adventure-275-st-22",
+      "found_at": "2026-05-12T20:34:32.629335+00:00"
+    },
+    {
+      "title": "2026 Marlin 4 Gen 3 Hardtail Mountain Bike",
+      "price": 629.99,
+      "source": "Bike Mart",
+      "score": 7,
+      "reason": "2026 Trek Marlin 4 Gen 3 in Small with correct 27.5\" wheels, hydraulic disc brakes, and modern 1x8 drivetrain at $629.99 is solid value for a Tier 2 bike; verify final specs (brakes/drivetrain) before purchase as listing lacks detail.",
+      "url": "https://www.bikemart.com/products/2026-marlin-4-gen-3-hardtail-mountain-bike",
+      "found_at": "2026-05-12T20:34:32.629338+00:00"
+    },
+    {
+      "title": "2026 Marlin 5 Gen 3 Hardtail Mountain Bike",
+      "price": 849.99,
+      "source": "Bike Mart",
+      "score": 8,
+      "reason": "2026 Marlin 5 Gen 3 in Small with 27.5\" wheels is Tier 1, right-sized for this rider, includes Shimano CUES 1x9 drivetrain and suspension fork; $849.99 is slightly above ideal but justified for current-year model and reputable spec.",
+      "url": "https://www.bikemart.com/products/2026-marlin-5-gen-3-hardtail-mountain-bike",
+      "found_at": "2026-05-12T20:34:32.629343+00:00"
+    },
+    {
+      "title": "Sunday Scout (Gloss Maroon with 21\" tt) Bikes",
+      "price": 569.99,
+      "source": "Bike Mart",
+      "score": 7,
+      "reason": "Rule-based (Claude unavailable)",
+      "url": "https://www.bikemart.com/products/sunday-scout-gloss-maroon-with-21-tt-bikes",
+      "found_at": "2026-05-12T20:34:32.629346+00:00"
     }
   ],
   "source_checks": {
     "The Pro's Closet": {
-      "last_checked": "2026-05-12T18:26:18.693398+00:00",
+      "last_checked": "2026-05-12T20:27:33.666647+00:00",
       "count_evaluated": 93,
       "status": "ok"
     },
@@ -60,32 +351,32 @@
       "status": "ok"
     },
     "Worldwide Cyclery": {
-      "last_checked": "2026-05-12T18:26:25.785920+00:00",
+      "last_checked": "2026-05-12T20:29:24.986292+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
     "Fanatik Bike": {
-      "last_checked": "2026-05-12T18:26:26.769465+00:00",
+      "last_checked": "2026-05-12T20:29:25.414896+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
     "Cambria Bike": {
-      "last_checked": "2026-05-12T18:26:27.497696+00:00",
+      "last_checked": "2026-05-12T20:29:25.786133+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
     "Bicycle Warehouse": {
-      "last_checked": "2026-05-12T18:26:19.552203+00:00",
+      "last_checked": "2026-05-12T20:27:49.010180+00:00",
       "count_evaluated": 15,
       "status": "ok"
     },
     "Mike's Bikes": {
-      "last_checked": "2026-05-12T18:26:27.808433+00:00",
+      "last_checked": "2026-05-12T20:29:26.153491+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
     "ERIK'S Bike Shop": {
-      "last_checked": "2026-05-12T18:26:28.177325+00:00",
+      "last_checked": "2026-05-12T20:29:26.607593+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
@@ -95,7 +386,7 @@
       "status": "ok"
     },
     "Velomine": {
-      "last_checked": "2026-05-12T18:26:28.859923+00:00",
+      "last_checked": "2026-05-12T20:29:26.907992+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
@@ -115,42 +406,42 @@
       "status": "ok"
     },
     "Incycle": {
-      "last_checked": "2026-05-12T18:26:20.524733+00:00",
+      "last_checked": "2026-05-12T20:27:53.176347+00:00",
       "count_evaluated": 2,
       "status": "ok"
     },
     "Colorado Cyclist": {
-      "last_checked": "2026-05-12T18:26:21.373779+00:00",
+      "last_checked": "2026-05-12T20:27:59.898501+00:00",
       "count_evaluated": 17,
       "status": "ok"
     },
     "BikesOnline": {
-      "last_checked": "2026-05-12T18:26:22.152567+00:00",
+      "last_checked": "2026-05-12T20:28:18.984561+00:00",
       "count_evaluated": 8,
       "status": "ok"
     },
     "Kona (Direct)": {
-      "last_checked": "2026-05-12T18:26:23.032123+00:00",
+      "last_checked": "2026-05-12T20:28:21.334161+00:00",
       "count_evaluated": 9,
       "status": "ok"
     },
     "Fuji (Direct)": {
-      "last_checked": "2026-05-12T18:26:23.784296+00:00",
+      "last_checked": "2026-05-12T20:28:48.535443+00:00",
       "count_evaluated": 13,
       "status": "ok"
     },
     "GT Bicycles (Direct)": {
-      "last_checked": "2026-05-12T18:26:24.467831+00:00",
+      "last_checked": "2026-05-12T20:28:55.230260+00:00",
       "count_evaluated": 7,
       "status": "ok"
     },
     "Diamondback (Direct)": {
-      "last_checked": "2026-05-12T18:26:25.228520+00:00",
+      "last_checked": "2026-05-12T20:29:24.386300+00:00",
       "count_evaluated": 20,
       "status": "ok"
     },
     "Ari Bikes": {
-      "last_checked": "2026-05-12T18:26:29.185230+00:00",
+      "last_checked": "2026-05-12T20:29:27.385663+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
@@ -170,12 +461,12 @@
       "status": "ok"
     },
     "Marin": {
-      "last_checked": "2026-05-12T18:27:09.588162+00:00",
+      "last_checked": "2026-05-12T20:31:53.807178+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
     "Dick's Sporting Goods": {
-      "last_checked": "2026-05-12T18:27:53.986101+00:00",
+      "last_checked": "2026-05-12T20:33:21.071853+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
@@ -185,8 +476,8 @@
       "status": "error"
     },
     "Pinkbike Deals": {
-      "last_checked": "2026-05-12T18:27:16.736945+00:00",
-      "count_evaluated": 25,
+      "last_checked": "2026-05-12T20:32:00.636319+00:00",
+      "count_evaluated": 23,
       "status": "ok"
     },
     "Pinkbike Buy/Sell": {
@@ -195,27 +486,27 @@
       "status": "ok"
     },
     "SweetWater Bicycles": {
-      "last_checked": "2026-05-12T18:27:39.225054+00:00",
+      "last_checked": "2026-05-12T20:32:23.420209+00:00",
       "count_evaluated": 1,
       "status": "ok"
     },
     "Trailhead Cycling": {
-      "last_checked": "2026-05-12T18:27:46.430422+00:00",
+      "last_checked": "2026-05-12T20:32:32.401860+00:00",
       "count_evaluated": 29,
       "status": "ok"
     },
     "88 Cycling": {
-      "last_checked": "2026-05-12T18:28:04.208046+00:00",
+      "last_checked": "2026-05-12T20:33:31.756200+00:00",
       "count_evaluated": 15,
       "status": "ok"
     },
     "Canyon": {
-      "last_checked": "2026-05-12T18:28:13.594047+00:00",
+      "last_checked": "2026-05-12T20:33:41.823345+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
     "Batch Bicycles": {
-      "last_checked": "2026-05-12T18:28:23.855322+00:00",
+      "last_checked": "2026-05-12T20:33:51.661893+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
@@ -225,17 +516,17 @@
       "status": "error"
     },
     "Trek Sale": {
-      "last_checked": "2026-05-12T18:26:40.809619+00:00",
+      "last_checked": "2026-05-12T20:31:19.837052+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
     "Giant Clearance": {
-      "last_checked": "2026-05-12T18:26:50.198697+00:00",
+      "last_checked": "2026-05-12T20:31:29.513511+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
     "Specialized Sale": {
-      "last_checked": "2026-05-12T18:27:01.410572+00:00",
+      "last_checked": "2026-05-12T20:31:40.051803+00:00",
       "count_evaluated": 1,
       "status": "ok"
     },
@@ -250,7 +541,7 @@
       "status": "ok"
     },
     "Bike Mart": {
-      "last_checked": "2026-05-12T18:26:32.301257+00:00",
+      "last_checked": "2026-05-12T20:31:11.638844+00:00",
       "count_evaluated": 135,
       "status": "ok"
     },
@@ -265,37 +556,37 @@
       "status": "ok"
     },
     "Slickdeals": {
-      "last_checked": "2026-05-12T18:29:01.827918+00:00",
+      "last_checked": "2026-05-12T20:34:32.629182+00:00",
       "count_evaluated": 16,
       "status": "ok"
     },
     "Pinkbike Buy/Sell (27.5 S/M)": {
-      "last_checked": "2026-05-12T18:27:25.392785+00:00",
+      "last_checked": "2026-05-12T20:32:09.614165+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
     "Pinkbike Buy/Sell (Marlin/Talon/Rockhopper)": {
-      "last_checked": "2026-05-12T18:27:32.471549+00:00",
+      "last_checked": "2026-05-12T20:32:16.697829+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
     "eBay Used (Small)": {
-      "last_checked": "2026-05-12T18:28:30.108860+00:00",
+      "last_checked": "2026-05-12T20:33:58.047504+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
     "eBay Used (Medium)": {
-      "last_checked": "2026-05-12T18:28:37.755149+00:00",
+      "last_checked": "2026-05-12T20:34:05.671171+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
     "eBay New (Small)": {
-      "last_checked": "2026-05-12T18:28:45.176529+00:00",
+      "last_checked": "2026-05-12T20:34:13.464591+00:00",
       "count_evaluated": 0,
       "status": "ok"
     },
     "eBay New (Medium)": {
-      "last_checked": "2026-05-12T18:28:57.629296+00:00",
+      "last_checked": "2026-05-12T20:34:21.026504+00:00",
       "count_evaluated": 0,
       "status": "ok"
     }

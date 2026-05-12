@@ -627,21 +627,42 @@ Be strict. 7+ only for genuine value."""
 
     try:
         response = client.messages.create(
-            model="claude-haiku-4-5-20251001",
+            model=”claude-haiku-4-5-20251001”,
             max_tokens=200,
-            messages=[{"role": "user", "content": prompt}],
+            messages=[{“role”: “user”, “content”: prompt}],
         )
         text = response.content[0].text.strip()
-        m = re.search(r'\{.*?\}', text, re.DOTALL)
+
+        # Strategy 1: direct JSON parse
+        m = re.search(r’\{.*?\}’, text, re.DOTALL)
         if m:
             raw = m.group()
-            # Clean common JSON issues: smart quotes, trailing commas
-            raw = raw.replace('‘', "'").replace('’', "'")
-            raw = raw.replace('“', '"').replace('”', '"')
-            raw = re.sub(r',\s*([}\]])', r'\1', raw)  # trailing commas
-            return json.loads(raw)
+            try:
+                # Clean common issues: smart quotes, trailing commas, inch marks
+                raw = raw.replace(‘“’, ‘”’).replace(‘”’, ‘”’)
+                raw = raw.replace(‘‘’, “’”).replace(‘’’, “’”)
+                raw = re.sub(r’,\s*([}\]])’, r’\1’, raw)
+                return json.loads(raw)
+            except json.JSONDecodeError:
+                pass
+
+        # Strategy 2: extract individual fields with regex (handles broken JSON)
+        score_m   = re.search(r’”score”\s*:\s*(\d+)’, text)
+        verdict_m = re.search(r’”verdict”\s*:\s*”([^”]+)”’, text)
+        reason_m  = re.search(r’”reason”\s*:\s*”([^”]+)”’, text)
+        reject_m  = re.search(r’”reject”\s*:\s*(true|false)’, text)
+        size_m    = re.search(r’”size_confirmed”\s*:\s*(true|false)’, text)
+        if score_m:
+            return {
+                “score”:          int(score_m.group(1)),
+                “verdict”:        verdict_m.group(1) if verdict_m else “unknown”,
+                “reason”:         reason_m.group(1) if reason_m else “”,
+                “reject”:         reject_m.group(1) == “true” if reject_m else False,
+                “size_confirmed”: size_m.group(1) == “true” if size_m else False,
+            }
+
     except Exception as e:
-        log(f"  Claude eval error: {e}")
+        log(f”  Claude eval error: {e}”)
 
     return _rule_based_score(listing)
 
@@ -650,8 +671,18 @@ def _rule_based_score(listing: dict) -> dict:
     title = (listing.get('title', '') + ' ' + listing.get('specs', '')).lower()
     price = listing.get('price', 9999) or 9999
 
+    # Hard rejects
     if any(x in title for x in ['3x', 'rim brake', 'v-brake']):
         return {"score": 0, "verdict": "reject", "reason": "3x drivetrain or rim brakes", "reject": True, "size_confirmed": False}
+
+    # Must have an approved brand — fallback shouldn't reward unknown brands
+    if not any(b in title for b in _TARGET_BRANDS):
+        return {"score": 0, "verdict": "reject", "reason": "No approved brand detected", "reject": True, "size_confirmed": False}
+
+    # Reject non-MTB bikes that slip through (gravel, road, etc.)
+    non_mtb = ["bolinas ridge", "gravel", "road bike", "cyclocross", "commuter", "city bike", "fixie", "bmx"]
+    if any(x in title for x in non_mtb):
+        return {"score": 0, "verdict": "reject", "reason": "Not a hardtail MTB", "reject": True, "size_confirmed": False}
 
     score = 5
     if price <= 650:   score += 2

@@ -1722,6 +1722,12 @@ def main():
             log(f"  ERROR on {source['name']}: {e}")
             _record_source(source["name"], 0, False)
 
+    # ── Add alerted URLs to seen_urls so we never re-alert on the same deal ──
+    for d in new_deals:
+        url = d["listing"].get("url", "")
+        if url:
+            seen_urls.add(url)
+
     # ── Save state ─────────────────────────────────────────────────────────────
     state["seen_urls"]     = list(seen_urls)[-3000:]
     state["last_run"]      = datetime.now(timezone.utc).isoformat()
@@ -1755,23 +1761,28 @@ def _evaluate_listings(listings: list[dict], seen_urls: set) -> list[dict]:
     """
     Evaluate a batch of listings against criteria.
     Pre-filters obvious rejects before calling Claude to minimize API cost.
-    Deduplicates by URL within this batch.
-    Returns deals scoring MIN_SCORE_TO_ALERT or higher.
+
+    seen_urls = URLs we've already ALERTED on (sent email). These are skipped
+    to prevent duplicate alerts. Everything else is re-evaluated every run so
+    we catch price drops and new listings. Within-run duplicates handled by
+    batch_seen.
     """
-    deals    = []
-    batch_seen = set()  # dedup within this source's batch
+    deals      = []
+    batch_seen = set()  # dedup within this source's batch only
 
     pre_filtered = 0
     for listing in listings:
         url = listing.get("url", "")
 
-        # Skip already-seen URLs (across all runs)
+        # Skip URLs we've already sent an alert for
         if url and url in seen_urls:
             continue
 
         # Dedup within current batch (same product, multiple variants)
         if url and url in batch_seen:
             continue
+        if url:
+            batch_seen.add(url)
 
         if not listing.get("title") or len(listing["title"]) < 5:
             continue
@@ -1780,9 +1791,6 @@ def _evaluate_listings(listings: list[dict], seen_urls: set) -> list[dict]:
         skip, reason = _pre_filter(listing)
         if skip:
             pre_filtered += 1
-            if url:
-                seen_urls.add(url)
-                batch_seen.add(url)
             continue
 
         # ── Claude evaluation ─────────────────────────────────────────────────
@@ -1795,10 +1803,6 @@ def _evaluate_listings(listings: list[dict], seen_urls: set) -> list[dict]:
         score  = evaluation.get("score", 0)
         reject = evaluation.get("reject", False)
         log(f"    [{score}/10] {listing.get('title', '?')[:60]} — {evaluation.get('verdict', '?')}")
-
-        if url:
-            seen_urls.add(url)
-            batch_seen.add(url)
 
         if not reject and score >= MIN_SCORE_TO_ALERT:
             log(f"    ★ DEAL: {listing.get('title', '?')}")

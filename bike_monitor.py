@@ -643,9 +643,9 @@ Be strict. 7+ only for genuine value."""
         if m:
             raw = m.group()
             try:
-                # Clean common issues: smart quotes, trailing commas, inch marks
-                raw = raw.replace(‘“’, ‘”’).replace(‘”’, ‘”’)
-                raw = raw.replace(‘‘’, “’”).replace(‘’’, “’”)
+                # Clean common JSON issues: trailing commas, smart quotes (by unicode escape)
+                raw = raw.replace(chr(0x201c), chr(0x22)).replace(chr(0x201d), chr(0x22))
+                raw = raw.replace(chr(0x2018), chr(0x27)).replace(chr(0x2019), chr(0x27))
                 raw = re.sub(r’,\s*([}\]])’, r’\1’, raw)
                 return json.loads(raw)
             except json.JSONDecodeError:

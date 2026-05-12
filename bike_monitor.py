@@ -398,6 +398,7 @@ _TARGET_BRANDS = {
     "liv",          # Giant's women's sub-brand — quality bikes, appropriate for teen girls
     "polygon",      # Xtrada, Cascade — incredible spec/dollar, sold via bikes.com
     "vitus",        # Nucleus — good spec, sometimes available in US
+    "jamis",        # Trail X series — solid hardtail MTBs, respected brand
 }
 
 _TARGET_MODELS = {
@@ -423,6 +424,8 @@ _TARGET_MODELS = {
     "nevada", "addy", "rakan",
     # Co-op Cycles (REI house brand — outstanding value)
     "drt",
+    # Jamis
+    "trail x", "highpoint", "divide",
     # Polygon
     "xtrada", "cascade", "heist",
     # Ari Bikes (formerly Fezzari)
@@ -560,6 +563,8 @@ Tier 2 — Strong alternatives:
 
 Tier 3 — Accept only if deeply discounted or exceptional spec:
   Liv (Giant's women's sub-brand) — Tempt, Bliss are quality but verify they fit teen rider
+  Jamis — Trail X series are solid hardtail MTBs, Highpoint and Divide also acceptable
+  Marin Bolinas Ridge — flat-bar adventure/trail bike, appropriate for this rider's use case
   Other reputable brands with verifiable components
 
 Reject outright: Mongoose, Huffy, Kent, Hyper, Pacific, Walmart/Target brands, unknown brands
@@ -679,8 +684,8 @@ def _rule_based_score(listing: dict) -> dict:
     if not any(b in title for b in _TARGET_BRANDS):
         return {"score": 0, "verdict": "reject", "reason": "No approved brand detected", "reject": True, "size_confirmed": False}
 
-    # Reject non-MTB bikes that slip through (gravel, road, etc.)
-    non_mtb = ["bolinas ridge", "gravel", "road bike", "cyclocross", "commuter", "city bike", "fixie", "bmx"]
+    # Reject clear non-MTB types only
+    non_mtb = ["road bike", "cyclocross", "commuter", "city bike", "fixie", "bmx", "drop bar"]
     if any(x in title for x in non_mtb):
         return {"score": 0, "verdict": "reject", "reason": "Not a hardtail MTB", "reject": True, "size_confirmed": False}
 

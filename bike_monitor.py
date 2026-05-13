@@ -1648,6 +1648,7 @@ def main():
 
     state         = load_state()
     seen_urls     = set(state.get("seen_urls", []))
+    eval_cache    = state.get("eval_cache", {})
     source_checks = state.get("source_checks", {})
     new_deals     = []
 
@@ -1663,7 +1664,7 @@ def main():
         log(f"Checking: {source['name']} (Shopify API)")
         try:
             listings = _shopify_fetch(source["shop_url"], source["collection_slugs"], source["name"])
-            deals    = _evaluate_listings(listings, seen_urls)
+            deals    = _evaluate_listings(listings, seen_urls, eval_cache)
             new_deals.extend(deals)
             _record_source(source["name"], len(listings), True)
         except Exception as e:
@@ -1716,7 +1717,7 @@ def main():
                 listings = []
                 _record_source(source["name"], 0, False)
 
-            for deal in _evaluate_listings(listings, seen_urls):
+            for deal in _evaluate_listings(listings, seen_urls, eval_cache):
                 new_deals.append(deal)
 
             time.sleep(2)
@@ -1731,7 +1732,7 @@ def main():
                 listings = scrape_slickdeals()
             else:
                 listings = []
-            deals = _evaluate_listings(listings, seen_urls)
+            deals = _evaluate_listings(listings, seen_urls, eval_cache)
             new_deals.extend(deals)
             _record_source(source["name"], len(listings), True)
         except Exception as e:
@@ -1746,6 +1747,12 @@ def main():
 
     # ── Save state ─────────────────────────────────────────────────────────────
     state["seen_urls"]     = list(seen_urls)[-3000:]
+    # Prune eval_cache entries older than EVAL_CACHE_DAYS to keep state file lean
+    cutoff = (datetime.now(timezone.utc).replace(tzinfo=None) -
+              __import__('datetime').timedelta(days=EVAL_CACHE_DAYS)).isoformat()
+    eval_cache = {k: v for k, v in eval_cache.items()
+                  if v.get("cached_at", "") > cutoff}
+    state["eval_cache"]    = eval_cache
     state["last_run"]      = datetime.now(timezone.utc).isoformat()
     state["source_checks"] = source_checks
     state["deals_found"] = state.get("deals_found", []) + [
@@ -1773,18 +1780,27 @@ def main():
     log("═══ Run complete ═══\n")
 
 
-def _evaluate_listings(listings: list[dict], seen_urls: set) -> list[dict]:
+EVAL_CACHE_DAYS = 7  # re-evaluate listings after this many days (catches price drops)
+
+def _evaluate_listings(listings: list[dict], seen_urls: set,
+                       eval_cache: dict | None = None) -> list[dict]:
     """
     Evaluate a batch of listings against criteria.
     Pre-filters obvious rejects before calling Claude to minimize API cost.
 
-    seen_urls = URLs we've already ALERTED on (sent email). These are skipped
-    to prevent duplicate alerts. Everything else is re-evaluated every run so
-    we catch price drops and new listings. Within-run duplicates handled by
-    batch_seen.
+    seen_urls  = URLs we've ALERTED on — never re-alert on these.
+    eval_cache = {url: {score, verdict, reason, cached_at}} — skip Claude if
+                 evaluated within EVAL_CACHE_DAYS to control API costs.
+                 Re-evaluates after that window in case prices changed.
     """
+    if eval_cache is None:
+        eval_cache = {}
+
     deals      = []
-    batch_seen = set()  # dedup within this source's batch only
+    batch_seen = set()
+    cache_hits = 0
+
+    now = datetime.now(timezone.utc)
 
     pre_filtered = 0
     for listing in listings:
@@ -1809,12 +1825,30 @@ def _evaluate_listings(listings: list[dict], seen_urls: set) -> list[dict]:
             pre_filtered += 1
             continue
 
+        # ── Eval cache: skip Claude if evaluated recently ─────────────────────
+        cached = eval_cache.get(url) if url else None
+        if cached:
+            try:
+                age_days = (now - datetime.fromisoformat(cached["cached_at"])).days
+                if age_days < EVAL_CACHE_DAYS:
+                    cache_hits += 1
+                    score = cached.get("score", 0)
+                    if not cached.get("reject", False) and score >= MIN_SCORE_TO_ALERT:
+                        deals.append({"listing": listing, "evaluation": cached})
+                    continue
+            except Exception:
+                pass  # bad cache entry — fall through to Claude
+
         # ── Claude evaluation ─────────────────────────────────────────────────
         try:
             evaluation = evaluate_listing(listing)
         except Exception as e:
             log(f"    Eval error: {e}")
             continue
+
+        # Store in cache
+        if url:
+            eval_cache[url] = {**evaluation, "cached_at": now.isoformat()}
 
         score  = evaluation.get("score", 0)
         reject = evaluation.get("reject", False)
@@ -1825,7 +1859,7 @@ def _evaluate_listings(listings: list[dict], seen_urls: set) -> list[dict]:
             deals.append({"listing": listing, "evaluation": evaluation})
 
     if pre_filtered:
-        log(f"    ({pre_filtered} listing(s) pre-filtered — saved {pre_filtered} Claude calls)")
+        log(f"    ({pre_filtered} pre-filtered, {cache_hits} cache hits — saved {pre_filtered + cache_hits} Claude calls)")
 
     return deals
 

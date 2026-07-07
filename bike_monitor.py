@@ -71,6 +71,14 @@ STATUS_FILE = Path(__file__).parent / "bike_status.html"
 MIN_SCORE_TO_ALERT = 7   # Claude score out of 10
 SEEN_URLS_MAX       = 3000  # cap on persisted seen_urls history
 ZERO_RESULT_STALE_STREAK = 5  # consecutive zero-result "ok" runs before flagging a source as stale
+PRICE_MIN           = 150   # sanity-check bounds for a legit listing price
+PRICE_MAX           = 950
+SHOPIFY_MAX_PAGES   = 5     # per collection slug
+SHOPIFY_PAGE_SIZE   = 250
+DOM_SCAN_PRICE_MIN = 100    # wide net for the DOM scanner — real filtering happens downstream
+DOM_SCAN_PRICE_MAX = 3000
+EBAY_MAX_PAGES     = 3
+CAD_TO_USD_RATE    = 0.73   # approximate; revisit periodically — not a live FX feed
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  SOURCES
@@ -383,9 +391,32 @@ def save_state(state: dict):
 #  HELPERS
 # ─────────────────────────────────────────────────────────────────────────────
 
+_PRICE_TOKEN_RE      = re.compile(r'\$\s*([\d,]+(?:\.\d{2})?)')
+_SALE_PRECEDER_RE    = re.compile(r'\b(now|sale|our\s*price|price|today|current(?:ly)?)\b', re.IGNORECASE)
+_MSRP_PRECEDER_RE    = re.compile(r'\b(was|msrp|reg(?:ular)?|orig(?:inal)?(?:ly)?|compare|list\s*price)\b', re.IGNORECASE)
+
 def _extract_price(text: str) -> float | None:
-    m = re.search(r'\$\s*([\d,]+(?:\.\d{2})?)', text)
-    return float(m.group(1).replace(',', '')) if m else None
+    """
+    Extract the current/sale price from listing text.
+    Prefers an amount tagged as "now/sale/price"; otherwise drops amounts
+    tagged as "was/msrp/reg/orig" and takes the lowest of what's left
+    (handles "Was $700, Now $500" listings, which used to return the MSRP).
+    """
+    if not text:
+        return None
+    matches = list(_PRICE_TOKEN_RE.finditer(text))
+    if not matches:
+        return None
+    for m in matches:
+        if _SALE_PRECEDER_RE.search(text[max(0, m.start() - 20):m.start()]):
+            return float(m.group(1).replace(',', ''))
+    candidates = [
+        float(m.group(1).replace(',', '')) for m in matches
+        if not _MSRP_PRECEDER_RE.search(text[max(0, m.start() - 20):m.start()])
+    ]
+    if candidates:
+        return min(candidates)
+    return float(matches[0].group(1).replace(',', ''))
 
 def _extract_msrp(text: str) -> float | None:
     m = re.search(
@@ -448,13 +479,6 @@ _TARGET_MODELS = {
     "hardtail",
 }
 
-_REJECT_WHEELS = {
-    # Explicit wrong wheel sizes — 650b is SAME as 27.5, do NOT reject it
-    "26\"", " 26 ", "29\"", " 29 ", "700c",
-    "24\"", " 24 ", "20\"", " 20 ", "16\"",
-    "27.5+",   # plus-size / 3.0" tire — different geometry, not ideal for beginner
-}
-
 _REJECT_TYPES = {
     "full suspension", "full-suspension", "e-bike", "ebike", "electric bike",
     "fat bike", "fatbike", "fat-bike",
@@ -475,6 +499,24 @@ _REJECT_TYPES = {
 # Reject: rim brakes, v-brakes
 
 
+def _compile_term_regex(terms: set) -> re.Pattern:
+    """Word-boundary regex for a keyword set (handles multi-word terms and stray whitespace)."""
+    parts = sorted((re.escape(t.strip()) for t in terms if t.strip()), key=len, reverse=True)
+    return re.compile(r'(?<![A-Za-z0-9])(?:' + '|'.join(parts) + r')(?![A-Za-z0-9])', re.IGNORECASE)
+
+
+_TARGET_BRANDS_RE = _compile_term_regex(_TARGET_BRANDS)
+_TARGET_MODELS_RE = _compile_term_regex(_TARGET_MODELS)
+_REJECT_TYPES_RE  = _compile_term_regex(_REJECT_TYPES)
+
+# Wheel-size reject: catches `26"`, `26-Inch`, `26in`, bare `26`, `700c`, and `27.5+`
+# without matching digits embedded in a larger number (e.g. a $1260 price).
+_REJECT_WHEEL_RE = re.compile(
+    r'\b(?:26|29|24|20|16)(?:\s*(?:"|-?in(?:ch)?\b)|\b)|\b700c\b|27\.5\s*\+',
+    re.IGNORECASE
+)
+
+
 def _pre_filter(listing: dict) -> tuple[bool, str]:
     """
     Fast rule-based pre-filter before calling Claude.
@@ -489,12 +531,12 @@ def _pre_filter(listing: dict) -> tuple[bool, str]:
     combined = title + " " + specs
 
     # Hard reject: wrong bike type (unambiguous)
-    if any(t in combined for t in _REJECT_TYPES):
+    if _REJECT_TYPES_RE.search(combined):
         return True, "wrong type"
 
     # Hard reject: wrong wheel size — only based on TITLE, not full specs
     # (specs may mention other sizes in comparisons or accessory info)
-    if any(w in title for w in _REJECT_WHEELS):
+    if _REJECT_WHEEL_RE.search(title):
         return True, "wrong wheel size in title"
 
     # Hard reject: wrong frame size — ONLY use the extracted size field
@@ -504,14 +546,14 @@ def _pre_filter(listing: dict) -> tuple[bool, str]:
         return True, f"wrong size ({size_raw})"
 
     # Must have a recognizable brand or model name
-    has_brand = any(b in combined for b in _TARGET_BRANDS)
-    has_model = any(m in combined for m in _TARGET_MODELS)
+    has_brand = bool(_TARGET_BRANDS_RE.search(combined))
+    has_model = bool(_TARGET_MODELS_RE.search(combined))
     if not has_brand and not has_model:
         return True, "no recognized brand or model"
 
     # Price sanity check
     price = listing.get("price")
-    if price and (price < 150 or price > 950):
+    if price is not None and (price < PRICE_MIN or price > PRICE_MAX):
         return True, f"price ${price:.0f} out of range"
 
     return False, ""
@@ -532,13 +574,20 @@ def _extract_size(text: str) -> str:
     }
     return mapping.get(m.group(1).upper(), m.group(1))
 
-def _strip_html(html: str) -> str:
-    return re.sub(r'<[^>]+>', ' ', html or '').strip()
+_SCRIPT_STYLE_RE = re.compile(r'<(script|style)\b[^>]*>.*?</\1>', re.DOTALL | re.IGNORECASE)
+_TAG_RE          = re.compile(r'<[^>]+>')
+
+def _strip_html(raw_html: str) -> str:
+    if not raw_html:
+        return ""
+    cleaned = _SCRIPT_STYLE_RE.sub(' ', raw_html)
+    cleaned = _TAG_RE.sub(' ', cleaned)
+    return html.unescape(cleaned).strip()
 
 def _quick_price_filter(price: float | None) -> bool:
     if price is None:
         return True
-    return 150 <= price <= 950
+    return PRICE_MIN <= price <= PRICE_MAX
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  CLAUDE EVALUATION
@@ -686,7 +735,8 @@ Be strict. 7+ only for genuine value."""
 
 def _rule_based_score(listing: dict) -> dict:
     title = (listing.get('title', '') + ' ' + listing.get('specs', '')).lower()
-    price = listing.get('price', 9999) or 9999
+    _raw_price = listing.get('price')
+    price = _raw_price if _raw_price is not None else 9999
 
     # Hard rejects
     if any(x in title for x in ['3x', 'rim brake', 'v-brake']):
@@ -727,20 +777,32 @@ def _rule_based_score(listing: dict) -> dict:
 #  SHOPIFY API SCRAPER (The Pro's Closet, Jenson USA)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _shopify_fetch(shop_url: str, collection_slugs: list, source: str) -> list[dict]:
+def _variant_price(v: dict) -> float:
+    """Coerce a Shopify variant's price to a float, tolerating explicit JSON null."""
+    p = v.get("price")
+    try:
+        return float(p) if p is not None else 0.0
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def _shopify_fetch(shop_url: str, collection_slugs: list, source: str) -> tuple[list[dict], str | None]:
     """
     Fetch products from a Shopify store's public collection JSON endpoint.
-    Tries each slug in collection_slugs until one returns results.
+    Probes every configured slug and paginates each one that works, since a
+    shop can split relevant inventory across multiple collections.
     No browser needed — pure HTTP.
     """
     listings = []
+    fetch_error = None
+    seen_urls_this_source = set()
     headers  = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
         "Accept":     "application/json",
     }
 
-    # Find the first working collection slug
-    working_slug = None
+    # Find every working collection slug (not just the first)
+    working_slugs = []
     for slug in collection_slugs:
         test_url = f"{shop_url}/collections/{slug}/products.json?limit=1"
         try:
@@ -748,84 +810,95 @@ def _shopify_fetch(shop_url: str, collection_slugs: list, source: str) -> list[d
             with urllib.request.urlopen(req, timeout=10) as r:
                 data = json.loads(r.read())
             if data.get("products") is not None:
-                working_slug = slug
-                break
+                working_slugs.append(slug)
         except Exception:
             continue
 
-    if not working_slug:
-        log(f"  {source}: no working Shopify collection found — skipping")
-        return []
+    if not working_slugs:
+        msg = "no working Shopify collection found"
+        log(f"  {source}: {msg} — skipping")
+        return [], msg
 
-    page = 1
-    while page <= 5:  # max 5 pages × 250 = 1250 products
-        url = f"{shop_url}/collections/{working_slug}/products.json?limit=250&page={page}"
-        try:
-            req = urllib.request.Request(url, headers=headers)
-            with urllib.request.urlopen(req, timeout=15) as r:
-                data = json.loads(r.read())
-        except Exception as e:
-            log(f"  {source} Shopify fetch error: {e}")
-            break
+    for slug in working_slugs:
+        page = 1
+        while page <= SHOPIFY_MAX_PAGES:
+            url = f"{shop_url}/collections/{slug}/products.json?limit={SHOPIFY_PAGE_SIZE}&page={page}"
+            try:
+                req = urllib.request.Request(url, headers=headers)
+                with urllib.request.urlopen(req, timeout=15) as r:
+                    data = json.loads(r.read())
+            except Exception as e:
+                log(f"  {source} ({slug}) Shopify fetch error: {e}")
+                fetch_error = fetch_error or str(e)
+                break
 
-        products = data.get("products", [])
-        if not products:
-            break
+            products = data.get("products", [])
+            if not products:
+                break
 
-        for product in products:
-            title   = product.get("title", "")
-            handle  = product.get("handle", "")
-            prod_url = f"{shop_url}/products/{handle}"
-            body    = _strip_html(product.get("body_html", ""))
-            variants = product.get("variants", [])
+            for product in products:
+                try:
+                    handle   = product.get("handle", "")
+                    prod_url = f"{shop_url}/products/{handle}"
+                    if prod_url in seen_urls_this_source:
+                        continue
 
-            # Find the lowest available price
-            avail_prices = [
-                float(v.get("price", 0)) for v in variants
-                if v.get("available", True) and float(v.get("price", 0)) > 0
-            ]
-            if not avail_prices:
-                avail_prices = [float(v.get("price", 0)) for v in variants if float(v.get("price", 0)) > 0]
+                    title    = product.get("title", "")
+                    body     = _strip_html(product.get("body_html", ""))
+                    variants = product.get("variants", [])
 
-            price = min(avail_prices) if avail_prices else None
-            if not _quick_price_filter(price):
-                continue
+                    # Only consider variants that are actually in stock —
+                    # a fully sold-out product shouldn't surface as a "deal".
+                    avail_prices = [
+                        _variant_price(v) for v in variants
+                        if v.get("available", True) and _variant_price(v) > 0
+                    ]
+                    if not avail_prices:
+                        continue
 
-            # Find available sizes from variant options
-            size_options = []
-            for variant in variants:
-                if not variant.get("available", True):
+                    price = min(avail_prices)
+                    if not _quick_price_filter(price):
+                        continue
+
+                    # Find available sizes from variant options
+                    size_options = []
+                    for variant in variants:
+                        if not variant.get("available", True):
+                            continue
+                        for opt_key in ["option1", "option2", "option3"]:
+                            opt_val = variant.get(opt_key, "")
+                            if opt_val and _extract_size(opt_val) != "unknown":
+                                size_options.append(opt_val)
+
+                    size_str = ", ".join(sorted(set(size_options))) if size_options else "unknown"
+                    specs    = f"{body[:400]}" if body else ""
+
+                    listings.append({
+                        "source":     source,
+                        "title":      title[:120],
+                        "price":      price,
+                        "msrp":       _extract_msrp(body),
+                        "size":       size_str,
+                        "specs":      specs,
+                        "url":        prod_url,
+                        "local_only": False,
+                    })
+                    seen_urls_this_source.add(prod_url)
+                except Exception as e:
+                    log(f"  {source}: skipping malformed product {product.get('handle', '?')}: {e}")
                     continue
-                for opt_key in ["option1", "option2", "option3"]:
-                    opt_val = variant.get(opt_key, "")
-                    if opt_val and _extract_size(opt_val) != "unknown":
-                        size_options.append(opt_val)
 
-            size_str = ", ".join(sorted(set(size_options))) if size_options else "unknown"
-            specs    = f"{body[:400]}" if body else ""
-
-            listings.append({
-                "source":     source,
-                "title":      title[:120],
-                "price":      price,
-                "msrp":       _extract_msrp(body),
-                "size":       size_str,
-                "specs":      specs,
-                "url":        prod_url,
-                "local_only": False,
-            })
-
-        page += 1
+            page += 1
 
     log(f"  {source} (Shopify API): {len(listings)} product(s) in budget range")
-    return listings
+    return listings, fetch_error
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  NETWORK INTERCEPTION SCRAPER (brand sites)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _scrape_with_interception(page, source_config: dict) -> list[dict]:
+def _scrape_with_interception(page, source_config: dict) -> tuple[list[dict], str | None]:
     """
     Navigate to a brand site page and intercept any JSON API responses
     that look like product listings. Falls back to DOM extraction if no
@@ -913,13 +986,15 @@ def _scrape_with_interception(page, source_config: dict) -> list[dict]:
         else:
             # Fallback: DOM extraction
             log(f"  {source}: no API responses captured — falling back to DOM extraction")
-            listings = _scrape_dom(page, source, base_url, keywords)
+            listings, err = _scrape_dom(page, source, base_url, keywords)
+            return listings, err
 
     except Exception as e:
         log(f"  {source} interception error: {e}")
-        listings = _scrape_dom(page, source, base_url, keywords)
+        listings, _dom_err = _scrape_dom(page, source, base_url, keywords)
+        return listings, str(e)
 
-    return listings
+    return listings, None
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -927,16 +1002,18 @@ def _scrape_with_interception(page, source_config: dict) -> list[dict]:
 # ─────────────────────────────────────────────────────────────────────────────
 
 _EXTRACT_JS = """
-(baseUrl) => {
+([baseUrl, minPrice, maxPrice]) => {
     const results = [];
     const seen = new Set();
 
-    // Find all text nodes containing prices, walk up to product container
+    // Find all text nodes containing a dollar amount, walk up to product container.
+    // Detection is deliberately unbounded (any $ amount) — the min/max range check
+    // below is what actually filters, so this can see bikes under $200 or over $999.
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     const priceNodes = [];
     let node;
     while ((node = walker.nextNode())) {
-        if (/\\$\\s*[2-9]\\d{2}/.test(node.textContent)) {
+        if (/\\$\\s*\\d{1,3}(?:,\\d{3})*(?:\\.\\d{2})?/.test(node.textContent)) {
             priceNodes.push(node.parentElement);
         }
     }
@@ -963,7 +1040,7 @@ _EXTRACT_JS = """
 
         const priceMatch = text.match(/\\$\\s*([\\d,]+(?:\\.\\d{2})?)/);
         const price = priceMatch ? parseFloat(priceMatch[1].replace(',', '')) : null;
-        if (!price || price < 150 || price > 2000) continue;
+        if (!price || price < minPrice || price > maxPrice) continue;
 
         results.push({
             title: title.substring(0, 150),
@@ -977,10 +1054,10 @@ _EXTRACT_JS = """
 """
 
 def _scrape_dom(page, source: str, base_url: str,
-                keywords: list | None = None) -> list[dict]:
+                keywords: list | None = None) -> tuple[list[dict], str | None]:
     listings = []
     try:
-        products = page.evaluate(_EXTRACT_JS, base_url)
+        products = page.evaluate(_EXTRACT_JS, [base_url, DOM_SCAN_PRICE_MIN, DOM_SCAN_PRICE_MAX])
         log(f"  {source} (DOM): {len(products)} price elements found")
         for p in products:
             if not _quick_price_filter(p.get("price")):
@@ -1001,65 +1078,84 @@ def _scrape_dom(page, source: str, base_url: str,
             })
     except Exception as e:
         log(f"  {source} DOM extraction error: {e}")
-    return listings
+        return listings, str(e)
+    return listings, None
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  EBAY SCRAPER
 # ─────────────────────────────────────────────────────────────────────────────
 
-def scrape_ebay(page, source_config: dict) -> list[dict]:
+def scrape_ebay(page, source_config: dict) -> tuple[list[dict], str | None]:
     """
     Scrape eBay hardtail mountain bike listings.
     Uses the universal DOM price extractor since eBay changes CSS classes frequently.
     Filters out non-bike items and eBay ghost listings.
+    Pages through up to EBAY_MAX_PAGES, stopping early once a page yields no
+    items we haven't already seen (end of real results, or eBay repeating the
+    last page past the actual result count).
     """
     listings = []
+    seen_hrefs = set()
+    base_url = source_config["url"]
     try:
-        page.goto(source_config["url"], wait_until="domcontentloaded", timeout=45000)
-        page.wait_for_timeout(5000)
+        for page_num in range(1, EBAY_MAX_PAGES + 1):
+            url = base_url if page_num == 1 else f"{base_url}&_pgn={page_num}"
+            page.goto(url, wait_until="domcontentloaded", timeout=45000)
+            page.wait_for_timeout(5000)
 
-        # Use universal price-based DOM extractor — resilient to eBay class changes
-        raw = _scrape_dom(page, "eBay", "https://www.ebay.com", None)
+            # Use universal price-based DOM extractor — resilient to eBay class changes
+            raw, dom_err = _scrape_dom(page, "eBay", "https://www.ebay.com", None)
 
-        for item in raw:
-            title = item.get("title", "")
-            text  = item.get("specs", "")
-            href  = item.get("url", "")
+            new_this_page = 0
+            for item in raw:
+                title = item.get("title", "")
+                href  = item.get("url", "")
 
-            # Skip eBay ghost/promo items
-            if any(x in title.lower() for x in ["shop on ebay", "results for", "sponsored"]):
-                continue
+                # Skip eBay ghost/promo items
+                if any(x in title.lower() for x in ["shop on ebay", "results for", "sponsored"]):
+                    continue
 
-            # eBay item URLs should contain /itm/ — filter navigation links
-            if href and "/itm/" not in href and "ebay.com" in href:
-                continue
+                # eBay item URLs should contain /itm/ — filter navigation links
+                if href and "/itm/" not in href and "ebay.com" in href:
+                    continue
 
-            # Clean tracking params from URL
-            if href and '?' in href:
-                href = href.split('?')[0]
+                # Clean tracking params from URL
+                if href and '?' in href:
+                    href = href.split('?')[0]
 
-            item["url"]        = href
-            item["source"]     = "eBay"
-            item["local_only"] = False
-            listings.append(item)
+                if href:
+                    if href in seen_hrefs:
+                        continue
+                    seen_hrefs.add(href)
+                    new_this_page += 1
+
+                item["url"]        = href
+                item["source"]     = "eBay"
+                item["local_only"] = False
+                listings.append(item)
+
+            if new_this_page == 0:
+                break  # no new items on this page — end of results
 
         log(f"  eBay: {len(listings)} listing(s) found")
     except Exception as e:
         log(f"  eBay scrape error: {e}")
-    return listings
+        return listings, str(e)
+    return listings, None
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  SLICKDEALS SCRAPER (RSS feed — no browser needed)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def scrape_slickdeals() -> list[dict]:
+def scrape_slickdeals() -> tuple[list[dict], str | None]:
     """
     Fetch Slickdeals RSS feed for mountain bike deals.
     Pure HTTP — no Playwright needed.
     """
     listings = []
+    feed_error = None
     headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"}
     urls = [
         "https://slickdeals.net/newsearch.php?src=frontpage&q=mountain+bike+hardtail&rss=1&pp=20",
@@ -1107,16 +1203,27 @@ def scrape_slickdeals() -> list[dict]:
                 })
         except Exception as e:
             log(f"  Slickdeals error: {e}")
+            feed_error = feed_error or str(e)
 
     log(f"  Slickdeals: {len(listings)} deal(s) found")
-    return listings
+    return listings, feed_error
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  PINKBIKE SCRAPERS
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _scrape_pinkbike_deals(page, source_config: dict) -> list[dict]:
+_CAD_RE = re.compile(r'\bCAD\b|C\$', re.IGNORECASE)
+
+
+def _normalize_currency(price: float | None, text: str) -> tuple[float | None, str]:
+    """Convert an approximate CAD price to USD — Pinkbike (Canadian) sometimes lists in CAD."""
+    if price is not None and _CAD_RE.search(text):
+        return round(price * CAD_TO_USD_RATE, 2), "CAD"
+    return price, "USD"
+
+
+def _scrape_pinkbike_deals(page, source_config: dict) -> tuple[list[dict], str | None]:
     """Scrape Pinkbike's curated deals page."""
     listings = []
     keywords = source_config.get("keywords", [])
@@ -1148,12 +1255,17 @@ def _scrape_pinkbike_deals(page, source_config: dict) -> list[dict]:
                 if href and not href.startswith('http'):
                     href = f"https://www.pinkbike.com{href}"
 
-                price = _extract_price(text)
+                raw_price = _extract_price(text)
+                price, currency = _normalize_currency(raw_price, text)
                 if not _quick_price_filter(price):
                     continue
 
                 lines = [l.strip() for l in text.split('\n') if l.strip()]
                 title = lines[0][:120] if lines else text[:80]
+
+                specs = text[:500]
+                if currency == "CAD" and raw_price is not None:
+                    specs = f"(orig. ${raw_price:.0f} CAD) {specs}"
 
                 listings.append({
                     "source":     "Pinkbike Deals",
@@ -1161,19 +1273,35 @@ def _scrape_pinkbike_deals(page, source_config: dict) -> list[dict]:
                     "price":      price,
                     "msrp":       _extract_msrp(text),
                     "size":       _extract_size(text),
-                    "specs":      text[:500],
+                    "specs":      specs,
                     "url":        href,
                     "local_only": False,
+                    "currency":   currency,
                 })
             except Exception:
                 continue
 
     except Exception as e:
         log(f"  Pinkbike Deals error: {e}")
-    return listings
+        return listings, str(e)
+    return listings, None
 
 
-def _scrape_pinkbike_buysell(page, source_config: dict) -> list[dict]:
+_NO_SHIP_RE = re.compile(
+    r"\b(won'?t\s+ship|will\s+not\s+ship|no\s+shipping|can(?:'?t|not)\s+ship|"
+    r"pickup\s+only|local\s+pickup\s+only)\b", re.IGNORECASE
+)
+_SHIP_RE = re.compile(r"\b(ship|ships|shipping|will\s+ship)\b", re.IGNORECASE)
+
+
+def _detect_ships(text: str) -> bool:
+    """True if the text indicates the seller will ship, false for local-pickup-only listings."""
+    if _NO_SHIP_RE.search(text):
+        return False
+    return bool(_SHIP_RE.search(text))
+
+
+def _scrape_pinkbike_buysell(page, source_config: dict) -> tuple[list[dict], str | None]:
     """
     Scrape Pinkbike Buy/Sell listings.
     Uses DOM extractor since Pinkbike's CSS classes change frequently.
@@ -1185,80 +1313,27 @@ def _scrape_pinkbike_buysell(page, source_config: dict) -> list[dict]:
         page.wait_for_timeout(5000)
 
         # Use the robust DOM price-based extractor
-        raw = _scrape_dom(page, source_config["name"], "https://www.pinkbike.com", None)
+        raw, dom_err = _scrape_dom(page, source_config["name"], "https://www.pinkbike.com", None)
 
         for listing in raw:
             text = listing.get("specs", "")
-            text_lower = text.lower()
-            ships = any(w in text_lower for w in ["ship", "ships", "shipping", "will ship"])
-
-            listing["local_only"] = not ships
+            listing["local_only"] = not _detect_ships(text)
             listing["source"]     = "Pinkbike Buy/Sell"
 
-            # Extract location if mentioned
-            loc_match = re.search(r'\b([A-Z][a-z]+(?:,\s*[A-Z]{2})?)\b', text)
-            if loc_match and listing.get("title"):
-                listing["title"] = listing["title"]  # keep as-is, location in specs
+            raw_price = listing.get("price")
+            price, currency = _normalize_currency(raw_price, text)
+            listing["price"]    = price
+            listing["currency"] = currency
+            if currency == "CAD" and raw_price is not None:
+                listing["specs"] = f"(orig. ${raw_price:.0f} CAD) {text}"
 
             listings.append(listing)
 
-        return listings
-
-        # Legacy CSS selector approach kept as reference but not used:
-        items = []
-        if not items:
-            items = page.query_selector_all('table tr, .buysell-results tr')
-
-        if not items:
-            return _scrape_dom(page, "Pinkbike Buy/Sell", "https://www.pinkbike.com", None)
-
-        for item in items:
-            try:
-                text = item.inner_text().strip()
-                if not text or len(text) < 10:
-                    continue
-
-                link_el = item.query_selector('a[href*="buysell"]')
-                if not link_el:
-                    link_el = item.query_selector('a')
-                href = link_el.get_attribute('href') if link_el else ''
-                if href and not href.startswith('http'):
-                    href = f"https://www.pinkbike.com{href}"
-
-                price = _extract_price(text)
-                if not _quick_price_filter(price):
-                    continue
-
-                lines = [l.strip() for l in text.split('\n') if l.strip()]
-                title = lines[0][:120] if lines else text[:80]
-
-                # Check if ships or local only
-                text_lower = text.lower()
-                ships = any(w in text_lower for w in ["ship", "ships", "shipping", "will ship"])
-                local_only = not ships
-
-                # Extract location if mentioned
-                location_note = ""
-                loc_match = re.search(r'\b([A-Z][a-z]+(?:,\s*[A-Z]{2})?)\b', text)
-                if loc_match:
-                    location_note = f" [Location: {loc_match.group()}]"
-
-                listings.append({
-                    "source":     "Pinkbike Buy/Sell",
-                    "title":      title + location_note,
-                    "price":      price,
-                    "msrp":       None,
-                    "size":       _extract_size(text),
-                    "specs":      text[:500],
-                    "url":        href,
-                    "local_only": local_only,
-                })
-            except Exception:
-                continue
+        return listings, dom_err
 
     except Exception as e:
         log(f"  Pinkbike Buy/Sell error: {e}")
-    return listings
+        return listings, str(e)
 
 
 # ─────────────────────────────────────────────────────────────────────────────

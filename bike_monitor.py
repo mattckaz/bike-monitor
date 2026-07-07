@@ -13,6 +13,7 @@ Scraping strategy by source:
 Uses Claude Haiku to intelligently score each listing against fit + value criteria.
 """
 
+import html
 import json
 import os
 import re
@@ -68,6 +69,8 @@ LOG_FILE    = Path(__file__).parent / "bike_monitor.log"
 STATUS_FILE = Path(__file__).parent / "bike_status.html"
 
 MIN_SCORE_TO_ALERT = 7   # Claude score out of 10
+SEEN_URLS_MAX       = 3000  # cap on persisted seen_urls history
+ZERO_RESULT_STALE_STREAK = 5  # consecutive zero-result "ok" runs before flagging a source as stale
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  SOURCES
@@ -360,12 +363,21 @@ def load_state() -> dict:
     if STATE_FILE.exists():
         try:
             return json.loads(STATE_FILE.read_text())
-        except Exception:
-            pass
+        except Exception as e:
+            backup = STATE_FILE.with_name(
+                f"{STATE_FILE.name}.corrupt-{datetime.now().strftime('%Y%m%d%H%M%S')}"
+            )
+            try:
+                backup.write_text(STATE_FILE.read_text())
+                log(f"  State file corrupt ({e}) — backed up to {backup.name} and resetting state")
+            except Exception as backup_err:
+                log(f"  State file corrupt ({e}) — backup also failed: {backup_err}")
     return {"seen_urls": [], "last_run": None, "deals_found": []}
 
 def save_state(state: dict):
-    STATE_FILE.write_text(json.dumps(state, indent=2))
+    tmp = STATE_FILE.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(state, indent=2))
+    os.replace(tmp, STATE_FILE)
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  HELPERS
@@ -1253,6 +1265,14 @@ def _scrape_pinkbike_buysell(page, source_config: dict) -> list[dict]:
 #  EMAIL
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _safe_href(url: str) -> str:
+    """HTML-escape a scraped URL for use as an href, rejecting non-http(s) schemes."""
+    url = (url or "").strip()
+    if url.lower().startswith(("http://", "https://")):
+        return html.escape(url, quote=True)
+    return "#"
+
+
 def send_alert(deals: list[dict]):
     if not EMAIL_PASSWORD:
         log("  No EMAIL_APP_PASSWORD — skipping email.")
@@ -1262,6 +1282,12 @@ def send_alert(deals: list[dict]):
     for d in deals:
         listing    = d["listing"]
         evaluation = d["evaluation"]
+        title_esc   = html.escape(str(listing.get("title", "")))
+        source_esc  = html.escape(str(listing.get("source", "")))
+        size_esc    = html.escape(str(listing.get("size", "")))
+        reason_esc  = html.escape(str(evaluation.get("reason", "")))
+        verdict_esc = html.escape(str(evaluation.get("verdict", "")).replace("_", " ").title())
+        href_safe   = _safe_href(listing.get("url", ""))
         score_color = "#16a34a" if evaluation["score"] >= 8 else "#d97706"
         msrp_text   = (f' <span style="color:#9ca3af;text-decoration:line-through">'
                        f'${listing["msrp"]:.0f} MSRP</span>'
@@ -1279,9 +1305,9 @@ def send_alert(deals: list[dict]):
                     border-radius:8px;padding:20px;margin-bottom:16px;">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
             <div style="flex:1;">
-              <div style="font-size:16px;font-weight:600;color:#111827;">{listing['title']}</div>
+              <div style="font-size:16px;font-weight:600;color:#111827;">{title_esc}</div>
               <div style="font-size:12px;color:#6b7280;margin-top:2px;">
-                {listing['source']}{local_badge}
+                {source_esc}{local_badge}
               </div>
             </div>
             <div style="text-align:right;flex-shrink:0;">
@@ -1289,23 +1315,23 @@ def send_alert(deals: list[dict]):
                 ${listing['price']:.0f}{msrp_text}
               </div>
               <div style="font-size:12px;font-weight:600;color:{score_color};">
-                ★ {evaluation['score']}/10 — {evaluation['verdict'].replace('_',' ').title()}
+                ★ {evaluation['score']}/10 — {verdict_esc}
               </div>
             </div>
           </div>
           <div style="font-size:13px;color:#374151;margin:10px 0 8px;">
-            <strong>Why it's a deal:</strong> {evaluation['reason']}
+            <strong>Why it's a deal:</strong> {reason_esc}
           </div>
           <div style="font-size:12px;color:#6b7280;margin-bottom:12px;">
-            Size: <strong>{listing['size']}</strong>
+            Size: <strong>{size_esc}</strong>
           </div>
-          <a href="{listing['url']}" style="display:inline-block;background:#6366f1;color:#fff;
+          <a href="{href_safe}" style="display:inline-block;background:#6366f1;color:#fff;
              padding:8px 18px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:500;">
             View Listing →
           </a>
         </div>"""
 
-    html = f"""<!DOCTYPE html>
+    email_html = f"""<!DOCTYPE html>
 <html><head><meta charset="UTF-8"></head>
 <body style="margin:0;padding:0;background:#f3f4f6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
   <div style="max-width:600px;margin:32px auto;padding:0 16px;">
@@ -1329,7 +1355,7 @@ def send_alert(deals: list[dict]):
     msg["Subject"] = f"🚲 {len(deals)} Bike Deal{'s' if len(deals) != 1 else ''} Found!"
     msg["From"]    = EMAIL_ADDRESS
     msg["To"]      = ", ".join(NOTIFY_EMAILS)
-    msg.attach(MIMEText(html, "html"))
+    msg.attach(MIMEText(email_html, "html"))
 
     try:
         with smtplib.SMTP("smtp.mail.me.com", 587) as smtp:
@@ -1370,7 +1396,7 @@ def write_status_page(state: dict):
             elif "DEAL" in line or "★" in line:       cls += " success"
             elif "WARNING" in line or "bot" in line:  cls += " warn"
             elif "═══" in line:                       cls += " sep"
-            log_html += f'<div class="{cls}">{line}</div>\n'
+            log_html += f'<div class="{cls}">{html.escape(line)}</div>\n'
     if not log_html:
         log_html = '<div class="log-line">No activity yet.</div>'
 
@@ -1388,13 +1414,17 @@ def write_status_page(state: dict):
                 found_label = found_dt[:10] if found_dt else ""
             price = d.get("price")
             price_str = f"${price:.0f}" if price else "?"
+            href_safe  = _safe_href(d.get("url", ""))
+            title_esc  = html.escape(str(d.get("title", "?"))[:80])
+            source_esc = html.escape(str(d.get("source", "?")))
+            reason_esc = html.escape(str(d.get("reason", "")))
             deals_html += f"""
             <div class="deal-row">
               <div class="deal-score" style="color:{score_color}">★ {score}/10</div>
               <div class="deal-info">
-                <div class="deal-title"><a href="{d.get('url','#')}" target="_blank">{d.get('title','?')[:80]}</a></div>
-                <div class="deal-meta">{d.get('source','?')} · {price_str} · {found_label}</div>
-                <div class="deal-reason">{d.get('reason','')}</div>
+                <div class="deal-title"><a href="{href_safe}" target="_blank">{title_esc}</a></div>
+                <div class="deal-meta">{source_esc} · {price_str} · {found_label}</div>
+                <div class="deal-reason">{reason_esc}</div>
               </div>
             </div>"""
     else:
@@ -1407,18 +1437,21 @@ def write_status_page(state: dict):
         checked = info.get("last_checked", "")
         status  = info.get("status", "pending")
         count   = info.get("count_evaluated", 0)
-        dot_cls = "dot-ok" if status == "ok" else "dot-err" if status == "error" else "dot-pending"
+        error   = info.get("error")
+        dot_cls = ("dot-ok" if status == "ok" else "dot-err" if status == "error"
+                   else "dot-stale" if status == "stale" else "dot-pending")
+        title_attr = f' title="{html.escape(error)}"' if error else ""
         try:
             checked_label = datetime.fromisoformat(checked).strftime("%I:%M %p") if checked else "–"
         except Exception:
             checked_label = "–"
         sources_html += f"""
-        <div class="source-chip {dot_cls}">
-          <span class="src-name">{name}</span>
-          <span class="src-meta">{checked_label} · {count} evaluated</span>
+        <div class="source-chip {dot_cls}"{title_attr}>
+          <span class="src-name">{html.escape(name)}</span>
+          <span class="src-meta">{checked_label} · {count} evaluated{' · stale' if status == 'stale' else ''}</span>
         </div>"""
 
-    html = f"""<!DOCTYPE html>
+    page_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1482,6 +1515,7 @@ def write_status_page(state: dict):
                   border-left:3px solid var(--gray-200)}}
     .source-chip.dot-ok{{border-left-color:var(--green)}}
     .source-chip.dot-err{{border-left-color:#ef4444}}
+    .source-chip.dot-stale{{border-left-color:var(--amber)}}
     .source-chip.dot-pending{{border-left-color:var(--gray-200)}}
     .src-name{{display:block;font-size:12px;font-weight:600;color:var(--gray-800);margin-bottom:2px}}
     .src-meta{{display:block;font-size:10px;color:var(--gray-400)}}
@@ -1586,7 +1620,7 @@ def write_status_page(state: dict):
 </body>
 </html>"""
 
-    STATUS_FILE.write_text(html)
+    STATUS_FILE.write_text(page_html)
 
 
 def _gh_request(path: str, method: str = "GET", data: dict | None = None,
@@ -1632,6 +1666,9 @@ def deploy_to_github():
             f"/repos/{DASHBOARD_REPO}/contents/index.html",
             method="PUT", data=payload,
         )
+        if status not in (200, 201):
+            log(f"  Dashboard deploy failed: HTTP {status} — {result.get('message', result)}")
+            return
         commit = result.get("commit", {}).get("sha", "")[:7]
         if commit:
             log(f"  Dashboard deployed: {commit} → {DASHBOARD_URL}")
@@ -1647,106 +1684,120 @@ def main():
     log("═══ Bike Deal Finder v2 — run started ═══")
 
     state         = load_state()
-    seen_urls     = set(state.get("seen_urls", []))
+    seen_urls     = dict.fromkeys(state.get("seen_urls", []))  # ordered set: preserves insertion order
     eval_cache    = state.get("eval_cache", {})
     source_checks = state.get("source_checks", {})
     new_deals     = []
 
-    def _record_source(name: str, count: int, ok: bool):
+    def _record_source(name: str, count: int, ok: bool, error: str | None = None):
+        prev = source_checks.get(name, {})
+        zero_streak = prev.get("zero_streak", 0) + 1 if (ok and count == 0) else 0
+        status = "ok" if ok else "error"
+        if ok and zero_streak >= ZERO_RESULT_STALE_STREAK:
+            status = "stale"
         source_checks[name] = {
             "last_checked":    datetime.now(timezone.utc).isoformat(),
             "count_evaluated": count,
-            "status":          "ok" if ok else "error",
+            "status":          status,
+            "zero_streak":     zero_streak,
+            "error":           error,
         }
 
     # ── Phase 1: Shopify API sources (no browser needed) ──────────────────────
     for source in SHOPIFY_SOURCES:
         log(f"Checking: {source['name']} (Shopify API)")
         try:
-            listings = _shopify_fetch(source["shop_url"], source["collection_slugs"], source["name"])
+            listings, err = _shopify_fetch(source["shop_url"], source["collection_slugs"], source["name"])
             deals    = _evaluate_listings(listings, seen_urls, eval_cache)
             new_deals.extend(deals)
-            _record_source(source["name"], len(listings), True)
+            _record_source(source["name"], len(listings), err is None, err)
         except Exception as e:
             log(f"  ERROR on {source['name']}: {e}")
-            _record_source(source["name"], 0, False)
+            _record_source(source["name"], 0, False, str(e))
 
     # ── Phase 2: Playwright sources ───────────────────────────────────────────
-    with sync_playwright() as pw:
-        browser = pw.chromium.launch(
-            headless=True,
-            args=["--disable-blink-features=AutomationControlled",
-                  "--disable-infobars", "--no-first-run"],
-        )
-        ctx = browser.new_context(
-            user_agent=(
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/122.0.0.0 Safari/537.36"
-            ),
-            viewport={"width": 1280, "height": 900},
-            locale="en-US",
-        )
-        _stealth.apply_stealth_sync(ctx)
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(
+                headless=True,
+                args=["--disable-blink-features=AutomationControlled",
+                      "--disable-infobars", "--no-first-run"],
+            )
+            ctx = browser.new_context(
+                user_agent=(
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/122.0.0.0 Safari/537.36"
+                ),
+                viewport={"width": 1280, "height": 900},
+                locale="en-US",
+            )
+            _stealth.apply_stealth_sync(ctx)
 
-        for source in PLAYWRIGHT_SOURCES:
-            log(f"Checking: {source['name']}")
-            try:
+            for source in PLAYWRIGHT_SOURCES:
+                log(f"Checking: {source['name']}")
                 page = ctx.new_page()
-                src_type = source["type"]
+                try:
+                    src_type = source["type"]
 
-                if src_type == "intercept":
-                    listings = _scrape_with_interception(page, source)
-                elif src_type == "pinkbike_deals":
-                    listings = _scrape_pinkbike_deals(page, source)
-                elif src_type == "pinkbike_buysell":
-                    listings = _scrape_pinkbike_buysell(page, source)
-                elif src_type == "ebay":
-                    listings = scrape_ebay(page, source)
-                else:  # dom
-                    wait_ms = source.get("wait_ms", 4000)
-                    page.goto(source["url"], wait_until="domcontentloaded", timeout=45000)
-                    page.wait_for_timeout(wait_ms)
-                    listings = _scrape_dom(page, source["name"], source["base_url"],
-                                           source.get("keywords"))
+                    if src_type == "intercept":
+                        listings, err = _scrape_with_interception(page, source)
+                    elif src_type == "pinkbike_deals":
+                        listings, err = _scrape_pinkbike_deals(page, source)
+                    elif src_type == "pinkbike_buysell":
+                        listings, err = _scrape_pinkbike_buysell(page, source)
+                    elif src_type == "ebay":
+                        listings, err = scrape_ebay(page, source)
+                    else:  # dom
+                        wait_ms = source.get("wait_ms", 4000)
+                        page.goto(source["url"], wait_until="domcontentloaded", timeout=45000)
+                        page.wait_for_timeout(wait_ms)
+                        listings, err = _scrape_dom(page, source["name"], source["base_url"],
+                                               source.get("keywords"))
 
-                page.close()
-                _record_source(source["name"], len(listings), True)
-            except Exception as e:
-                log(f"  ERROR on {source['name']}: {e}")
-                listings = []
-                _record_source(source["name"], 0, False)
+                    _record_source(source["name"], len(listings), err is None, err)
+                except Exception as e:
+                    log(f"  ERROR on {source['name']}: {e}")
+                    listings = []
+                    _record_source(source["name"], 0, False, str(e))
+                finally:
+                    page.close()
 
-            for deal in _evaluate_listings(listings, seen_urls, eval_cache):
-                new_deals.append(deal)
+                for deal in _evaluate_listings(listings, seen_urls, eval_cache):
+                    new_deals.append(deal)
 
-            time.sleep(2)
+                time.sleep(2)
 
-        browser.close()
+            browser.close()
+    except Exception as e:
+        log(f"  ERROR: Playwright browser setup/run failed: {e}")
+        for source in PLAYWRIGHT_SOURCES:
+            if source["name"] not in source_checks:
+                _record_source(source["name"], 0, False, "Playwright browser setup/run failed")
 
     # ── Phase 3: HTTP-only sources (no browser needed) ────────────────────────
     for source in HTTP_SOURCES:
         log(f"Checking: {source['name']}")
         try:
             if source["type"] == "slickdeals":
-                listings = scrape_slickdeals()
+                listings, err = scrape_slickdeals()
             else:
-                listings = []
+                listings, err = [], None
             deals = _evaluate_listings(listings, seen_urls, eval_cache)
             new_deals.extend(deals)
-            _record_source(source["name"], len(listings), True)
+            _record_source(source["name"], len(listings), err is None, err)
         except Exception as e:
             log(f"  ERROR on {source['name']}: {e}")
-            _record_source(source["name"], 0, False)
+            _record_source(source["name"], 0, False, str(e))
 
     # ── Add alerted URLs to seen_urls so we never re-alert on the same deal ──
     for d in new_deals:
         url = d["listing"].get("url", "")
         if url:
-            seen_urls.add(url)
+            seen_urls[url] = None
 
     # ── Save state ─────────────────────────────────────────────────────────────
-    state["seen_urls"]     = list(seen_urls)[-3000:]
+    state["seen_urls"]     = list(seen_urls)[-SEEN_URLS_MAX:]
     # Prune eval_cache entries older than EVAL_CACHE_DAYS to keep state file lean
     cutoff = (datetime.now(timezone.utc).replace(tzinfo=None) -
               __import__('datetime').timedelta(days=EVAL_CACHE_DAYS)).isoformat()
@@ -1768,8 +1819,16 @@ def main():
         for d in new_deals
     ]
     save_state(state)
-    write_status_page(state)
-    deploy_to_github()
+
+    try:
+        write_status_page(state)
+    except Exception as e:
+        log(f"  ERROR generating status page: {e}")
+
+    try:
+        deploy_to_github()
+    except Exception as e:
+        log(f"  ERROR deploying dashboard: {e}")
 
     if new_deals:
         log(f"Sending alert for {len(new_deals)} deal(s)...")

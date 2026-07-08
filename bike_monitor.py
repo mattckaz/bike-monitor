@@ -79,6 +79,8 @@ DOM_SCAN_PRICE_MIN = 100    # wide net for the DOM scanner — real filtering ha
 DOM_SCAN_PRICE_MAX = 3000
 EBAY_MAX_PAGES     = 3
 CAD_TO_USD_RATE    = 0.73   # approximate; revisit periodically — not a live FX feed
+PINKBIKE_BUYSELL_MAX_PAGES = 3
+DOM_SCROLL_MAX_ITERATIONS = 4
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  SOURCES
@@ -894,6 +896,18 @@ def _shopify_fetch(shop_url: str, collection_slugs: list, source: str) -> tuple[
     return listings, fetch_error
 
 
+def _wait_ready(page, timeout_ms: int = 8000, fallback_ms: int = 2000):
+    """
+    Wait for a page to settle after navigation using Playwright's networkidle
+    signal, falling back to a short fixed sleep if it never settles (some
+    sites keep long-polling/analytics connections open indefinitely).
+    """
+    try:
+        page.wait_for_load_state("networkidle", timeout=timeout_ms)
+    except PWTimeout:
+        page.wait_for_timeout(fallback_ms)
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 #  NETWORK INTERCEPTION SCRAPER (brand sites)
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1053,10 +1067,26 @@ _EXTRACT_JS = """
 }
 """
 
+def _scroll_to_load_lazy_content(page):
+    """Scroll to trigger lazy-loaded product grids, stopping once the page stops growing."""
+    try:
+        last_height = page.evaluate("document.body.scrollHeight")
+        for _ in range(DOM_SCROLL_MAX_ITERATIONS):
+            page.mouse.wheel(0, 3000)
+            page.wait_for_timeout(800)
+            new_height = page.evaluate("document.body.scrollHeight")
+            if new_height <= last_height:
+                break
+            last_height = new_height
+    except Exception:
+        pass  # best-effort — extraction still runs against whatever loaded
+
+
 def _scrape_dom(page, source: str, base_url: str,
                 keywords: list | None = None) -> tuple[list[dict], str | None]:
     listings = []
     try:
+        _scroll_to_load_lazy_content(page)
         products = page.evaluate(_EXTRACT_JS, [base_url, DOM_SCAN_PRICE_MIN, DOM_SCAN_PRICE_MAX])
         log(f"  {source} (DOM): {len(products)} price elements found")
         for p in products:
@@ -1306,28 +1336,46 @@ def _scrape_pinkbike_buysell(page, source_config: dict) -> tuple[list[dict], str
     Scrape Pinkbike Buy/Sell listings.
     Uses DOM extractor since Pinkbike's CSS classes change frequently.
     Flags listings as local_only if no shipping mentioned.
+    Pages through up to PINKBIKE_BUYSELL_MAX_PAGES via &page=N, stopping
+    early once a page yields no listings we haven't already seen.
     """
     listings = []
+    seen_urls_this_source = set()
+    base_url = source_config["url"]
+    dom_err = None
     try:
-        page.goto(source_config["url"], wait_until="domcontentloaded", timeout=45000)
-        page.wait_for_timeout(5000)
+        for page_num in range(1, PINKBIKE_BUYSELL_MAX_PAGES + 1):
+            url = base_url if page_num == 1 else f"{base_url}&page={page_num}"
+            page.goto(url, wait_until="domcontentloaded", timeout=45000)
+            page.wait_for_timeout(5000)
 
-        # Use the robust DOM price-based extractor
-        raw, dom_err = _scrape_dom(page, source_config["name"], "https://www.pinkbike.com", None)
+            # Use the robust DOM price-based extractor
+            raw, dom_err = _scrape_dom(page, source_config["name"], "https://www.pinkbike.com", None)
 
-        for listing in raw:
-            text = listing.get("specs", "")
-            listing["local_only"] = not _detect_ships(text)
-            listing["source"]     = "Pinkbike Buy/Sell"
+            new_this_page = 0
+            for listing in raw:
+                url_key = listing.get("url", "")
+                if url_key:
+                    if url_key in seen_urls_this_source:
+                        continue
+                    seen_urls_this_source.add(url_key)
+                    new_this_page += 1
 
-            raw_price = listing.get("price")
-            price, currency = _normalize_currency(raw_price, text)
-            listing["price"]    = price
-            listing["currency"] = currency
-            if currency == "CAD" and raw_price is not None:
-                listing["specs"] = f"(orig. ${raw_price:.0f} CAD) {text}"
+                text = listing.get("specs", "")
+                listing["local_only"] = not _detect_ships(text)
+                listing["source"]     = "Pinkbike Buy/Sell"
 
-            listings.append(listing)
+                raw_price = listing.get("price")
+                price, currency = _normalize_currency(raw_price, text)
+                listing["price"]    = price
+                listing["currency"] = currency
+                if currency == "CAD" and raw_price is not None:
+                    listing["specs"] = f"(orig. ${raw_price:.0f} CAD) {text}"
+
+                listings.append(listing)
+
+            if new_this_page == 0:
+                break  # no new listings on this page — end of results
 
         return listings, dom_err
 
@@ -1826,7 +1874,7 @@ def main():
                     else:  # dom
                         wait_ms = source.get("wait_ms", 4000)
                         page.goto(source["url"], wait_until="domcontentloaded", timeout=45000)
-                        page.wait_for_timeout(wait_ms)
+                        _wait_ready(page, fallback_ms=wait_ms)
                         listings, err = _scrape_dom(page, source["name"], source["base_url"],
                                                source.get("keywords"))
 

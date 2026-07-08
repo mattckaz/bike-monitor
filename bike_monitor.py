@@ -40,9 +40,15 @@ _env_file = Path(__file__).parent / ".env"
 if _env_file.exists():
     for _line in _env_file.read_text().splitlines():
         _line = _line.strip()
-        if _line and not _line.startswith("#") and "=" in _line:
-            _k, _v = _line.split("=", 1)
-            os.environ.setdefault(_k.strip(), _v.strip().strip('"').strip("'"))
+        if _line.startswith("export "):
+            _line = _line[len("export "):].strip()
+        if not _line or _line.startswith("#") or "=" not in _line:
+            continue
+        _k, _v = _line.split("=", 1)
+        _v = _v.strip()
+        if _v and _v[0] not in "\"'":
+            _v = _v.split("#", 1)[0].strip()  # inline comment, only outside quotes
+        os.environ.setdefault(_k.strip(), _v.strip('"').strip("'"))
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  CONFIGURATION
@@ -81,6 +87,8 @@ EBAY_MAX_PAGES     = 3
 CAD_TO_USD_RATE    = 0.73   # approximate; revisit periodically — not a live FX feed
 PINKBIKE_BUYSELL_MAX_PAGES = 3
 DOM_SCROLL_MAX_ITERATIONS = 4
+RECENT_LOG_LINES_DASHBOARD = 50
+RECENT_DEALS_DASHBOARD     = 20
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  SOURCES
@@ -1515,7 +1523,7 @@ def write_status_page(state: dict):
     # Log lines
     log_html = ""
     if LOG_FILE.exists():
-        lines = LOG_FILE.read_text().splitlines()[-50:]
+        lines = LOG_FILE.read_text().splitlines()[-RECENT_LOG_LINES_DASHBOARD:]
         for line in lines:
             cls = "log-line"
             if "ERROR" in line or "error" in line:    cls += " error"
@@ -1527,7 +1535,7 @@ def write_status_page(state: dict):
         log_html = '<div class="log-line">No activity yet.</div>'
 
     # Recent deals (last 20)
-    recent_deals = list(reversed(deals_found[-20:])) if deals_found else []
+    recent_deals = list(reversed(deals_found[-RECENT_DEALS_DASHBOARD:])) if deals_found else []
     deals_html = ""
     if recent_deals:
         for d in recent_deals:

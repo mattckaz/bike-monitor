@@ -22,9 +22,9 @@ import sys
 import time
 import urllib.request
 import urllib.error
+import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+from email.message import EmailMessage
 from pathlib import Path
 
 import anthropic
@@ -1198,18 +1198,20 @@ def scrape_slickdeals() -> tuple[list[dict], str | None]:
             with urllib.request.urlopen(req, timeout=15) as r:
                 content = r.read().decode("utf-8", errors="ignore")
 
-            # Parse RSS items simply with regex (no xml parser needed)
-            items = re.findall(r'<item>(.*?)</item>', content, re.DOTALL)
-            for item_xml in items:
-                title_m = re.search(r'<title><!\[CDATA\[(.*?)\]\]></title>', item_xml)
-                link_m  = re.search(r'<link>(.*?)</link>', item_xml)
-                desc_m  = re.search(r'<description><!\[CDATA\[(.*?)\]\]></description>', item_xml)
+            try:
+                root = ET.fromstring(content)
+            except ET.ParseError as e:
+                log(f"  Slickdeals: malformed RSS from {rss_url}: {e}")
+                feed_error = feed_error or str(e)
+                continue
 
-                if not title_m:
+            for item in root.iter("item"):
+                title = (item.findtext("title") or "").strip()
+                href  = (item.findtext("link") or "").strip()
+                desc  = _strip_html(item.findtext("description") or "")
+
+                if not title:
                     continue
-                title = title_m.group(1).strip()
-                href  = link_m.group(1).strip() if link_m else ""
-                desc  = _strip_html(desc_m.group(1)) if desc_m else ""
 
                 if href in seen:
                     continue
@@ -1474,17 +1476,18 @@ def send_alert(deals: list[dict]):
   </div>
 </body></html>"""
 
-    msg = MIMEMultipart("alternative")
+    msg = EmailMessage()
     msg["Subject"] = f"🚲 {len(deals)} Bike Deal{'s' if len(deals) != 1 else ''} Found!"
     msg["From"]    = EMAIL_ADDRESS
     msg["To"]      = ", ".join(NOTIFY_EMAILS)
-    msg.attach(MIMEText(email_html, "html"))
+    msg.set_content("View this email in an HTML-capable client to see deal details.")
+    msg.add_alternative(email_html, subtype="html")
 
     try:
         with smtplib.SMTP("smtp.mail.me.com", 587) as smtp:
             smtp.starttls()
             smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            smtp.sendmail(EMAIL_ADDRESS, NOTIFY_EMAILS, msg.as_string())
+            smtp.send_message(msg)
         log("  Email sent.")
     except Exception as e:
         log(f"  Email error: {e}")
@@ -2052,7 +2055,7 @@ def notify_failure():
         print("No EMAIL_APP_PASSWORD — skipping failure email.")
         return
     try:
-        msg = MIMEMultipart("alternative")
+        msg = EmailMessage()
         msg["Subject"] = "⚠️ Bike Deal Finder — Workflow Failed"
         msg["From"]    = EMAIL_ADDRESS
         msg["To"]      = EMAIL_ADDRESS
@@ -2063,11 +2066,12 @@ def notify_failure():
             f"github.com/mattckaz/bike-monitor/actions</a></p>"
             "<p>This is an automated alert.</p>"
         )
-        msg.attach(MIMEText(body, "html"))
+        msg.set_content("The Bike Deal Finder workflow failed on GitHub Actions.")
+        msg.add_alternative(body, subtype="html")
         with smtplib.SMTP("smtp.mail.me.com", 587) as smtp:
             smtp.starttls()
             smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            smtp.sendmail(EMAIL_ADDRESS, [EMAIL_ADDRESS], msg.as_string())
+            smtp.send_message(msg)
         print("Failure email sent.")
     except Exception as e:
         print(f"Failed to send failure email: {e}")

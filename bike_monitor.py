@@ -354,6 +354,31 @@ PLAYWRIGHT_SOURCES = [
         "keywords": None,
         "wait_ms":  5000,
     },
+    # ── Craigslist — local pickup within MAX_TRAVEL_MILES of BUYER_ZIP ─────────
+    {
+        "name":     "Craigslist (hardtail)",
+        "url":      (
+            f"https://www.craigslist.org/search/bia?postal={BUYER_ZIP}"
+            f"&search_distance={MAX_TRAVEL_MILES}&purveyor=owner"
+            "&query=mountain+bike+hardtail&sort=date"
+        ),
+        "type":     "craigslist",
+        "base_url": "https://www.craigslist.org",
+        "keywords": None,
+        "wait_ms":  4000,
+    },
+    {
+        "name":     "Craigslist (27.5)",
+        "url":      (
+            f"https://www.craigslist.org/search/bia?postal={BUYER_ZIP}"
+            f"&search_distance={MAX_TRAVEL_MILES}&purveyor=owner"
+            "&query=mountain+bike+27.5&sort=date"
+        ),
+        "type":     "craigslist",
+        "base_url": "https://www.craigslist.org",
+        "keywords": None,
+        "wait_ms":  4000,
+    },
     # REMOVED: REI + REI Sale — permanently blocked from GitHub Actions IPs
 ]
 
@@ -1395,6 +1420,36 @@ def _scrape_pinkbike_buysell(page, source_config: dict) -> tuple[list[dict], str
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+#  CRAIGSLIST SCRAPER (local pickup only)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _scrape_craigslist(page, source_config: dict) -> tuple[list[dict], str | None]:
+    """
+    Scrape Craigslist "for sale by owner" bicycle listings within
+    MAX_TRAVEL_MILES of BUYER_ZIP. Uses the robust DOM price-based extractor
+    since Craigslist's markup varies by search-result layout. Always
+    local-pickup — Craigslist has no shipping.
+    """
+    listings = []
+    try:
+        page.goto(source_config["url"], wait_until="domcontentloaded", timeout=45000)
+        page.wait_for_timeout(source_config.get("wait_ms", 4000))
+
+        raw, dom_err = _scrape_dom(page, source_config["name"], "https://www.craigslist.org", None)
+
+        for listing in raw:
+            listing["source"]     = "Craigslist"
+            listing["local_only"] = True
+            listings.append(listing)
+
+        return listings, dom_err
+
+    except Exception as e:
+        log(f"  Craigslist error: {e}")
+        return listings, str(e)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 #  EMAIL
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -1880,6 +1935,8 @@ def main():
                         listings, err = _scrape_pinkbike_deals(page, source)
                     elif src_type == "pinkbike_buysell":
                         listings, err = _scrape_pinkbike_buysell(page, source)
+                    elif src_type == "craigslist":
+                        listings, err = _scrape_craigslist(page, source)
                     elif src_type == "ebay":
                         listings, err = scrape_ebay(page, source)
                     else:  # dom
@@ -1923,6 +1980,14 @@ def main():
         except Exception as e:
             log(f"  ERROR on {source['name']}: {e}")
             _record_source(source["name"], 0, False, str(e))
+
+    # ── Dedup deals across sources (e.g. the same Craigslist ad matching two
+    #    different search queries run as separate sources this pass) ────────
+    _deduped_deals = {}
+    for d in new_deals:
+        url = d["listing"].get("url", "")
+        _deduped_deals[url or id(d)] = d
+    new_deals = list(_deduped_deals.values())
 
     # ── Add alerted URLs to seen_urls so we never re-alert on the same deal ──
     for d in new_deals:

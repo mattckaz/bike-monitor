@@ -258,7 +258,7 @@
     "https://www.ebay.com/itm/358781668248",
     "https://www.trailheadcycling.com/product/marin-bolinas-ridge-1-1255932-1.htm"
   ],
-  "last_run": "2026-07-23T06:32:28.281016+00:00",
+  "last_run": "2026-07-23T10:25:24.909618+00:00",
   "deals_found": [
     {
       "title": "Talon 4 (2026)",
@@ -2792,10 +2792,10 @@
   ],
   "source_checks": {
     "The Pro's Closet": {
-      "last_checked": "2026-07-23T06:29:13.203755+00:00",
+      "last_checked": "2026-07-23T10:21:30.944161+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 20,
+      "zero_streak": 21,
       "error": null
     },
     "Jenson USA": {
@@ -2804,42 +2804,42 @@
       "status": "ok"
     },
     "Worldwide Cyclery": {
-      "last_checked": "2026-07-23T06:29:27.011784+00:00",
+      "last_checked": "2026-07-23T10:21:53.779399+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 20,
+      "zero_streak": 21,
       "error": null
     },
     "Fanatik Bike": {
-      "last_checked": "2026-07-23T06:29:28.048739+00:00",
+      "last_checked": "2026-07-23T10:21:55.155641+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 20,
+      "zero_streak": 21,
       "error": null
     },
     "Cambria Bike": {
-      "last_checked": "2026-07-23T06:29:29.514652+00:00",
+      "last_checked": "2026-07-23T10:21:56.011369+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 20,
+      "zero_streak": 21,
       "error": null
     },
     "Bicycle Warehouse": {
-      "last_checked": "2026-07-23T06:29:15.896296+00:00",
+      "last_checked": "2026-07-23T10:21:34.471859+00:00",
       "count_evaluated": 60,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Mike's Bikes": {
-      "last_checked": "2026-07-23T06:29:30.663930+00:00",
+      "last_checked": "2026-07-23T10:21:57.835397+00:00",
       "count_evaluated": 7,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "ERIK'S Bike Shop": {
-      "last_checked": "2026-07-23T06:29:33.270788+00:00",
+      "last_checked": "2026-07-23T10:21:59.052770+00:00",
       "count_evaluated": 10,
       "status": "ok",
       "zero_streak": 0,
@@ -2851,10 +2851,10 @@
       "status": "ok"
     },
     "Velomine": {
-      "last_checked": "2026-07-23T06:29:34.026042+00:00",
+      "last_checked": "2026-07-23T10:22:00.268902+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 29,
+      "zero_streak": 30,
       "error": null
     },
     "Bicycle Blue Book": {
@@ -2873,56 +2873,56 @@
       "status": "ok"
     },
     "Incycle": {
-      "last_checked": "2026-07-23T06:29:18.723415+00:00",
+      "last_checked": "2026-07-23T10:21:37.954717+00:00",
       "count_evaluated": 40,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Colorado Cyclist": {
-      "last_checked": "2026-07-23T06:29:19.887037+00:00",
+      "last_checked": "2026-07-23T10:21:39.529404+00:00",
       "count_evaluated": 19,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "BikesOnline": {
-      "last_checked": "2026-07-23T06:29:21.204473+00:00",
+      "last_checked": "2026-07-23T10:21:46.235640+00:00",
       "count_evaluated": 6,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Kona (Direct)": {
-      "last_checked": "2026-07-23T06:29:23.051457+00:00",
+      "last_checked": "2026-07-23T10:21:48.241471+00:00",
       "count_evaluated": 5,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Fuji (Direct)": {
-      "last_checked": "2026-07-23T06:29:23.329660+00:00",
+      "last_checked": "2026-07-23T10:21:48.430925+00:00",
       "count_evaluated": 0,
       "status": "error",
       "zero_streak": 0,
       "error": "no working Shopify collection found"
     },
     "GT Bicycles (Direct)": {
-      "last_checked": "2026-07-23T06:29:25.106289+00:00",
+      "last_checked": "2026-07-23T10:21:50.919483+00:00",
       "count_evaluated": 2,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Diamondback (Direct)": {
-      "last_checked": "2026-07-23T06:29:26.362929+00:00",
+      "last_checked": "2026-07-23T10:21:52.910020+00:00",
       "count_evaluated": 17,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Ari Bikes": {
-      "last_checked": "2026-07-23T06:29:35.128148+00:00",
+      "last_checked": "2026-07-23T10:22:01.862357+00:00",
       "count_evaluated": 1,
       "status": "ok",
       "zero_streak": 0,
@@ -2944,17 +2944,17 @@
       "status": "ok"
     },
     "Marin": {
-      "last_checked": "2026-07-23T06:30:10.293352+00:00",
+      "last_checked": "2026-07-23T10:23:02.972791+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 91,
+      "zero_streak": 92,
       "error": null
     },
     "Dick's Sporting Goods": {
-      "last_checked": "2026-07-23T06:30:45.308125+00:00",
+      "last_checked": "2026-07-23T10:23:38.606930+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 91,
+      "zero_streak": 92,
       "error": null
     },
     "REI": {
@@ -2963,10 +2963,10 @@
       "status": "error"
     },
     "Pinkbike Deals": {
-      "last_checked": "2026-07-23T06:30:16.337436+00:00",
+      "last_checked": "2026-07-23T10:23:09.015497+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 15,
+      "zero_streak": 16,
       "error": null
     },
     "Pinkbike Buy/Sell": {
@@ -2975,38 +2975,38 @@
       "status": "ok"
     },
     "SweetWater Bicycles": {
-      "last_checked": "2026-07-23T06:30:36.235290+00:00",
+      "last_checked": "2026-07-23T10:23:29.201521+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 20,
+      "zero_streak": 21,
       "error": null
     },
     "Trailhead Cycling": {
-      "last_checked": "2026-07-23T06:30:41.499362+00:00",
+      "last_checked": "2026-07-23T10:23:34.821149+00:00",
       "count_evaluated": 30,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "88 Cycling": {
-      "last_checked": "2026-07-23T06:30:52.580454+00:00",
+      "last_checked": "2026-07-23T10:23:46.268233+00:00",
       "count_evaluated": 31,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Canyon": {
-      "last_checked": "2026-07-23T06:30:59.201330+00:00",
+      "last_checked": "2026-07-23T10:23:52.948030+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 91,
+      "zero_streak": 92,
       "error": null
     },
     "Batch Bicycles": {
-      "last_checked": "2026-07-23T06:31:04.781037+00:00",
+      "last_checked": "2026-07-23T10:23:59.607508+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 91,
+      "zero_streak": 92,
       "error": null
     },
     "REI Sale": {
@@ -3015,21 +3015,21 @@
       "status": "error"
     },
     "Trek Sale": {
-      "last_checked": "2026-07-23T06:29:49.005310+00:00",
+      "last_checked": "2026-07-23T10:22:39.282631+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 91,
+      "zero_streak": 92,
       "error": null
     },
     "Giant Clearance": {
-      "last_checked": "2026-07-23T06:29:54.088575+00:00",
+      "last_checked": "2026-07-23T10:22:45.260878+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 6,
+      "zero_streak": 7,
       "error": null
     },
     "Specialized Sale": {
-      "last_checked": "2026-07-23T06:30:01.533690+00:00",
+      "last_checked": "2026-07-23T10:22:51.909784+00:00",
       "count_evaluated": 3,
       "status": "ok",
       "zero_streak": 0,
@@ -3046,8 +3046,8 @@
       "status": "ok"
     },
     "Bike Mart": {
-      "last_checked": "2026-07-23T06:29:40.182231+00:00",
-      "count_evaluated": 138,
+      "last_checked": "2026-07-23T10:22:31.970063+00:00",
+      "count_evaluated": 137,
       "status": "ok",
       "zero_streak": 0,
       "error": null
@@ -3063,64 +3063,64 @@
       "status": "ok"
     },
     "Slickdeals": {
-      "last_checked": "2026-07-23T06:32:28.280924+00:00",
+      "last_checked": "2026-07-23T10:25:24.909545+00:00",
       "count_evaluated": 24,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Pinkbike Buy/Sell (27.5 S/M)": {
-      "last_checked": "2026-07-23T06:30:24.245434+00:00",
+      "last_checked": "2026-07-23T10:23:16.938175+00:00",
       "count_evaluated": 0,
       "status": "ok",
-      "zero_streak": 1,
+      "zero_streak": 2,
       "error": null
     },
     "Pinkbike Buy/Sell (Marlin/Talon/Rockhopper)": {
-      "last_checked": "2026-07-23T06:30:32.170435+00:00",
+      "last_checked": "2026-07-23T10:23:24.847028+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 52,
+      "zero_streak": 53,
       "error": null
     },
     "eBay Used (Small)": {
-      "last_checked": "2026-07-23T06:31:12.765394+00:00",
+      "last_checked": "2026-07-23T10:24:07.561609+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 91,
+      "zero_streak": 92,
       "error": null
     },
     "eBay Used (Medium)": {
-      "last_checked": "2026-07-23T06:31:29.205829+00:00",
-      "count_evaluated": 54,
-      "status": "ok",
-      "zero_streak": 0,
-      "error": null
-    },
-    "eBay New (Small)": {
-      "last_checked": "2026-07-23T06:31:53.210803+00:00",
+      "last_checked": "2026-07-23T10:24:30.586999+00:00",
       "count_evaluated": 58,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
+    "eBay New (Small)": {
+      "last_checked": "2026-07-23T10:24:50.151720+00:00",
+      "count_evaluated": 57,
+      "status": "ok",
+      "zero_streak": 0,
+      "error": null
+    },
     "eBay New (Medium)": {
-      "last_checked": "2026-07-23T06:32:10.040162+00:00",
+      "last_checked": "2026-07-23T10:25:06.217291+00:00",
       "count_evaluated": 57,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Craigslist (hardtail)": {
-      "last_checked": "2026-07-23T06:32:17.279547+00:00",
+      "last_checked": "2026-07-23T10:25:13.372783+00:00",
       "count_evaluated": 36,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Craigslist (27.5)": {
-      "last_checked": "2026-07-23T06:32:24.305978+00:00",
-      "count_evaluated": 32,
+      "last_checked": "2026-07-23T10:25:20.382388+00:00",
+      "count_evaluated": 33,
       "status": "ok",
       "zero_streak": 0,
       "error": null
@@ -3130,114 +3130,98 @@
     "https://www.bikesonline.com/products/polygon-xtrada-6-mountain-bike": {
       "score": 0,
       "verdict": "reject",
-      "reason": "REJECT: Only available sizes are L, M, XL \u2014 Medium may fit but cannot confirm; no Small option for ideal fit on 5'5\" rider at frame size border.",
+      "reason": "Frame size M is available but XL/L are primary offerings; no Small option confirmed for this 5'5\" rider, and $849.99 exceeds budget for unverified fit.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-07-16T10:07:13.042319+00:00"
-    },
-    "https://www.bikesonline.com/products/polygon-xtrada-6-mountain-bike-new": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "REJECT: URL provided but no actual component specifications listed (drivetrain, brakes, wheel size, frame material not confirmed); cannot evaluate against hard requirements without verifiable specs.",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-07-16T10:07:13.042319+00:00"
+      "cached_at": "2026-07-23T10:21:41.349520+00:00"
     },
     "https://www.bikesonline.com/products/polygon-xtrada-5-mountain-bike-new": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Listing lacks critical specifications (drivetrain, brakes, wheel size, frame material) required to evaluate; cannot confirm hard requirements.",
+      "reason": "Listing lacks critical specifications (drivetrain, brakes, wheel size, frame material) needed to verify hard requirements; cannot assess suitability without this data.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-07-16T10:07:13.042319+00:00"
+      "cached_at": "2026-07-23T10:21:41.349520+00:00"
     },
     "https://www.bikemart.com/products/rockhopper-sport": {
-      "score": 4,
+      "score": 3,
       "verdict": "skip",
-      "reason": "Tier 1 bike (Rockhopper) with excellent brakes/drivetrain, but $849.99 is 30% above ideal budget for entry-level spec; size must be confirmed as Small or Medium before purchase since Medium fit depends on brand geometry verification.",
+      "reason": "Tier 1 bike with excellent components (MT200 hydraulic, CUES 1x), but $849.99 is 30% above ideal budget with no MSRP reference to confirm discount; size must be confirmed as Small before proceeding.",
       "reject": false,
       "size_confirmed": false,
-      "cached_at": "2026-07-16T10:07:42.222233+00:00"
+      "cached_at": "2026-07-23T10:22:07.495449+00:00"
     },
     "https://www.bikemart.com/products/unified-bike-co-racello-deore-12-ship-to-your-door-hardtail": {
-      "score": 1,
+      "score": 0,
       "verdict": "reject",
-      "reason": "Racello is not a recognized reputable MTB brand; reject outright per brand tier guidelines.",
+      "reason": "Reject: Frame size Medium only available \u2014 buyer requires Small or Medium with fit verification; brand 'Racello' by 'Unified Bike Co' is not a recognized reputable MTB manufacturer and cannot be verified as Tier 1, 2, or 3.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-07-16T10:07:42.222233+00:00"
+      "cached_at": "2026-07-23T10:22:07.495449+00:00"
     },
     "https://www.bikemart.com/products/rockhopper-1": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Reject: No Small or Medium size available (only XS, L, XL offered); XS is too small for 5'5\" rider and L/XL are too large. Additionally, 2x9 drivetrain violates hard requirement for 1x setup, and 29\" wheels reject per spec (27.5\" required).",
+      "reason": "REJECT: No Small or Medium frame size available\u2014only XS (too small), L, and XL (too large); 29\" wheels violate hard requirement for 27.5\"/650b; 2x9 drivetrain is outdated 3x-equivalent and fails drivetrain requirement.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-07-16T10:07:42.222233+00:00"
+      "cached_at": "2026-07-23T10:22:07.495449+00:00"
     },
     "https://www.bikemart.com/products/rockhopper": {
       "score": 0,
       "verdict": "reject",
-      "reason": "REJECT: No Small or Medium size available (only XS, L, XL, XXL offered); 2x9 drivetrain violates hard requirement for 1x setup; frame size cannot be confirmed for 5'5\" rider.",
+      "reason": "REJECT: No Small or Medium size available (only XS, L, XL, XXL offered); 2x9 drivetrain is outdated 3x-equivalent and fails drivetrain requirement; price at $749.99 cannot justify substandard spec.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-07-16T10:07:42.222233+00:00"
+      "cached_at": "2026-07-23T10:22:07.495449+00:00"
     },
     "https://www.bikemart.com/products/2026-rove-4-active-bike": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Reject: Rove is a hybrid bike (flat-bar commuter), not a hardtail mountain bike; no wheel size confirmed; sizes offered are L, M, XS with no Small option; fails hard requirements.",
+      "reason": "Hybrid bike (not mountain bike hardtail); suspension fork indicates full suspension or comfort geometry incompatible with rider's stated use case (light trails/neighborhood paths); listing description incomplete and lacks drivetrain/brake specifications.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-07-16T10:07:42.222233+00:00"
+      "cached_at": "2026-07-23T10:22:07.495449+00:00"
     },
     "https://www.bikemart.com/products/rockhopper-sport-1": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Hard requirement failure: only 29\" wheels available; rider requires 27.5\"/650b.",
+      "reason": "Hard requirement failure: only 29\" wheels available; listing does not offer 27.5\"/650b or Small frame size\u2014only M/L/XL in 29\", and Medium on 29\" is too large for a 5'5\" beginner rider.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-07-16T10:07:42.222233+00:00"
+      "cached_at": "2026-07-23T10:22:07.495449+00:00"
     },
     "https://www.bikemart.com/products/surly-grappler-frameset-27-5-steel-purple-dust-bunny": {
       "score": 0,
       "verdict": "reject",
-      "reason": "REJECT: Steel frame violates hard requirement (aluminum or carbon only); frameset-only listing with no complete bike spec; drop-bar gravel/bikepacking bike is wrong category for teen neighborhood/trail rider.",
+      "reason": "Steel frame violates hard requirement (aluminum or carbon only); frameset-only listing with no drivetrain/brakes/wheels included; drop-bar geometry unsuitable for beginner-intermediate neighborhood/trail riding.",
       "reject": true,
       "size_confirmed": true,
-      "cached_at": "2026-07-16T10:07:42.222233+00:00"
+      "cached_at": "2026-07-23T10:22:07.495449+00:00"
     },
     "https://www.bikemart.com/products/surly-lowside-frameset-27-5-steel-dream-tangerine": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Reject: Steel frame violates hard requirement (aluminum/carbon only); frameset-only listing with no complete bike spec, drivetrain, or brakes listed; $899 frameset price is far outside budget for a teenager's neighborhood/light-trail hardtail.",
+      "reason": "REJECT: Steel frame violates hard requirement (aluminum/carbon only); frameset-only listing with no complete bike spec, drivetrain, or brakes listed; $899 for incomplete steel hardtail is not appropriate for this buyer.",
       "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-07-16T10:07:42.222233+00:00"
+      "size_confirmed": true,
+      "cached_at": "2026-07-23T10:22:07.495449+00:00"
     },
     "https://www.specialized.com/us/en/shop/bikes/mountain-bikes/trail-bikes/rockhopper": {
-      "score": 3,
-      "verdict": "skip",
-      "reason": "Frame size not confirmed (critical for fit at 5'5\"), wheel size unspecified, and full drivetrain/brake specs missing\u2014cannot verify hard requirements; at $749.99 this is also at the top of acceptable pricing without confirmed spec justification.",
-      "reject": false,
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Reject: listing lacks critical specifications (exact size, wheel size, drivetrain, brakes, year) and links to product page rather than specific bike configuration; cannot verify hard requirements without this information.",
+      "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-07-16T10:08:34.940224+00:00"
+      "cached_at": "2026-07-23T10:22:51.922608+00:00"
     },
     "https://www.ebay.com/itm/336308929315": {
       "score": 0,
       "verdict": "reject",
-      "reason": "REJECT: 29er wheel size violates hard requirement (must be 27.5\"/650b); size unconfirmed; Rocky Mountain is Tier 2 brand but listing lacks critical specs (frame size, drivetrain, brakes, condition); $900 price with $79 shipping on used bike with zero seller feedback is high-risk.",
+      "reason": "Wheel size is 29\", not 27.5\"/650b as required; hard requirement violation.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-07-16T10:10:06.820122+00:00"
-    },
-    "https://www.ebay.com/itm/168302063148": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Reject: This is a frameset only (no components), size is unknown, wheel size is unspecified, and the listing lacks critical technical details required to evaluate fit and functionality for this rider.",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-07-16T10:10:25.357721+00:00"
+      "cached_at": "2026-07-23T10:24:30.622975+00:00"
     },
     "https://www.bikemart.com/products/2025-talon-4-hardtail-mountain-bike": {
       "score": 0,
@@ -3327,45 +3311,37 @@
       "size_confirmed": false,
       "cached_at": "2026-07-17T02:31:10.695031+00:00"
     },
-    "https://www.ebay.com/itm/168489671674": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Frame size not specified in listing \u2014 cannot verify fit for 5'5\" rider; a hard requirement is unmet.",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-07-16T10:10:43.534444+00:00"
-    },
     "https://www.bikemart.com/products/2026-x-caliber-frameset-hardtail-mountain-bike": {
       "score": 0,
       "verdict": "reject",
-      "reason": "REJECT: Frameset only (no components included) \u2014 buyer needs a complete, rideable bike, not a frame to build from scratch.",
+      "reason": "Frameset only (no components, drivetrain, or brakes included); buyer would need to purchase and assemble complete bike, making true cost $1200\u2013$1500+, far exceeding budget and expertise level for beginner-intermediate teenage rider.",
       "reject": true,
       "size_confirmed": true,
-      "cached_at": "2026-07-16T10:07:42.222233+00:00"
+      "cached_at": "2026-07-23T10:22:07.495449+00:00"
     },
     "https://www.bikemart.com/products/2026-procaliber-al-hardtail-mountain-frameset": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Frameset-only listing (no complete bike components, drivetrain, or brakes specified) fails hard requirements; wheels are 29\" (not 27.5\"/650b); and $799.99 for a frameset alone is not appropriate for this buyer seeking a complete, ready-to-ride bike.",
+      "reason": "Reject: frameset-only listing (no components included), 29\" wheels (not 27.5\"/650b), and all sizes offered are Large/XL/XXL (too large for 5'5\" rider).",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-07-16T10:07:42.222233+00:00"
+      "cached_at": "2026-07-23T10:22:07.495449+00:00"
     },
     "https://www.bikemart.com/products/2026-marlin-gen-3-hardtail-mountain-frameset": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Frameset only (no components, drivetrain, or brakes included) \u2014 not a complete bike and fails the hard requirement of a rideable hardtail MTB.",
+      "reason": "This is a frameset only (no components, wheels, or drivetrain included), not a complete bike\u2014buyer cannot ride it without significant additional investment and technical assembly skills.",
       "reject": true,
       "size_confirmed": true,
-      "cached_at": "2026-07-16T10:07:42.222233+00:00"
+      "cached_at": "2026-07-23T10:22:07.495449+00:00"
     },
     "https://www.bikemart.com/products/2024-stache-al-hardtail-mountain-frameset": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Frameset only (no complete bike), 29+ tire clearance (not 27.5\"/650b), and requires significant additional investment to complete.",
+      "reason": "Frameset only (no complete bike); wheel size is 29+ (exceeds 27.5\" requirement); fails hard requirements.",
       "reject": true,
       "size_confirmed": true,
-      "cached_at": "2026-07-16T10:07:42.222233+00:00"
+      "cached_at": "2026-07-23T10:22:07.495449+00:00"
     },
     "https://www.bikemart.com/products/2025-talon-2-hardtail-mountain-bike": {
       "score": 0,
@@ -4630,6 +4606,14 @@
       "reject": false,
       "size_confirmed": false,
       "cached_at": "2026-07-23T06:29:31.580304+00:00"
+    },
+    "https://www.ebay.com/itm/227440951162": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Reject: 700c wheels (not 27.5\"/650b), 3x21-speed drivetrain (outdated), and rim brakes\u2014fails multiple hard requirements.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-07-23T10:24:30.622975+00:00"
     }
   }
 }

@@ -54,9 +54,9 @@ if _env_file.exists():
 #  CONFIGURATION
 # ─────────────────────────────────────────────────────────────────────────────
 
-EMAIL_ADDRESS  = "mattkaz@icloud.com"
+EMAIL_ADDRESS  = os.environ.get("EMAIL_ADDRESS", "")
 EMAIL_PASSWORD = os.environ.get("EMAIL_APP_PASSWORD", "")
-NOTIFY_EMAILS  = ["mattkaz@icloud.com"]
+NOTIFY_EMAILS  = [e.strip() for e in os.environ.get("NOTIFY_EMAILS", "").split(",") if e.strip()]
 ANTHROPIC_KEY  = os.environ.get("ANTHROPIC_API_KEY", "")
 
 # GitHub dashboard deployment

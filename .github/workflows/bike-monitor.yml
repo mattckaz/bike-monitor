@@ -74,7 +74,9 @@ jobs:
 
       - name: Run bike deal finder
         env:
+          EMAIL_ADDRESS:      ${{ secrets.EMAIL_ADDRESS }}
           EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
+          NOTIFY_EMAILS:      ${{ secrets.NOTIFY_EMAILS }}
           ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
           GH_TOKEN:           ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
@@ -83,7 +85,9 @@ jobs:
       - name: Email on workflow failure
         if: failure()
         env:
+          EMAIL_ADDRESS:      ${{ secrets.EMAIL_ADDRESS }}
           EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
+          NOTIFY_EMAILS:      ${{ secrets.NOTIFY_EMAILS }}
         run: python bike_monitor.py --notify-failure
 
       - name: Commit updated state

@@ -262,7 +262,7 @@
     "https://www.bikemart.com/products/2026-rockhopper-sport",
     "https://www.bikemart.com/products/2026-rockhopper-sport-hardtail-mountain-bike"
   ],
-  "last_run": "2026-08-09T12:50:23.255769+00:00",
+  "last_run": "2026-08-09T16:35:31.382658+00:00",
   "deals_found": [
     {
       "title": "Talon 4 (2026)",
@@ -2832,7 +2832,7 @@
   ],
   "source_checks": {
     "The Pro's Closet": {
-      "last_checked": "2026-08-09T12:46:18.389123+00:00",
+      "last_checked": "2026-08-09T16:32:05.725152+00:00",
       "count_evaluated": 1,
       "status": "ok",
       "zero_streak": 0,
@@ -2844,42 +2844,42 @@
       "status": "ok"
     },
     "Worldwide Cyclery": {
-      "last_checked": "2026-08-09T12:46:33.315081+00:00",
+      "last_checked": "2026-08-09T16:32:20.033138+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 112,
+      "zero_streak": 113,
       "error": null
     },
     "Fanatik Bike": {
-      "last_checked": "2026-08-09T12:46:34.382679+00:00",
+      "last_checked": "2026-08-09T16:32:21.064287+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 81,
+      "zero_streak": 82,
       "error": null
     },
     "Cambria Bike": {
-      "last_checked": "2026-08-09T12:46:35.424786+00:00",
+      "last_checked": "2026-08-09T16:32:21.986610+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 112,
+      "zero_streak": 113,
       "error": null
     },
     "Bicycle Warehouse": {
-      "last_checked": "2026-08-09T12:46:21.648399+00:00",
+      "last_checked": "2026-08-09T16:32:08.935112+00:00",
       "count_evaluated": 68,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Mike's Bikes": {
-      "last_checked": "2026-08-09T12:46:36.747266+00:00",
+      "last_checked": "2026-08-09T16:32:23.525769+00:00",
       "count_evaluated": 7,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "ERIK'S Bike Shop": {
-      "last_checked": "2026-08-09T12:46:37.725044+00:00",
+      "last_checked": "2026-08-09T16:32:24.613129+00:00",
       "count_evaluated": 10,
       "status": "ok",
       "zero_streak": 0,
@@ -2891,10 +2891,10 @@
       "status": "ok"
     },
     "Velomine": {
-      "last_checked": "2026-08-09T12:46:38.567110+00:00",
+      "last_checked": "2026-08-09T16:32:25.605755+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 39,
+      "zero_streak": 40,
       "error": null
     },
     "Bicycle Blue Book": {
@@ -2913,56 +2913,56 @@
       "status": "ok"
     },
     "Incycle": {
-      "last_checked": "2026-08-09T12:46:24.625759+00:00",
+      "last_checked": "2026-08-09T16:32:11.905763+00:00",
       "count_evaluated": 47,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Colorado Cyclist": {
-      "last_checked": "2026-08-09T12:46:25.994631+00:00",
+      "last_checked": "2026-08-09T16:32:13.120119+00:00",
       "count_evaluated": 21,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "BikesOnline": {
-      "last_checked": "2026-08-09T12:46:27.373608+00:00",
+      "last_checked": "2026-08-09T16:32:14.439415+00:00",
       "count_evaluated": 6,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Kona (Direct)": {
-      "last_checked": "2026-08-09T12:46:29.040529+00:00",
+      "last_checked": "2026-08-09T16:32:16.168720+00:00",
       "count_evaluated": 5,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Fuji (Direct)": {
-      "last_checked": "2026-08-09T12:46:29.208242+00:00",
+      "last_checked": "2026-08-09T16:32:16.298221+00:00",
       "count_evaluated": 0,
       "status": "error",
       "zero_streak": 0,
       "error": "no working Shopify collection found"
     },
     "GT Bicycles (Direct)": {
-      "last_checked": "2026-08-09T12:46:31.153744+00:00",
+      "last_checked": "2026-08-09T16:32:17.999254+00:00",
       "count_evaluated": 2,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Diamondback (Direct)": {
-      "last_checked": "2026-08-09T12:46:32.519423+00:00",
+      "last_checked": "2026-08-09T16:32:19.365031+00:00",
       "count_evaluated": 17,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Ari Bikes": {
-      "last_checked": "2026-08-09T12:46:39.678266+00:00",
+      "last_checked": "2026-08-09T16:32:26.684259+00:00",
       "count_evaluated": 1,
       "status": "ok",
       "zero_streak": 0,
@@ -2984,17 +2984,17 @@
       "status": "ok"
     },
     "Marin": {
-      "last_checked": "2026-08-09T12:47:53.285989+00:00",
+      "last_checked": "2026-08-09T16:32:59.579663+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 183,
+      "zero_streak": 184,
       "error": null
     },
     "Dick's Sporting Goods": {
-      "last_checked": "2026-08-09T12:48:34.566646+00:00",
+      "last_checked": "2026-08-09T16:33:35.323539+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 183,
+      "zero_streak": 184,
       "error": null
     },
     "REI": {
@@ -3003,10 +3003,10 @@
       "status": "error"
     },
     "Pinkbike Deals": {
-      "last_checked": "2026-08-09T12:47:59.280439+00:00",
-      "count_evaluated": 0,
+      "last_checked": "2026-08-09T16:33:06.058253+00:00",
+      "count_evaluated": 41,
       "status": "ok",
-      "zero_streak": 1,
+      "zero_streak": 0,
       "error": null
     },
     "Pinkbike Buy/Sell": {
@@ -3015,38 +3015,38 @@
       "status": "ok"
     },
     "SweetWater Bicycles": {
-      "last_checked": "2026-08-09T12:48:25.714478+00:00",
+      "last_checked": "2026-08-09T16:33:26.065956+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 112,
+      "zero_streak": 113,
       "error": null
     },
     "Trailhead Cycling": {
-      "last_checked": "2026-08-09T12:48:30.906372+00:00",
+      "last_checked": "2026-08-09T16:33:31.701210+00:00",
       "count_evaluated": 30,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "88 Cycling": {
-      "last_checked": "2026-08-09T12:48:51.884026+00:00",
+      "last_checked": "2026-08-09T16:33:46.999020+00:00",
       "count_evaluated": 35,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Canyon": {
-      "last_checked": "2026-08-09T12:48:58.378822+00:00",
+      "last_checked": "2026-08-09T16:33:54.094694+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 183,
+      "zero_streak": 184,
       "error": null
     },
     "Batch Bicycles": {
-      "last_checked": "2026-08-09T12:49:05.000273+00:00",
+      "last_checked": "2026-08-09T16:34:00.230270+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 183,
+      "zero_streak": 184,
       "error": null
     },
     "REI Sale": {
@@ -3055,21 +3055,21 @@
       "status": "error"
     },
     "Trek Sale": {
-      "last_checked": "2026-08-09T12:46:51.853337+00:00",
+      "last_checked": "2026-08-09T16:32:39.351841+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 183,
+      "zero_streak": 184,
       "error": null
     },
     "Giant Clearance": {
-      "last_checked": "2026-08-09T12:47:38.910286+00:00",
+      "last_checked": "2026-08-09T16:32:44.958202+00:00",
       "count_evaluated": 0,
-      "status": "error",
-      "zero_streak": 0,
-      "error": "Page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://www.giant-bicycles.com/us/clearance-sale\", waiting until \"domcontentloaded\"\n"
+      "status": "ok",
+      "zero_streak": 1,
+      "error": null
     },
     "Specialized Sale": {
-      "last_checked": "2026-08-09T12:47:45.145092+00:00",
+      "last_checked": "2026-08-09T16:32:51.141211+00:00",
       "count_evaluated": 3,
       "status": "ok",
       "zero_streak": 0,
@@ -3086,7 +3086,7 @@
       "status": "ok"
     },
     "Bike Mart": {
-      "last_checked": "2026-08-09T12:46:44.363057+00:00",
+      "last_checked": "2026-08-09T16:32:32.289079+00:00",
       "count_evaluated": 138,
       "status": "ok",
       "zero_streak": 0,
@@ -3103,63 +3103,63 @@
       "status": "ok"
     },
     "Slickdeals": {
-      "last_checked": "2026-08-09T12:50:23.255687+00:00",
+      "last_checked": "2026-08-09T16:35:31.382575+00:00",
       "count_evaluated": 23,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Pinkbike Buy/Sell (27.5 S/M)": {
-      "last_checked": "2026-08-09T12:48:13.718455+00:00",
-      "count_evaluated": 8,
+      "last_checked": "2026-08-09T16:33:13.965445+00:00",
+      "count_evaluated": 0,
       "status": "ok",
-      "zero_streak": 0,
+      "zero_streak": 1,
       "error": null
     },
     "Pinkbike Buy/Sell (Marlin/Talon/Rockhopper)": {
-      "last_checked": "2026-08-09T12:48:21.617822+00:00",
+      "last_checked": "2026-08-09T16:33:21.856717+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 144,
+      "zero_streak": 145,
       "error": null
     },
     "eBay Used (Small)": {
-      "last_checked": "2026-08-09T12:49:12.964509+00:00",
+      "last_checked": "2026-08-09T16:34:09.111288+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 183,
+      "zero_streak": 184,
       "error": null
     },
     "eBay Used (Medium)": {
-      "last_checked": "2026-08-09T12:49:29.921995+00:00",
-      "count_evaluated": 57,
+      "last_checked": "2026-08-09T16:34:32.751002+00:00",
+      "count_evaluated": 58,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "eBay New (Small)": {
-      "last_checked": "2026-08-09T12:49:46.536211+00:00",
+      "last_checked": "2026-08-09T16:34:54.634401+00:00",
       "count_evaluated": 58,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "eBay New (Medium)": {
-      "last_checked": "2026-08-09T12:50:02.784642+00:00",
-      "count_evaluated": 57,
+      "last_checked": "2026-08-09T16:35:11.000397+00:00",
+      "count_evaluated": 58,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Craigslist (hardtail)": {
-      "last_checked": "2026-08-09T12:50:10.548328+00:00",
-      "count_evaluated": 33,
+      "last_checked": "2026-08-09T16:35:18.393429+00:00",
+      "count_evaluated": 29,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Craigslist (27.5)": {
-      "last_checked": "2026-08-09T12:50:18.993395+00:00",
+      "last_checked": "2026-08-09T16:35:25.386843+00:00",
       "count_evaluated": 26,
       "status": "ok",
       "zero_streak": 0,
@@ -3832,12 +3832,12 @@
       "cached_at": "2026-08-07T09:00:28.647466+00:00"
     },
     "https://www.craigslist.org/view/d/north-olmsted-gt-laguna-pro-mountain/c71zc84s1jePEN2i4eZ7DR": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "GT Laguna Pro is a flat-bar fitness/hybrid bike, not a mountain bike; lacks suspension fork (hard requirement: hardtail with front suspension), wrong category for intended use.",
-      "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-08-02T13:21:12.953757+00:00"
+      "score": 5,
+      "verdict": "fair",
+      "reason": "GT Laguna Pro meets hard requirements (27.5\", hardtail, mechanical disc, Medium size) at good price, but lacks complete spec details and Laguna is entry-level GT model; Medium requires fit verification for 5'5\" rider, and mechanical brakes are acceptable but not ideal\u2014worth viewing locally to confirm condition and components before committing.",
+      "reject": false,
+      "size_confirmed": false,
+      "cached_at": "2026-08-09T16:35:25.388764+00:00"
     },
     "https://www.ebay.com/itm/278177573867": {
       "score": 0,
@@ -4112,28 +4112,20 @@
       "cached_at": "2026-08-09T05:05:29.242961+00:00"
     },
     "https://www.ebay.com/itm/327290149228": {
-      "score": 3,
-      "verdict": "skip",
-      "reason": "Frame size (15\") is unconfirmed for 5'5\" rider (likely too small), drivetrain specs unknown, mechanical disc brakes are acceptable but aged components typical of pre-owned Diamondback entry models make this a risky $375 total purchase without full component verification.",
-      "reject": false,
+      "score": 2,
+      "verdict": "reject",
+      "reason": "Frame size unknown (critical hard requirement), no drivetrain/brake specs provided, listing lacks essential details to verify fit and component spec; $300 price cannot overcome missing critical information.",
+      "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-08-02T13:20:12.372314+00:00"
+      "cached_at": "2026-08-09T16:34:32.798399+00:00"
     },
     "https://www.ebay.com/itm/127956020244": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Reject: Frame size unknown (critical failure for fit); wheel size not specified; Rock Shox Judy fork suggests 26\" wheels (outdated standard); model year and complete drivetrain/brake specs not disclosed; insufficient information to verify hard requirements.",
+      "reason": "Reject: Frame size unknown (critical requirement), wheel size not specified, drivetrain/brake specs missing, and Rock Shox Judy fork suggests this is a 1990s-2000s vintage bike with likely outdated components and 26\" wheels.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-08-02T13:20:12.372314+00:00"
-    },
-    "https://www.ebay.com/itm/358844313417": {
-      "score": 2,
-      "verdict": "reject",
-      "reason": "Size unknown (critical blocker for fit verification), seller has 0% feedback (high risk), insufficient specs provided to verify drivetrain/brake components, and listing lacks detail typical of legitimate new bike sales.",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-08-02T13:20:35.759719+00:00"
+      "cached_at": "2026-08-09T16:34:32.798399+00:00"
     },
     "https://www.ebay.com/itm/206307150260": {
       "score": 2,
@@ -4678,6 +4670,14 @@
       "reject": true,
       "size_confirmed": false,
       "cached_at": "2026-08-09T12:50:10.550713+00:00"
+    },
+    "https://www.ebay.com/itm/267591474748": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Reject: Steel frame (hi-ten) violates hard requirement for aluminum/carbon; 2010 model with likely outdated 3x drivetrain and mechanical brakes unsuitable for this rider.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-08-09T16:34:32.798399+00:00"
     }
   }
 }

@@ -262,9 +262,10 @@
     "https://www.bikemart.com/products/2026-rockhopper-sport",
     "https://www.bikemart.com/products/2026-rockhopper-sport-hardtail-mountain-bike",
     "https://www.eriksbikeshop.com/products/specialized-rockhopper-sport-hardtail-mountain-bike-pr5a27774",
-    "https://www.bikemart.com/products/2027-rockhopper-sport-hardtail-mountain-bike"
+    "https://www.bikemart.com/products/2027-rockhopper-sport-hardtail-mountain-bike",
+    "https://www.ebay.com/itm/376931853177"
   ],
-  "last_run": "2026-09-08T03:11:31.631931+00:00",
+  "last_run": "2026-09-08T08:41:02.947557+00:00",
   "deals_found": [
     {
       "title": "Talon 4 (2026)",
@@ -2848,11 +2849,20 @@
       "reason": "Tier 1 Specialized Rockhopper Sport in correct size (S, 27.5\"), hydraulic MT200 brakes, 1x microSHIFT drivetrain, and SR SunTour fork\u2014excellent spec at $849.99, slightly above ideal but justified by hydraulic brakes and 2027 model year.",
       "url": "https://www.bikemart.com/products/2027-rockhopper-sport-hardtail-mountain-bike",
       "found_at": "2026-09-03T03:03:35.810418+00:00"
+    },
+    {
+      "title": "Marin Bobcat Trail 5 downhillMountain Bike,27.5\", M, Deore Hydraulic Disc Brakes",
+      "price": 527.12,
+      "source": "eBay",
+      "score": 7,
+      "reason": "Tier 1 Marin Bobcat Trail 5 with Deore hydraulic brakes and 27.5\" wheels at $527 used is strong value; Medium frame should fit 5'5\" rider but verify reach/standover before purchase, and add $164 shipping to final cost ($691 total).",
+      "url": "https://www.ebay.com/itm/376931853177",
+      "found_at": "2026-09-08T08:41:02.947562+00:00"
     }
   ],
   "source_checks": {
     "The Pro's Closet": {
-      "last_checked": "2026-09-08T03:07:54.993321+00:00",
+      "last_checked": "2026-09-08T08:37:02.945613+00:00",
       "count_evaluated": 1,
       "status": "ok",
       "zero_streak": 0,
@@ -2864,42 +2874,42 @@
       "status": "ok"
     },
     "Worldwide Cyclery": {
-      "last_checked": "2026-09-08T03:08:13.547733+00:00",
+      "last_checked": "2026-09-08T08:37:27.563614+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 263,
+      "zero_streak": 264,
       "error": null
     },
     "Fanatik Bike": {
-      "last_checked": "2026-09-08T03:08:15.095226+00:00",
+      "last_checked": "2026-09-08T08:37:29.098800+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 232,
+      "zero_streak": 233,
       "error": null
     },
     "Cambria Bike": {
-      "last_checked": "2026-09-08T03:08:16.173580+00:00",
+      "last_checked": "2026-09-08T08:37:30.201059+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 263,
+      "zero_streak": 264,
       "error": null
     },
     "Bicycle Warehouse": {
-      "last_checked": "2026-09-08T03:07:59.316207+00:00",
+      "last_checked": "2026-09-08T08:37:08.636821+00:00",
       "count_evaluated": 69,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Mike's Bikes": {
-      "last_checked": "2026-09-08T03:08:17.912571+00:00",
+      "last_checked": "2026-09-08T08:37:31.980091+00:00",
       "count_evaluated": 7,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "ERIK'S Bike Shop": {
-      "last_checked": "2026-09-08T03:08:19.005502+00:00",
+      "last_checked": "2026-09-08T08:37:33.360918+00:00",
       "count_evaluated": 10,
       "status": "ok",
       "zero_streak": 0,
@@ -2911,10 +2921,10 @@
       "status": "ok"
     },
     "Velomine": {
-      "last_checked": "2026-09-08T03:08:20.526556+00:00",
+      "last_checked": "2026-09-08T08:37:34.901498+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 190,
+      "zero_streak": 191,
       "error": null
     },
     "Bicycle Blue Book": {
@@ -2933,56 +2943,56 @@
       "status": "ok"
     },
     "Incycle": {
-      "last_checked": "2026-09-08T03:08:02.517525+00:00",
+      "last_checked": "2026-09-08T08:37:13.503271+00:00",
       "count_evaluated": 43,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Colorado Cyclist": {
-      "last_checked": "2026-09-08T03:08:04.073679+00:00",
+      "last_checked": "2026-09-08T08:37:15.497744+00:00",
       "count_evaluated": 21,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "BikesOnline": {
-      "last_checked": "2026-09-08T03:08:05.810578+00:00",
+      "last_checked": "2026-09-08T08:37:17.572570+00:00",
       "count_evaluated": 5,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Kona (Direct)": {
-      "last_checked": "2026-09-08T03:08:07.858784+00:00",
+      "last_checked": "2026-09-08T08:37:20.388335+00:00",
       "count_evaluated": 6,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Fuji (Direct)": {
-      "last_checked": "2026-09-08T03:08:08.102338+00:00",
+      "last_checked": "2026-09-08T08:37:20.771890+00:00",
       "count_evaluated": 0,
       "status": "error",
       "zero_streak": 0,
       "error": "no working Shopify collection found"
     },
     "GT Bicycles (Direct)": {
-      "last_checked": "2026-09-08T03:08:10.758975+00:00",
+      "last_checked": "2026-09-08T08:37:24.343087+00:00",
       "count_evaluated": 2,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Diamondback (Direct)": {
-      "last_checked": "2026-09-08T03:08:12.596910+00:00",
+      "last_checked": "2026-09-08T08:37:26.621823+00:00",
       "count_evaluated": 17,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Ari Bikes": {
-      "last_checked": "2026-09-08T03:08:22.277329+00:00",
+      "last_checked": "2026-09-08T08:37:36.568647+00:00",
       "count_evaluated": 1,
       "status": "ok",
       "zero_streak": 0,
@@ -3004,17 +3014,17 @@
       "status": "ok"
     },
     "Marin": {
-      "last_checked": "2026-09-08T03:09:09.577783+00:00",
+      "last_checked": "2026-09-08T08:38:29.491956+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 334,
+      "zero_streak": 335,
       "error": null
     },
     "Dick's Sporting Goods": {
-      "last_checked": "2026-09-08T03:09:45.432783+00:00",
+      "last_checked": "2026-09-08T08:39:05.062667+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 334,
+      "zero_streak": 335,
       "error": null
     },
     "REI": {
@@ -3023,7 +3033,7 @@
       "status": "error"
     },
     "Pinkbike Deals": {
-      "last_checked": "2026-09-08T03:09:16.026910+00:00",
+      "last_checked": "2026-09-08T08:38:35.775378+00:00",
       "count_evaluated": 39,
       "status": "ok",
       "zero_streak": 0,
@@ -3035,38 +3045,38 @@
       "status": "ok"
     },
     "SweetWater Bicycles": {
-      "last_checked": "2026-09-08T03:09:35.898786+00:00",
+      "last_checked": "2026-09-08T08:38:55.804433+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 263,
+      "zero_streak": 264,
       "error": null
     },
     "Trailhead Cycling": {
-      "last_checked": "2026-09-08T03:09:41.764130+00:00",
+      "last_checked": "2026-09-08T08:39:01.103554+00:00",
       "count_evaluated": 30,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "88 Cycling": {
-      "last_checked": "2026-09-08T03:09:57.665460+00:00",
+      "last_checked": "2026-09-08T08:39:18.601627+00:00",
       "count_evaluated": 38,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Canyon": {
-      "last_checked": "2026-09-08T03:10:03.959782+00:00",
+      "last_checked": "2026-09-08T08:39:24.798005+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 334,
+      "zero_streak": 335,
       "error": null
     },
     "Batch Bicycles": {
-      "last_checked": "2026-09-08T03:10:10.612082+00:00",
+      "last_checked": "2026-09-08T08:39:30.984891+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 334,
+      "zero_streak": 335,
       "error": null
     },
     "REI Sale": {
@@ -3075,21 +3085,21 @@
       "status": "error"
     },
     "Trek Sale": {
-      "last_checked": "2026-09-08T03:08:34.199036+00:00",
+      "last_checked": "2026-09-08T08:37:48.605957+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 334,
+      "zero_streak": 335,
       "error": null
     },
     "Giant Clearance": {
-      "last_checked": "2026-09-08T03:08:39.851703+00:00",
+      "last_checked": "2026-09-08T08:37:54.038894+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 41,
+      "zero_streak": 42,
       "error": null
     },
     "Specialized Sale": {
-      "last_checked": "2026-09-08T03:08:58.974730+00:00",
+      "last_checked": "2026-09-08T08:38:12.664627+00:00",
       "count_evaluated": 3,
       "status": "ok",
       "zero_streak": 0,
@@ -3106,7 +3116,7 @@
       "status": "ok"
     },
     "Bike Mart": {
-      "last_checked": "2026-09-08T03:08:27.769348+00:00",
+      "last_checked": "2026-09-08T08:37:42.614636+00:00",
       "count_evaluated": 104,
       "status": "ok",
       "zero_streak": 0,
@@ -3123,63 +3133,63 @@
       "status": "ok"
     },
     "Slickdeals": {
-      "last_checked": "2026-09-08T03:11:31.631851+00:00",
+      "last_checked": "2026-09-08T08:41:02.947480+00:00",
       "count_evaluated": 26,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Pinkbike Buy/Sell (27.5 S/M)": {
-      "last_checked": "2026-09-08T03:09:23.944326+00:00",
+      "last_checked": "2026-09-08T08:38:43.719578+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 10,
+      "zero_streak": 11,
       "error": null
     },
     "Pinkbike Buy/Sell (Marlin/Talon/Rockhopper)": {
-      "last_checked": "2026-09-08T03:09:31.839189+00:00",
+      "last_checked": "2026-09-08T08:38:51.657195+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 295,
+      "zero_streak": 296,
       "error": null
     },
     "eBay Used (Small)": {
-      "last_checked": "2026-09-08T03:10:18.617540+00:00",
+      "last_checked": "2026-09-08T08:39:39.130918+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 334,
+      "zero_streak": 335,
       "error": null
     },
     "eBay Used (Medium)": {
-      "last_checked": "2026-09-08T03:10:34.696870+00:00",
+      "last_checked": "2026-09-08T08:39:54.918058+00:00",
       "count_evaluated": 58,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "eBay New (Small)": {
-      "last_checked": "2026-09-08T03:10:55.802088+00:00",
-      "count_evaluated": 56,
+      "last_checked": "2026-09-08T08:40:24.987929+00:00",
+      "count_evaluated": 57,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "eBay New (Medium)": {
-      "last_checked": "2026-09-08T03:11:13.015164+00:00",
-      "count_evaluated": 56,
+      "last_checked": "2026-09-08T08:40:41.986631+00:00",
+      "count_evaluated": 55,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Craigslist (hardtail)": {
-      "last_checked": "2026-09-08T03:11:20.465544+00:00",
+      "last_checked": "2026-09-08T08:40:49.698754+00:00",
       "count_evaluated": 37,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Craigslist (27.5)": {
-      "last_checked": "2026-09-08T03:11:27.466589+00:00",
+      "last_checked": "2026-09-08T08:40:56.933368+00:00",
       "count_evaluated": 34,
       "status": "ok",
       "zero_streak": 0,
@@ -4028,12 +4038,12 @@
       "cached_at": "2026-09-07T22:33:32.541696+00:00"
     },
     "https://www.craigslist.org/view/d/chicago-trek-marlin/hxp4eSuLMtVp6DkQTVociv": {
-      "score": 0,
+      "score": 2,
       "verdict": "reject",
-      "reason": "Reject \u2014 listing is incomplete with no specs provided, size unknown, and location (Chicago) is ~280 miles from East Lansing, exceeding 100-mile pickup radius.",
+      "reason": "Listing lacks critical specs (size, year, components, condition, photos); cannot verify fit, drivetrain, or brakes; Chicago is ~250 miles from East Lansing, exceeding 100-mile travel radius.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-09-01T03:42:22.831100+00:00"
+      "cached_at": "2026-09-08T08:40:56.937048+00:00"
     },
     "https://www.ebay.com/itm/257507938830": {
       "score": 0,
@@ -4130,22 +4140,6 @@
       "reject": true,
       "size_confirmed": false,
       "cached_at": "2026-09-05T14:39:38.399390+00:00"
-    },
-    "https://www.ebay.com/itm/255101809788": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "REJECT: 3x7 drivetrain is outdated and explicitly disqualified; hard requirement violation.",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-09-01T03:41:18.087663+00:00"
-    },
-    "https://www.ebay.com/itm/266865002646": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "1992 vintage with chromoly steel frame violates aluminum/carbon requirement; outdated drivetrain and rim brakes not suitable for modern beginner rider; hard requirement failure.",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-09-01T03:41:18.087663+00:00"
     },
     "https://www.coloradocyclist.com/products/kona-fire-mountain-27-5-gloss-metallic-peridot": {
       "score": 5,
@@ -4650,6 +4644,22 @@
       "reject": true,
       "size_confirmed": false,
       "cached_at": "2026-09-08T03:10:34.721725+00:00"
+    },
+    "https://www.ebay.com/itm/198624438709": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Listing lacks critical specifications (drivetrain, brakes, frame material, condition) needed to verify hard requirements; cannot confirm this meets aluminum frame, disc brake, or hardtail standards.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-09-08T08:39:54.937886+00:00"
+    },
+    "https://www.ebay.com/itm/376931853177": {
+      "score": 7,
+      "verdict": "good_deal",
+      "reason": "Tier 1 Marin Bobcat Trail 5 with Deore hydraulic brakes and 27.5\" wheels at $527 used is strong value; Medium frame should fit 5'5\" rider but verify reach/standover before purchase, and add $164 shipping to final cost ($691 total).",
+      "reject": false,
+      "size_confirmed": false,
+      "cached_at": "2026-09-08T08:39:54.937886+00:00"
     }
   }
 }

@@ -692,7 +692,21 @@ Reject: Rim brakes, V-brakes
 1-2:  Poor value — technically passes requirements but not worth it
 0:    Reject — fails a hard requirement
 
-SIZE NOTE: If size is ambiguous or not confirmed as Small/S, score conservatively and flag it."""
+SIZE NOTE: Small (S) and Medium (M) both count as a confirmed size — do not mark Medium down for being Medium. Only if size is ambiguous or not listed, score conservatively and flag it."""
+
+
+_EVAL_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "score":          {"type": "integer"},
+        "verdict":        {"type": "string", "enum": ["good_deal", "fair", "skip", "reject"]},
+        "reason":         {"type": "string"},
+        "reject":         {"type": "boolean"},
+        "size_confirmed": {"type": "boolean"},
+    },
+    "required": ["score", "verdict", "reason", "reject", "size_confirmed"],
+    "additionalProperties": False,
+}
 
 
 def evaluate_listing(listing: dict) -> dict:
@@ -716,51 +730,32 @@ Size available: {listing.get('size', 'unknown')}
 Specs/Description: {listing.get('specs', 'not provided')[:400]}
 URL: {listing.get('url', '')}
 ---
-Respond ONLY with valid JSON:
-{{
-  "score": <1-10>,
-  "verdict": "<good_deal|fair|skip|reject>",
-  "reason": "<one clear sentence>",
-  "reject": <true|false>,
-  "size_confirmed": <true|false>
-}}
+Fill in:
+- score: 0-10, using the scale above
+- verdict: good_deal, fair, skip or reject
+- reason: one clear sentence
+- reject: true if it fails a hard requirement
+- size_confirmed: true only if the listing confirms the frame size
 Be strict. 7+ only for genuine value."""
 
     try:
         response = client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=200,
+            model="claude-haiku-4-5",
+            max_tokens=512,
             messages=[{"role": "user", "content": prompt}],
+            # Structured output: the API guarantees JSON matching this schema,
+            # so no regex/cleanup parsing is needed.
+            output_config={"format": {"type": "json_schema", "schema": _EVAL_SCHEMA}},
         )
-        text = response.content[0].text.strip()
+        if response.stop_reason in ("refusal", "max_tokens"):
+            # Output may not match the schema in these cases
+            log(f"  Claude eval stopped early ({response.stop_reason}); using rule-based score")
+            return _rule_based_score(listing)
 
-        # Strategy 1: direct JSON parse
-        m = re.search(r'\{.*?\}', text, re.DOTALL)
-        if m:
-            raw = m.group()
-            try:
-                # Clean common JSON issues: trailing commas, smart quotes (by unicode escape)
-                raw = raw.replace(chr(0x201c), chr(0x22)).replace(chr(0x201d), chr(0x22))
-                raw = raw.replace(chr(0x2018), chr(0x27)).replace(chr(0x2019), chr(0x27))
-                raw = re.sub(r',\s*([}\]])', r'\1', raw)
-                return json.loads(raw)
-            except json.JSONDecodeError:
-                pass
-
-        # Strategy 2: extract individual fields with regex (handles broken JSON)
-        score_m   = re.search(r'"score"\s*:\s*(\d+)', text)
-        verdict_m = re.search(r'"verdict"\s*:\s*"([^"]+)"', text)
-        reason_m  = re.search(r'"reason"\s*:\s*"([^"]+)"', text)
-        reject_m  = re.search(r'"reject"\s*:\s*(true|false)', text)
-        size_m    = re.search(r'"size_confirmed"\s*:\s*(true|false)', text)
-        if score_m:
-            return {
-                "score":          int(score_m.group(1)),
-                "verdict":        verdict_m.group(1) if verdict_m else "unknown",
-                "reason":         reason_m.group(1) if reason_m else "",
-                "reject":         reject_m.group(1) == "true" if reject_m else False,
-                "size_confirmed": size_m.group(1) == "true" if size_m else False,
-            }
+        text = next(b.text for b in response.content if b.type == "text")
+        result = json.loads(text)
+        result["score"] = max(0, min(10, int(result["score"])))
+        return result
 
     except Exception as e:
         log(f"  Claude eval error: {e}")

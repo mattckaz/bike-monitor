@@ -270,7 +270,7 @@
     "https://www.ebay.com/itm/267674728920",
     "https://www.bikesonline.com/products/polygon-xtrada-5-mountain-bike-new"
   ],
-  "last_run": "2026-10-28T14:55:04.956512+00:00",
+  "last_run": "2026-10-28T20:49:56.981085+00:00",
   "deals_found": [
     {
       "title": "Talon 4 (2026)",
@@ -2912,10 +2912,10 @@
   ],
   "source_checks": {
     "The Pro's Closet": {
-      "last_checked": "2026-10-28T14:51:35.419285+00:00",
+      "last_checked": "2026-10-28T20:46:46.679842+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 117,
+      "zero_streak": 118,
       "error": null
     },
     "Jenson USA": {
@@ -2924,42 +2924,42 @@
       "status": "ok"
     },
     "Worldwide Cyclery": {
-      "last_checked": "2026-10-28T14:51:53.001427+00:00",
+      "last_checked": "2026-10-28T20:47:01.770805+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 119,
+      "zero_streak": 120,
       "error": null
     },
     "Fanatik Bike": {
-      "last_checked": "2026-10-28T14:51:54.476994+00:00",
+      "last_checked": "2026-10-28T20:47:02.889844+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 130,
+      "zero_streak": 131,
       "error": null
     },
     "Cambria Bike": {
-      "last_checked": "2026-10-28T14:51:55.472487+00:00",
+      "last_checked": "2026-10-28T20:47:03.758032+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 106,
+      "zero_streak": 107,
       "error": null
     },
     "Bicycle Warehouse": {
-      "last_checked": "2026-10-28T14:51:39.529436+00:00",
-      "count_evaluated": 104,
+      "last_checked": "2026-10-28T20:46:49.964936+00:00",
+      "count_evaluated": 105,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Mike's Bikes": {
-      "last_checked": "2026-10-28T14:51:57.104822+00:00",
+      "last_checked": "2026-10-28T20:47:05.311019+00:00",
       "count_evaluated": 10,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "ERIK'S Bike Shop": {
-      "last_checked": "2026-10-28T14:51:58.353757+00:00",
+      "last_checked": "2026-10-28T20:47:06.409263+00:00",
       "count_evaluated": 10,
       "status": "ok",
       "zero_streak": 0,
@@ -2971,10 +2971,10 @@
       "status": "ok"
     },
     "Velomine": {
-      "last_checked": "2026-10-28T14:51:59.663648+00:00",
+      "last_checked": "2026-10-28T20:47:07.469222+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 106,
+      "zero_streak": 107,
       "error": null
     },
     "Bicycle Blue Book": {
@@ -2993,56 +2993,56 @@
       "status": "ok"
     },
     "Incycle": {
-      "last_checked": "2026-10-28T14:51:42.718572+00:00",
-      "count_evaluated": 37,
+      "last_checked": "2026-10-28T20:46:52.740279+00:00",
+      "count_evaluated": 36,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Colorado Cyclist": {
-      "last_checked": "2026-10-28T14:51:44.186934+00:00",
+      "last_checked": "2026-10-28T20:46:54.029388+00:00",
       "count_evaluated": 21,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "BikesOnline": {
-      "last_checked": "2026-10-28T14:51:46.109069+00:00",
+      "last_checked": "2026-10-28T20:46:55.601000+00:00",
       "count_evaluated": 10,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Kona (Direct)": {
-      "last_checked": "2026-10-28T14:51:48.306775+00:00",
+      "last_checked": "2026-10-28T20:46:57.298154+00:00",
       "count_evaluated": 13,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Fuji (Direct)": {
-      "last_checked": "2026-10-28T14:51:48.567854+00:00",
+      "last_checked": "2026-10-28T20:46:57.505251+00:00",
       "count_evaluated": 0,
       "status": "error",
       "zero_streak": 0,
       "error": "no working Shopify collection found"
     },
     "GT Bicycles (Direct)": {
-      "last_checked": "2026-10-28T14:51:50.620091+00:00",
+      "last_checked": "2026-10-28T20:46:59.285818+00:00",
       "count_evaluated": 2,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Diamondback (Direct)": {
-      "last_checked": "2026-10-28T14:51:52.092024+00:00",
+      "last_checked": "2026-10-28T20:47:01.035279+00:00",
       "count_evaluated": 17,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Ari Bikes": {
-      "last_checked": "2026-10-28T14:52:01.360102+00:00",
+      "last_checked": "2026-10-28T20:47:08.829660+00:00",
       "count_evaluated": 1,
       "status": "ok",
       "zero_streak": 0,
@@ -3064,17 +3064,17 @@
       "status": "ok"
     },
     "Marin": {
-      "last_checked": "2026-10-28T14:52:45.368061+00:00",
+      "last_checked": "2026-10-28T20:47:52.608466+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 539,
+      "zero_streak": 540,
       "error": null
     },
     "Dick's Sporting Goods": {
-      "last_checked": "2026-10-28T14:53:28.384311+00:00",
+      "last_checked": "2026-10-28T20:48:34.707042+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 539,
+      "zero_streak": 540,
       "error": null
     },
     "REI": {
@@ -3083,10 +3083,10 @@
       "status": "error"
     },
     "Pinkbike Deals": {
-      "last_checked": "2026-10-28T14:52:51.411677+00:00",
+      "last_checked": "2026-10-28T20:47:58.647967+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 7,
+      "zero_streak": 8,
       "error": null
     },
     "Pinkbike Buy/Sell": {
@@ -3095,38 +3095,38 @@
       "status": "ok"
     },
     "SweetWater Bicycles": {
-      "last_checked": "2026-10-28T14:53:19.277043+00:00",
+      "last_checked": "2026-10-28T20:48:26.083702+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 468,
+      "zero_streak": 469,
       "error": null
     },
     "Trailhead Cycling": {
-      "last_checked": "2026-10-28T14:53:24.468359+00:00",
+      "last_checked": "2026-10-28T20:48:30.986898+00:00",
       "count_evaluated": 30,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "88 Cycling": {
-      "last_checked": "2026-10-28T14:53:41.131944+00:00",
+      "last_checked": "2026-10-28T20:48:48.670803+00:00",
       "count_evaluated": 34,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Canyon": {
-      "last_checked": "2026-10-28T14:53:48.009855+00:00",
+      "last_checked": "2026-10-28T20:48:55.979487+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 539,
+      "zero_streak": 540,
       "error": null
     },
     "Batch Bicycles": {
-      "last_checked": "2026-10-28T14:53:59.708815+00:00",
+      "last_checked": "2026-10-28T20:49:07.630171+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 26,
+      "zero_streak": 27,
       "error": null
     },
     "REI Sale": {
@@ -3135,21 +3135,21 @@
       "status": "error"
     },
     "Trek Sale": {
-      "last_checked": "2026-10-28T14:52:16.031520+00:00",
+      "last_checked": "2026-10-28T20:47:22.540491+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 19,
+      "zero_streak": 20,
       "error": null
     },
     "Giant Clearance": {
-      "last_checked": "2026-10-28T14:52:21.655696+00:00",
+      "last_checked": "2026-10-28T20:47:27.970020+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 106,
+      "zero_streak": 107,
       "error": null
     },
     "Specialized Sale": {
-      "last_checked": "2026-10-28T14:52:28.391639+00:00",
+      "last_checked": "2026-10-28T20:47:35.964520+00:00",
       "count_evaluated": 3,
       "status": "ok",
       "zero_streak": 0,
@@ -3166,7 +3166,7 @@
       "status": "ok"
     },
     "Bike Mart": {
-      "last_checked": "2026-10-28T14:52:09.465386+00:00",
+      "last_checked": "2026-10-28T20:47:14.874923+00:00",
       "count_evaluated": 130,
       "status": "ok",
       "zero_streak": 0,
@@ -3183,63 +3183,63 @@
       "status": "ok"
     },
     "Slickdeals": {
-      "last_checked": "2026-10-28T14:55:04.956410+00:00",
+      "last_checked": "2026-10-28T20:49:56.981017+00:00",
       "count_evaluated": 26,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Pinkbike Buy/Sell (27.5 S/M)": {
-      "last_checked": "2026-10-28T14:53:06.438596+00:00",
-      "count_evaluated": 2,
+      "last_checked": "2026-10-28T20:48:13.458873+00:00",
+      "count_evaluated": 1,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Pinkbike Buy/Sell (Marlin/Talon/Rockhopper)": {
-      "last_checked": "2026-10-28T14:53:14.348062+00:00",
+      "last_checked": "2026-10-28T20:48:21.354030+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 500,
+      "zero_streak": 501,
       "error": null
     },
     "eBay Used (Small)": {
-      "last_checked": "2026-10-28T14:54:07.677742+00:00",
+      "last_checked": "2026-10-28T20:49:15.549266+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 85,
+      "zero_streak": 86,
       "error": null
     },
     "eBay Used (Medium)": {
-      "last_checked": "2026-10-28T14:54:15.584546+00:00",
+      "last_checked": "2026-10-28T20:49:23.456333+00:00",
       "count_evaluated": 0,
       "status": "ok",
-      "zero_streak": 2,
+      "zero_streak": 3,
       "error": null
     },
     "eBay New (Small)": {
-      "last_checked": "2026-10-28T14:54:31.156873+00:00",
-      "count_evaluated": 56,
-      "status": "ok",
-      "zero_streak": 0,
-      "error": null
-    },
-    "eBay New (Medium)": {
-      "last_checked": "2026-10-28T14:54:46.786952+00:00",
+      "last_checked": "2026-10-28T20:49:31.408924+00:00",
       "count_evaluated": 0,
       "status": "ok",
       "zero_streak": 1,
       "error": null
     },
+    "eBay New (Medium)": {
+      "last_checked": "2026-10-28T20:49:39.335993+00:00",
+      "count_evaluated": 0,
+      "status": "ok",
+      "zero_streak": 2,
+      "error": null
+    },
     "Craigslist (hardtail)": {
-      "last_checked": "2026-10-28T14:54:53.922487+00:00",
+      "last_checked": "2026-10-28T20:49:46.349571+00:00",
       "count_evaluated": 25,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Craigslist (27.5)": {
-      "last_checked": "2026-10-28T14:55:00.900608+00:00",
+      "last_checked": "2026-10-28T20:49:53.318363+00:00",
       "count_evaluated": 22,
       "status": "ok",
       "zero_streak": 0,

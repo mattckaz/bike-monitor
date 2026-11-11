@@ -81,6 +81,8 @@ PRICE_MIN           = 150   # sanity-check bounds for a legit listing price
 PRICE_MAX           = 950
 SHOPIFY_MAX_PAGES   = 5     # per collection slug
 SHOPIFY_PAGE_SIZE   = 250
+SHOPIFY_BODY_CHARS  = 1200  # product description chars sent to the evaluator
+PREFILTER_SPECS_CHARS = 400 # specs chars the keyword pre-filter inspects
 DOM_SCAN_PRICE_MIN = 100    # wide net for the DOM scanner — real filtering happens downstream
 DOM_SCAN_PRICE_MAX = 3000
 EBAY_MAX_PAGES     = 3
@@ -561,7 +563,10 @@ def _pre_filter(listing: dict) -> tuple[bool, str]:
     Only reject things that are unambiguously wrong.
     """
     title    = (listing.get("title", "") or "").lower()
-    specs    = (listing.get("specs", "") or "").lower()
+    # Keyword checks look at the head of the specs only. The evaluator now gets a longer
+    # description, but marketing copy further down ("enduro-inspired", "downhill speed")
+    # shouldn't trigger hard rejects.
+    specs    = (listing.get("specs", "") or "").lower()[:PREFILTER_SPECS_CHARS]
     size_raw = (listing.get("size",  "") or "").lower()
     combined = title + " " + specs
 
@@ -633,7 +638,7 @@ CRITERIA_PROMPT = """You are an experienced mountain bike expert evaluating list
 RIDER: Female, 5'5", beginner-intermediate skill, neighborhood/bike paths/light trails.
 BUYER: East Lansing, MI. Will travel up to 100 miles for pickup. Will buy anything that ships.
 
-━━━ HARD REQUIREMENTS (reject if missing) ━━━
+━━━ HARD REQUIREMENTS (reject if the listing CONTRADICTS them) ━━━
 - Frame size: Small (S) OR Medium (M) — rider is 5'5", right on the border for many brands
   · Small is ideal for Trek, Marin; Medium may actually fit better on Giant, Specialized, Kona
   · Reject XS (too small), Large/XL/XXL (too big)
@@ -692,7 +697,18 @@ Reject: Rim brakes, V-brakes
 1-2:  Poor value — technically passes requirements but not worth it
 0:    Reject — fails a hard requirement
 
-SIZE NOTE: Small (S) and Medium (M) both count as a confirmed size — do not mark Medium down for being Medium. Only if size is ambiguous or not listed, score conservatively and flag it."""
+SIZE NOTE: Small (S) and Medium (M) both count as a confirmed size — do not mark Medium down for being Medium. Only if size is ambiguous or not listed, score conservatively and flag it.
+
+━━━ MISSING INFORMATION ≠ FAILED REQUIREMENT ━━━
+Listings are often terse (a title, a price, a truncated blurb). Only set reject=true / score 0 when the
+listing shows evidence a requirement FAILS (e.g. only Large/XS sizes in stock, 29" wheels, 3x drivetrain,
+rim brakes, full suspension, unknown/junk brand, not a bike).
+If a detail is simply not stated, do NOT reject. Judge from the brand/model/year you recognise (e.g. you
+know a Specialized Rockhopper Sport, Trek Marlin 5 or Giant Talon 2 is a 27.5"/29" hardtail with disc
+brakes), score on price vs. what that model normally costs, and say what to verify in the reason.
+A recognised Tier 1/2 hardtail at a good price with only minor unknowns should still score 6-8.
+Multi-size variant lists like "S - 27.5, M - 29" mean the size-specific wheel size: Small = 27.5", Medium may be 29" —
+count it as a fit only if a Small (or a 27.5" Medium) is available."""
 
 
 _EVAL_SCHEMA = {
@@ -727,7 +743,7 @@ Title: {listing.get('title')}
 Price: ${listing.get('price', 'unknown')}
 MSRP: {f"${listing['msrp']:.0f}" if listing.get('msrp') else 'not listed'}
 Size available: {listing.get('size', 'unknown')}
-Specs/Description: {listing.get('specs', 'not provided')[:400]}
+Specs/Description: {listing.get('specs', 'not provided')[:1500]}
 URL: {listing.get('url', '')}
 ---
 Fill in:
@@ -901,7 +917,19 @@ def _shopify_fetch(shop_url: str, collection_slugs: list, source: str) -> tuple[
                                 size_options.append(opt_val)
 
                     size_str = ", ".join(sorted(set(size_options))) if size_options else "unknown"
-                    specs    = f"{body[:400]}" if body else ""
+
+                    # Give the evaluator the structured data Shopify already exposes —
+                    # product_type/tags often state "Hardtail", wheel size, etc. — and
+                    # enough of the body to reach the spec list, not just the marketing blurb.
+                    meta = []
+                    if product.get("product_type"):
+                        meta.append(f"Type: {product['product_type']}")
+                    tags = product.get("tags") or []
+                    if isinstance(tags, str):
+                        tags = [t.strip() for t in tags.split(",")]
+                    if tags:
+                        meta.append("Tags: " + ", ".join(tags[:15]))
+                    specs = " | ".join(meta + ([body[:SHOPIFY_BODY_CHARS]] if body else []))
 
                     listings.append({
                         "source":     source,
@@ -2034,6 +2062,9 @@ def main():
 
 
 EVAL_CACHE_DAYS = 7  # re-evaluate listings after this many days (catches price drops)
+# Bump when CRITERIA_PROMPT or the evaluator inputs change materially, so cached
+# verdicts produced under the old rules are re-evaluated instead of trusted.
+EVAL_VERSION = 2
 
 def _evaluate_listings(listings: list[dict], seen_urls: set,
                        eval_cache: dict | None = None) -> list[dict]:
@@ -2083,7 +2114,7 @@ def _evaluate_listings(listings: list[dict], seen_urls: set,
         if cached:
             try:
                 age_days = (now - datetime.fromisoformat(cached["cached_at"])).days
-                if age_days < EVAL_CACHE_DAYS:
+                if age_days < EVAL_CACHE_DAYS and cached.get("eval_version") == EVAL_VERSION:
                     cache_hits += 1
                     score = cached.get("score", 0)
                     if not cached.get("reject", False) and score >= MIN_SCORE_TO_ALERT:
@@ -2101,7 +2132,7 @@ def _evaluate_listings(listings: list[dict], seen_urls: set,
 
         # Store in cache
         if url:
-            eval_cache[url] = {**evaluation, "cached_at": now.isoformat()}
+            eval_cache[url] = {**evaluation, "cached_at": now.isoformat(), "eval_version": EVAL_VERSION}
 
         score  = evaluation.get("score", 0)
         reject = evaluation.get("reject", False)

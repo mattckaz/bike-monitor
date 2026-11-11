@@ -213,6 +213,22 @@ SHOPIFY_SOURCES = [
     # Competitive Cyclist (403), Backcountry (403), Bicycle Blue Book (404)
 ]
 
+# ── SmartEtailing bike-shop sites (server-rendered HTML, no JS/browser needed) ──
+# Independent shops on this platform share one markup: a product list at
+# SMARTETAILING_LIST_PATH (sortable by price) and product pages whose
+# `seData.item.variationsCombinations` JSON lists colour#size#wheel variants.
+# `location` is shown to the evaluator so it can judge the drive; these shops
+# are treated as in-store pickup (their policies exclude shipping on most bikes).
+SMARTETAILING_LIST_PATH = "/product-list/bikes-1000/mountain-1006/hardtail-1007/"
+SMARTETAILING_MAX_PAGES = 3
+SMARTETAILING_PAGE_SIZE = 60
+SMARTETAILING_SOURCES = [
+    {"name": "D&D Bicycles & Hockey", "shop_url": "https://www.ddbicyclesandhockey.com",
+     "location": "East Lansing, MI (the buyer's own town)"},
+    {"name": "Village Bike Shop",     "shop_url": "https://www.villagebikeshop.com",
+     "location": "Grand Rapids, MI (about 65 miles from the buyer)"},
+]
+
 PLAYWRIGHT_SOURCES = [
     # ── Brand sites — clearance pages more reliable + higher deal probability ──
     {
@@ -970,6 +986,168 @@ def _shopify_fetch(shop_url: str, collection_slugs: list, source: str) -> tuple[
             page += 1
 
     log(f"  {source} (Shopify API): {len(listings)} product(s) in budget range")
+    return listings, fetch_error
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  SMARTETAILING SHOP SCRAPER (D&D Bicycles, Village Bike Shop, ...)
+# ─────────────────────────────────────────────────────────────────────────────
+
+_SE_BROWSER_UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36")
+_SE_CARD_SPLIT_RE = re.compile(r'<div class="[^"]*\bseProduct"[^>]*>')
+_SE_VARIATIONS_RE = re.compile(r'"variationsCombinations"\s*:\s*"((?:[^"\\]|\\.)*)"')
+
+
+def _se_http_get(url: str) -> str:
+    req = urllib.request.Request(url, headers={"User-Agent": _SE_BROWSER_UA})
+    with urllib.request.urlopen(req, timeout=25) as r:
+        return r.read().decode("utf-8", errors="replace")
+
+
+def _se_text(fragment: str) -> str:
+    return re.sub(r"\s+", " ", html.unescape(_TAG_RE.sub(" ", fragment))).strip()
+
+
+def _se_parse_list(page_html: str) -> list[dict]:
+    """Product cards from a SmartEtailing list page -> {url, brand, name, prices[]}."""
+    items = []
+    for card in _SE_CARD_SPLIT_RE.split(page_html)[1:]:
+        href = re.search(r'seProductAnchor"\s+href="([^"]+)"', card)
+        brand = re.search(r'seBrandName">([^<]*)', card)
+        name = re.search(r'seItemName">([^<]*)', card)
+        price_block = re.search(r'seProductPrice">(.*?)</div>', card, re.S)
+        if not (href and name and price_block):
+            continue
+        prices = [float(x.replace(",", "")) for x in re.findall(r"\$([\d,]+(?:\.\d\d)?)", price_block.group(1))]
+        if not prices:
+            continue
+        items.append({
+            "url":    href.group(1),
+            "brand":  html.unescape(brand.group(1)).strip() if brand else "",
+            "name":   html.unescape(name.group(1)).strip(),
+            "prices": prices,
+        })
+    return items
+
+
+def _se_parse_detail(page_html: str) -> dict:
+    """Variant sizes/wheels/prices + spec text from a SmartEtailing product page."""
+    out = {"variants": [], "min_price": None, "specs_text": "", "desc_text": ""}
+    m = _SE_VARIATIONS_RE.search(page_html)
+    if m:
+        try:
+            variations = json.loads(json.loads('"' + m.group(1) + '"'))
+        except Exception:
+            variations = []
+        seen_combo, prices = set(), []
+        for v in variations:
+            parts = [p.strip() for p in str(v.get("attribute", "")).split("#")]
+            combo = " ".join(parts[1:]) if len(parts) > 1 else parts[0]   # drop the colour
+            if combo and combo not in seen_combo:
+                seen_combo.add(combo)
+                out["variants"].append(combo)
+            for key in ("sp", "p"):
+                try:
+                    val = float(v.get(key) or 0)
+                except (TypeError, ValueError):
+                    val = 0
+                if val > 0:
+                    prices.append(val)
+                    break   # sale price (sp) wins over regular (p) for this variant
+        if prices:
+            out["min_price"] = min(prices)
+    spec = re.search(r'seProductSpecsPane"[^>]*>(.*?)Part Numbers', page_html, re.S)
+    if spec:
+        out["specs_text"] = _se_text(spec.group(1)).replace("Specs ", "", 1)
+    desc = re.search(r'seProductPrimaryDescription[^>]*>(.*?)</div>', page_html, re.S)
+    if desc:
+        out["desc_text"] = _se_text(desc.group(1))
+    return out
+
+
+def _smartetailing_fetch(source: dict, eval_cache: dict | None = None) -> tuple[list[dict], str | None]:
+    """
+    List a shop's hardtail category (cheapest first), cheaply pre-filter on
+    brand/model/price, then read the product page of each survivor for size/wheel
+    variants and specs. Product pages are skipped for listings whose evaluation
+    is already cached.
+    """
+    base = source["shop_url"].rstrip("/")
+    name = source["name"]
+    cards, fetch_error = [], None
+    try:
+        for page_idx in range(SMARTETAILING_MAX_PAGES):
+            url = (f"{base}{SMARTETAILING_LIST_PATH}?maxItems={SMARTETAILING_PAGE_SIZE}"
+                   f"&startrow={page_idx * SMARTETAILING_PAGE_SIZE}&sort=priceasc")
+            page_cards = _se_parse_list(_se_http_get(url))
+            cards.extend(page_cards)
+            if len(page_cards) < SMARTETAILING_PAGE_SIZE or min(c["prices"][0] for c in page_cards) > PRICE_MAX:
+                break   # last page, or already past the budget (list is price-ascending)
+    except Exception as e:
+        log(f"  {name}: list fetch error: {e}")
+        fetch_error = str(e)
+
+    listings, seen_urls_this_source, detail_fetches = [], set(), 0
+    for c in cards:
+        prod_url = base + c["url"] if c["url"].startswith("/") else c["url"]
+        if prod_url in seen_urls_this_source:
+            continue
+        seen_urls_this_source.add(prod_url)
+
+        title = f"{c['brand']} {c['name']}".strip()
+        low = min(c["prices"])
+        stub = {"title": title, "price": low, "size": "unknown", "specs": ""}
+        if _pre_filter(stub)[0]:
+            continue
+
+        size_str, specs, price = "unknown", "", low
+        if not _cache_fresh((eval_cache or {}).get(prod_url)):
+            try:
+                detail = _se_parse_detail(_se_http_get(prod_url))
+                detail_fetches += 1
+                time.sleep(0.4)   # be polite to small shops
+            except Exception as e:
+                log(f"  {name}: detail fetch failed for {prod_url}: {e}")
+                fetch_error = fetch_error or str(e)
+                continue
+            if detail["min_price"]:
+                price = detail["min_price"]
+            sizes = sorted({v.split(" ")[0] for v in detail["variants"] if _extract_size(v) != "unknown"})
+            size_str = ", ".join(sizes) if sizes else "unknown"
+
+            # Free reject before paying for Claude: the rider needs Small/Medium on 27.5".
+            fits = [v for v in detail["variants"] if _extract_size(v) in ("Small", "Medium")]
+            if sizes and not fits:
+                continue   # sizes are known and none is S/M (e.g. only XS/Large/XL)
+            if fits:
+                wheels = [re.search(r"(\d{2}(?:\.\d)?)\s*-?\s*(?:inch|in\b|\")", v) for v in fits]
+                if all(w and w.group(1) != "27.5" for w in wheels):
+                    continue   # every Small/Medium variant is a 26"/29" wheel
+            notes = [f"Shop: {name}, {source['location']} — in-store pickup, stock not verified"]
+            if detail["variants"]:
+                notes.append("Size/wheel variants: " + "; ".join(detail["variants"][:14]))
+            if detail["specs_text"]:
+                notes.append(detail["specs_text"][:900])
+            elif detail["desc_text"]:
+                notes.append(detail["desc_text"][:500])
+            specs = " | ".join(notes)
+
+        if not _quick_price_filter(price):
+            continue
+        listings.append({
+            "source":     name,
+            "title":      title[:120],
+            "price":      price,
+            "msrp":       max(c["prices"]) if len(c["prices"]) > 1 and max(c["prices"]) > price else None,
+            "size":       size_str,
+            "specs":      specs,
+            "url":        prod_url,
+            "local_only": True,
+        })
+
+    log(f"  {name} (SmartEtailing): {len(cards)} listed, {len(listings)} candidate(s) after pre-filter "
+        f"({detail_fetches} product page(s) read)")
     return listings, fetch_error
 
 
@@ -1786,6 +1964,7 @@ def send_alert(deals: list[dict]):
 def _all_sources() -> list[str]:
     return (
         [s["name"] for s in SHOPIFY_SOURCES] +
+        [s["name"] for s in SMARTETAILING_SOURCES] +
         [s["name"] for s in PLAYWRIGHT_SOURCES] +
         [s["name"] for s in HTTP_SOURCES] +
         ["eBay API"]
@@ -2128,6 +2307,17 @@ def main():
             log(f"  ERROR on {source['name']}: {e}")
             _record_source(source["name"], 0, False, str(e))
 
+    # ── Phase 1a: SmartEtailing local shops (plain HTTP) ──────────────────────
+    for source in SMARTETAILING_SOURCES:
+        log(f"Checking: {source['name']} (SmartEtailing)")
+        try:
+            listings, err = _smartetailing_fetch(source, eval_cache)
+            new_deals.extend(_evaluate_listings(listings, seen_urls, eval_cache))
+            _record_source(source["name"], len(listings), err is None, err)
+        except Exception as e:
+            log(f"  ERROR on {source['name']}: {e}")
+            _record_source(source["name"], 0, False, str(e))
+
     # ── Phase 1b: eBay Browse API (official; far more reliable than scraping) ─
     ebay_api_ok = False
     if EBAY_CLIENT_ID and EBAY_CLIENT_SECRET:
@@ -2294,6 +2484,17 @@ EVAL_CACHE_DAYS = 14  # re-evaluate listings after this many days (catches price
 # verdicts produced under the old rules are re-evaluated instead of trusted.
 EVAL_VERSION = 2
 
+def _cache_fresh(cached: dict | None, now: datetime | None = None) -> bool:
+    """True if a cached evaluation is recent enough and was made under the current rules."""
+    if not cached or cached.get("eval_version") != EVAL_VERSION:
+        return False
+    try:
+        age_days = ((now or datetime.now(timezone.utc)) - datetime.fromisoformat(cached["cached_at"])).days
+    except Exception:
+        return False
+    return age_days < EVAL_CACHE_DAYS
+
+
 def _evaluate_listings(listings: list[dict], seen_urls: set,
                        eval_cache: dict | None = None) -> list[dict]:
     """
@@ -2339,17 +2540,12 @@ def _evaluate_listings(listings: list[dict], seen_urls: set,
 
         # ── Eval cache: skip Claude if evaluated recently ─────────────────────
         cached = eval_cache.get(url) if url else None
-        if cached:
-            try:
-                age_days = (now - datetime.fromisoformat(cached["cached_at"])).days
-                if age_days < EVAL_CACHE_DAYS and cached.get("eval_version") == EVAL_VERSION:
-                    cache_hits += 1
-                    score = cached.get("score", 0)
-                    if not cached.get("reject", False) and score >= MIN_SCORE_TO_ALERT:
-                        deals.append({"listing": listing, "evaluation": cached})
-                    continue
-            except Exception:
-                pass  # bad cache entry — fall through to Claude
+        if _cache_fresh(cached, now):
+            cache_hits += 1
+            score = cached.get("score", 0)
+            if not cached.get("reject", False) and score >= MIN_SCORE_TO_ALERT:
+                deals.append({"listing": listing, "evaluation": cached})
+            continue
 
         # ── Claude evaluation ─────────────────────────────────────────────────
         try:

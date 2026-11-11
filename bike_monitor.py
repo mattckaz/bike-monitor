@@ -543,6 +543,10 @@ _REJECT_TYPES = {
     "24 lite", "jr ", "junior",
     "downhill", "enduro",   # too aggressive for beginner
     "cargo", "gravel",      # wrong category
+    # Not a complete bike — costs a Claude call for nothing (Craigslist/eBay surface these)
+    "wheelset", "wheel set", "frameset", "frame set", "frame only", "frame -",
+    "fork only", "parts bike", "for parts", "helmet", "bike rack", "trainer",
+    "pedals only", "stolen",
 }
 
 # Component quality reference for Claude's criteria prompt (not used in pre-filter)
@@ -748,6 +752,13 @@ _EVAL_SCHEMA = {
 # main() exits non-zero so the failure email goes out.
 _claude_blocked_reason: str | None = None
 
+# Budget guard: hard cap on paid Claude calls per run. Anything over the cap is
+# skipped (not cached, not alerted) and picked up by a later run, so a burst of new
+# listings (first eBay API run, new sources) can't drain the account in one go.
+MAX_CLAUDE_CALLS_PER_RUN = 40
+_claude_calls_this_run = 0
+_claude_cap_logged = False
+
 
 def _is_fatal_api_error(e: Exception) -> bool:
     status = getattr(e, "status_code", None)
@@ -762,8 +773,13 @@ def evaluate_listing(listing: dict) -> dict | None:
     listing — never cache or alert on it. The old rule-based fallback approved junk
     (wheelsets, 29ers, 1990s Treks) as 7/10 whenever the API hiccuped.
     """
-    global _claude_blocked_reason
+    global _claude_blocked_reason, _claude_calls_this_run, _claude_cap_logged
     if _claude_blocked_reason:
+        return None
+    if _claude_calls_this_run >= MAX_CLAUDE_CALLS_PER_RUN:
+        if not _claude_cap_logged:
+            log(f"  Claude call cap reached ({MAX_CLAUDE_CALLS_PER_RUN}/run) — remaining listings wait for the next run")
+            _claude_cap_logged = True
         return None
     if not ANTHROPIC_KEY:
         _claude_blocked_reason = "ANTHROPIC_API_KEY is not set"
@@ -795,6 +811,7 @@ Fill in:
 - size_confirmed: true only if the listing confirms the frame size
 Be strict. 7+ only for genuine value."""
 
+    _claude_calls_this_run += 1
     try:
         response = client.messages.create(
             model="claude-haiku-4-5",
@@ -2262,6 +2279,7 @@ def main():
     else:
         log("No new deals found. No email sent.")
 
+    log(f"Claude calls this run: {_claude_calls_this_run}/{MAX_CLAUDE_CALLS_PER_RUN}")
     log("═══ Run complete ═══\n")
 
     if _claude_blocked_reason:
@@ -2271,7 +2289,7 @@ def main():
         sys.exit(1)
 
 
-EVAL_CACHE_DAYS = 7  # re-evaluate listings after this many days (catches price drops)
+EVAL_CACHE_DAYS = 14  # re-evaluate listings after this many days (catches price drops; longer = fewer paid calls)
 # Bump when CRITERIA_PROMPT or the evaluator inputs change materially, so cached
 # verdicts produced under the old rules are re-evaluated instead of trusted.
 EVAL_VERSION = 2

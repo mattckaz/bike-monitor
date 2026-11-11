@@ -264,43 +264,14 @@ PLAYWRIGHT_SOURCES = [
         "keywords": ["mountain", "hardtail", "mtb", "27.5"],
         "wait_ms":  4000,
     },
-    # Pinkbike Buy/Sell: region=3 is Canada/USA. The old cat/minprice/maxprice/country_id
+    # Pinkbike Buy/Sell sits behind Cloudflare: from CI the first request passes and the next ones
+    # get 'Sorry, you have been blocked', so this is deliberately a single query. (Model-name
+    # queries for marlin/talon/rockhopper/bobcat were tried and blocked.)
+    # region=3 is Canada/USA. The old cat/minprice/maxprice/country_id
     # params are ignored by the site now, so price/size filtering happens downstream.
     {
         "name":     "Pinkbike Buy/Sell (hardtail 27.5)",
         "url":      "https://www.pinkbike.com/buysell/list/?region=3&q=hardtail%2027.5",
-        "type":     "pinkbike_buysell",
-        "base_url": "https://www.pinkbike.com",
-        "keywords": None,
-        "wait_ms":  4000,
-    },
-    {
-        "name":     "Pinkbike Buy/Sell (marlin)",
-        "url":      "https://www.pinkbike.com/buysell/list/?region=3&q=marlin",
-        "type":     "pinkbike_buysell",
-        "base_url": "https://www.pinkbike.com",
-        "keywords": None,
-        "wait_ms":  4000,
-    },
-    {
-        "name":     "Pinkbike Buy/Sell (talon)",
-        "url":      "https://www.pinkbike.com/buysell/list/?region=3&q=talon",
-        "type":     "pinkbike_buysell",
-        "base_url": "https://www.pinkbike.com",
-        "keywords": None,
-        "wait_ms":  4000,
-    },
-    {
-        "name":     "Pinkbike Buy/Sell (rockhopper)",
-        "url":      "https://www.pinkbike.com/buysell/list/?region=3&q=rockhopper",
-        "type":     "pinkbike_buysell",
-        "base_url": "https://www.pinkbike.com",
-        "keywords": None,
-        "wait_ms":  4000,
-    },
-    {
-        "name":     "Pinkbike Buy/Sell (bobcat)",
-        "url":      "https://www.pinkbike.com/buysell/list/?region=3&q=bobcat",
         "type":     "pinkbike_buysell",
         "base_url": "https://www.pinkbike.com",
         "keywords": None,

@@ -53,18 +53,39 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: python -m playwright install chromium
 
+      # apt mirrors on GitHub runners occasionally fail DNS (this hung for 10m
+      # and failed the whole run). Retry with a hard timeout, and treat failure
+      # as non-fatal: the launch check below is the real gate, and it fails
+      # the job if Chromium genuinely can't start.
       - name: Install Playwright system dependencies
-        run: python -m playwright install-deps chromium
+        timeout-minutes: 8
+        run: |
+          for attempt in 1 2 3; do
+            if timeout 150 python -m playwright install-deps chromium; then
+              echo "System deps installed on attempt ${attempt}."
+              exit 0
+            fi
+            echo "install-deps failed (attempt ${attempt}) — retrying in 15s..."
+            sleep 15
+          done
+          echo "::warning::install-deps failed after 3 attempts; relying on launch check below."
 
       - name: Verify Playwright browsers (auto-heal if cache is stale)
         run: |
-          python -c "
+          check() {
+            python -c "
           from playwright.sync_api import sync_playwright
           with sync_playwright() as p:
               b = p.chromium.launch(headless=True)
               b.close()
           print('Chromium OK')
-          " || (echo "Browser check failed — reinstalling..." && python -m playwright install chromium)
+          "
+          }
+          if ! check; then
+            echo "Browser check failed — reinstalling..."
+            python -m playwright install chromium
+            check
+          fi
 
       - name: Restore state
         run: |

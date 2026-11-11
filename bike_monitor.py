@@ -1776,6 +1776,14 @@ def _scrape_pinkbike_buysell(page, source_config: dict) -> tuple[list[dict], str
             page.wait_for_timeout(source_config.get("wait_ms", 4000))
             raw = page.evaluate(_PINKBIKE_BUYSELL_JS)
             log(f"  {source_config['name']} p{page_num}: {len(raw)} item(s)")
+            if not raw and page_num == 1:
+                # Worked in a normal browser but not from CI: record what the page really is
+                # (bot challenge? consent wall? layout change?) so it can be fixed from the log.
+                try:
+                    body = page.evaluate("() => document.body ? document.body.innerText.replace(/\\s+/g,' ').slice(0,200) : ''")
+                    log(f"    page title={page.title()!r} body={body!r}")
+                except Exception as diag_err:
+                    log(f"    (diagnostic failed: {diag_err})")
 
             new_this_page = 0
             for item in raw:

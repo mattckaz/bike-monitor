@@ -99,6 +99,8 @@ jobs:
           EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
           NOTIFY_EMAILS:      ${{ secrets.NOTIFY_EMAILS }}
           ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          EBAY_CLIENT_ID:     ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
           GH_TOKEN:           ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
         run: python bike_monitor.py
@@ -112,6 +114,7 @@ jobs:
         run: python bike_monitor.py --notify-failure
 
       - name: Commit updated state
+        if: always()  # keep state even when the run failed (e.g. Claude billing error)
         run: |
           git config user.name  "bike-monitor[bot]"
           git config user.email "bike-monitor[bot]@users.noreply.github.com"

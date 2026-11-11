@@ -13,6 +13,7 @@ Scraping strategy by source:
 Uses Claude Haiku to intelligently score each listing against fit + value criteria.
 """
 
+import base64
 import html
 import json
 import os
@@ -20,8 +21,9 @@ import re
 import smtplib
 import sys
 import time
-import urllib.request
 import urllib.error
+import urllib.parse
+import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from email.message import EmailMessage
@@ -58,6 +60,8 @@ EMAIL_ADDRESS  = os.environ.get("EMAIL_ADDRESS", "")
 EMAIL_PASSWORD = os.environ.get("EMAIL_APP_PASSWORD", "")
 NOTIFY_EMAILS  = [e.strip() for e in os.environ.get("NOTIFY_EMAILS", "").split(",") if e.strip()]
 ANTHROPIC_KEY  = os.environ.get("ANTHROPIC_API_KEY", "")
+EBAY_CLIENT_ID     = os.environ.get("EBAY_CLIENT_ID", "")
+EBAY_CLIENT_SECRET = os.environ.get("EBAY_CLIENT_SECRET", "")
 
 # GitHub dashboard deployment
 GITHUB_TOKEN   = os.environ.get("GITHUB_TOKEN", os.environ.get("GH_TOKEN", ""))
@@ -191,6 +195,19 @@ SHOPIFY_SOURCES = [
         "shop_url":         "https://www.bikemart.com",
         "collection_slugs": ["bikes", "mountain-bikes", "trek"],
     },
+    {
+        # Marin's site is Shopify — the DOM scraper found 0 price elements for months,
+        # but the JSON feed has the whole Bobcat Trail / Bolinas Ridge line.
+        "name":             "Marin",
+        "shop_url":         "https://www.marinbikes.com",
+        "collection_slugs": ["mountain", "bobcat-trail", "bolinas-ridge"],
+    },
+    {
+        # Batch's DOM scrape never worked; it's a Shopify store (MB.1 $600 / MB.2 $700 hardtails)
+        "name":             "Batch Bicycles",
+        "shop_url":         "https://batchbicycles.com",
+        "collection_slugs": ["mountain-bikes", "bikes", "all"],
+    },
     # REMOVED (no longer Shopify or API blocked):
     # Jenson USA (308 redirect), Universal Cycles (404),
     # Competitive Cyclist (403), Backcountry (403), Bicycle Blue Book (404)
@@ -199,8 +216,8 @@ SHOPIFY_SOURCES = [
 PLAYWRIGHT_SOURCES = [
     # ── Brand sites — clearance pages more reliable + higher deal probability ──
     {
-        "name":     "Trek Sale",
-        "url":      "https://www.trekbikes.com/us/en_US/sale_and_clearance/bikes/mountain_bikes/",
+        "name":     "Trek Mountain",
+        "url":      "https://www.trekbikes.com/us/en_US/bikes/mountain-bikes/c/B300/",  # old sale URL 404s
         "type":     "dom",
         "base_url": "https://www.trekbikes.com",
         "keywords": ["marlin", "roscoe", "hardtail"],
@@ -222,14 +239,6 @@ PLAYWRIGHT_SOURCES = [
         "keywords": ["rockhopper", "hardrock", "hardtail"],
         "wait_ms":  7000,
     },
-    {
-        "name":     "Marin",
-        "url":      "https://www.marinbikes.com/bikes/mountain/hardtail",
-        "type":     "dom",
-        "base_url": "https://www.marinbikes.com",
-        "keywords": ["bobcat", "hardtail", "trail"],
-        "wait_ms":  5000,
-    },
     # ── Pinkbike ─────────────────────────────────────────────────────────────
     {
         "name":     "Pinkbike Deals",
@@ -239,33 +248,49 @@ PLAYWRIGHT_SOURCES = [
         "keywords": ["mountain", "hardtail", "mtb", "27.5"],
         "wait_ms":  4000,
     },
+    # Pinkbike Buy/Sell: region=3 is Canada/USA. The old cat/minprice/maxprice/country_id
+    # params are ignored by the site now, so price/size filtering happens downstream.
     {
-        # Search by size + wheel
-        "name":     "Pinkbike Buy/Sell (27.5 S/M)",
-        "url":      "https://www.pinkbike.com/buysell/list/?q=hardtail+27.5&cat=2&minprice=200&maxprice=900&country_id=1",
+        "name":     "Pinkbike Buy/Sell (hardtail 27.5)",
+        "url":      "https://www.pinkbike.com/buysell/list/?region=3&q=hardtail%2027.5",
         "type":     "pinkbike_buysell",
         "base_url": "https://www.pinkbike.com",
-        "keywords": None,
-        "wait_ms":  5000,
-    },
-    {
-        # Search by Tier 1 model names specifically
-        "name":     "Pinkbike Buy/Sell (Marlin/Talon/Rockhopper)",
-        "url":      "https://www.pinkbike.com/buysell/list/?q=marlin+OR+talon+OR+rockhopper+OR+bobcat&cat=2&minprice=200&maxprice=900&country_id=1",
-        "type":     "pinkbike_buysell",
-        "base_url": "https://www.pinkbike.com",
-        "keywords": None,
-        "wait_ms":  5000,
-    },
-    # ── Local Michigan shops ──────────────────────────────────────────────────
-    {
-        "name":     "SweetWater Bicycles",
-        "url":      "https://www.sweetwaterbicycles.com/bikes/mountain/",
-        "type":     "dom",
-        "base_url": "https://www.sweetwaterbicycles.com",
         "keywords": None,
         "wait_ms":  4000,
     },
+    {
+        "name":     "Pinkbike Buy/Sell (marlin)",
+        "url":      "https://www.pinkbike.com/buysell/list/?region=3&q=marlin",
+        "type":     "pinkbike_buysell",
+        "base_url": "https://www.pinkbike.com",
+        "keywords": None,
+        "wait_ms":  4000,
+    },
+    {
+        "name":     "Pinkbike Buy/Sell (talon)",
+        "url":      "https://www.pinkbike.com/buysell/list/?region=3&q=talon",
+        "type":     "pinkbike_buysell",
+        "base_url": "https://www.pinkbike.com",
+        "keywords": None,
+        "wait_ms":  4000,
+    },
+    {
+        "name":     "Pinkbike Buy/Sell (rockhopper)",
+        "url":      "https://www.pinkbike.com/buysell/list/?region=3&q=rockhopper",
+        "type":     "pinkbike_buysell",
+        "base_url": "https://www.pinkbike.com",
+        "keywords": None,
+        "wait_ms":  4000,
+    },
+    {
+        "name":     "Pinkbike Buy/Sell (bobcat)",
+        "url":      "https://www.pinkbike.com/buysell/list/?region=3&q=bobcat",
+        "type":     "pinkbike_buysell",
+        "base_url": "https://www.pinkbike.com",
+        "keywords": None,
+        "wait_ms":  4000,
+    },
+    # ── Local Michigan shops ──────────────────────────────────────────────────
     {
         "name":     "Trailhead Cycling",
         "url":      "https://www.trailheadcycling.com/product-list/bikes-1000/mountain-1006/",
@@ -276,35 +301,11 @@ PLAYWRIGHT_SOURCES = [
     },
     # ── Other online retailers ────────────────────────────────────────────────
     {
-        "name":     "Dick's Sporting Goods",
-        "url":      "https://www.dickssportinggoods.com/c/hardtail-mountain-bikes",
-        "type":     "dom",
-        "base_url": "https://www.dickssportinggoods.com",
-        "keywords": None,
-        "wait_ms":  5000,
-    },
-    {
         "name":     "88 Cycling",
         "url":      "https://88cycling.com/products",
         "type":     "dom",
         "base_url": "https://88cycling.com",
         "keywords": None,
-        "wait_ms":  5000,
-    },
-    {
-        "name":     "Canyon",
-        "url":      "https://www.canyon.com/en-us/mountain-bikes/hardtail/",
-        "type":     "dom",
-        "base_url": "https://www.canyon.com",
-        "keywords": ["hardtail", "27.5", "grand canyon", "stoic"],
-        "wait_ms":  6000,
-    },
-    {
-        "name":     "Batch Bicycles",
-        "url":      "https://www.batchbicycles.com/products",
-        "type":     "dom",
-        "base_url": "https://www.batchbicycles.com",
-        "keywords": ["mountain", "hardtail"],
         "wait_ms":  5000,
     },
     # ── eBay — new + used, Small + Medium ────────────────────────────────────
@@ -362,6 +363,7 @@ PLAYWRIGHT_SOURCES = [
         "url":      (
             f"https://www.craigslist.org/search/bia?postal={BUYER_ZIP}"
             f"&search_distance={MAX_TRAVEL_MILES}&purveyor=owner"
+            f"&min_price={PRICE_MIN}&max_price={PRICE_MAX}"
             "&query=mountain+bike+hardtail&sort=date"
         ),
         "type":     "craigslist",
@@ -374,6 +376,7 @@ PLAYWRIGHT_SOURCES = [
         "url":      (
             f"https://www.craigslist.org/search/bia?postal={BUYER_ZIP}"
             f"&search_distance={MAX_TRAVEL_MILES}&purveyor=owner"
+            f"&min_price={PRICE_MIN}&max_price={PRICE_MAX}"
             "&query=mountain+bike+27.5&sort=date"
         ),
         "type":     "craigslist",
@@ -381,7 +384,22 @@ PLAYWRIGHT_SOURCES = [
         "keywords": None,
         "wait_ms":  4000,
     },
+    {
+        "name":     "Craigslist (models)",
+        "url":      (
+            f"https://www.craigslist.org/search/bia?postal={BUYER_ZIP}"
+            f"&search_distance={MAX_TRAVEL_MILES}&purveyor=owner"
+            f"&min_price={PRICE_MIN}&max_price={PRICE_MAX}"
+            "&query=marlin%7Ctalon%7Crockhopper%7Cbobcat%7Chardrock%7Ckahuna%7Caggressor&sort=date"
+        ),
+        "type":     "craigslist",
+        "base_url": "https://www.craigslist.org",
+        "keywords": None,
+        "wait_ms":  4000,
+    },
     # REMOVED: REI + REI Sale — permanently blocked from GitHub Actions IPs
+    # REMOVED: Dick's (403 bot-block), Canyon (brand not approved + out of budget),
+    #          SweetWater (site is a "coming soon" placeholder)
 ]
 
 # HTTP-only sources (no browser needed)
@@ -725,9 +743,32 @@ _EVAL_SCHEMA = {
 }
 
 
-def evaluate_listing(listing: dict) -> dict:
+# Set when the Anthropic API rejects us for a reason retrying won't fix (no credits,
+# bad/revoked key). Once set we stop calling the API for the rest of the run and
+# main() exits non-zero so the failure email goes out.
+_claude_blocked_reason: str | None = None
+
+
+def _is_fatal_api_error(e: Exception) -> bool:
+    status = getattr(e, "status_code", None)
+    msg = str(e).lower()
+    return status in (401, 403) or "credit balance" in msg
+
+
+def evaluate_listing(listing: dict) -> dict | None:
+    """
+    Score one listing with Claude. Returns None when no trustworthy evaluation is
+    available (API error, refusal, truncation, no key). Callers must then skip the
+    listing — never cache or alert on it. The old rule-based fallback approved junk
+    (wheelsets, 29ers, 1990s Treks) as 7/10 whenever the API hiccuped.
+    """
+    global _claude_blocked_reason
+    if _claude_blocked_reason:
+        return None
     if not ANTHROPIC_KEY:
-        return _rule_based_score(listing)
+        _claude_blocked_reason = "ANTHROPIC_API_KEY is not set"
+        log(f"  Claude unavailable: {_claude_blocked_reason}")
+        return None
 
     client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
     local_note = ""
@@ -765,8 +806,8 @@ Be strict. 7+ only for genuine value."""
         )
         if response.stop_reason in ("refusal", "max_tokens"):
             # Output may not match the schema in these cases
-            log(f"  Claude eval stopped early ({response.stop_reason}); using rule-based score")
-            return _rule_based_score(listing)
+            log(f"  Claude eval stopped early ({response.stop_reason}); skipping listing")
+            return None
 
         text = next(b.text for b in response.content if b.type == "text")
         result = json.loads(text)
@@ -774,50 +815,13 @@ Be strict. 7+ only for genuine value."""
         return result
 
     except Exception as e:
-        log(f"  Claude eval error: {e}")
+        if _is_fatal_api_error(e):
+            _claude_blocked_reason = str(e)[:200]
+            log(f"  Claude API unusable for the rest of this run: {_claude_blocked_reason}")
+        else:
+            log(f"  Claude eval error (listing skipped, will retry next run): {e}")
+        return None
 
-    return _rule_based_score(listing)
-
-
-def _rule_based_score(listing: dict) -> dict:
-    title = (listing.get('title', '') + ' ' + listing.get('specs', '')).lower()
-    _raw_price = listing.get('price')
-    price = _raw_price if _raw_price is not None else 9999
-
-    # Hard rejects
-    if any(x in title for x in ['3x', 'rim brake', 'v-brake']):
-        return {"score": 0, "verdict": "reject", "reason": "3x drivetrain or rim brakes", "reject": True, "size_confirmed": False}
-
-    # Must have an approved brand — fallback shouldn't reward unknown brands
-    if not any(b in title for b in _TARGET_BRANDS):
-        return {"score": 0, "verdict": "reject", "reason": "No approved brand detected", "reject": True, "size_confirmed": False}
-
-    # Reject clear non-MTB types only
-    non_mtb = ["road bike", "cyclocross", "commuter", "city bike", "fixie", "bmx", "drop bar"]
-    if any(x in title for x in non_mtb):
-        return {"score": 0, "verdict": "reject", "reason": "Not a hardtail MTB", "reject": True, "size_confirmed": False}
-
-    score = 5
-    if price <= 650:   score += 2
-    elif price <= 750: score += 1
-    elif price > 900:  score -= 2
-
-    if any(m in title for m in ['bobcat trail 5', 'marlin 5', 'talon 2', 'rockhopper']):
-        score += 2
-    elif any(m in title for m in ['talon 3', 'talon 4', 'marlin 4', 'bobcat trail 4']):
-        score += 1
-
-    if any(x in title for x in ['deore', 'slx', 'xt ', 'cues', 'hydraulic']): score += 1
-    if '1x' in title or 'single' in title: score += 1
-
-    score = max(0, min(10, score))
-    return {
-        "score": score,
-        "verdict": "good_deal" if score >= 7 else "fair" if score >= 5 else "skip",
-        "reason": "Rule-based (Claude unavailable)",
-        "reject": False,
-        "size_confirmed": False,
-    }
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  SHOPIFY API SCRAPER (The Pro's Closet, Jenson USA)
@@ -1232,6 +1236,161 @@ def scrape_ebay(page, source_config: dict) -> tuple[list[dict], str | None]:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+#  EBAY BROWSE API (official, replaces browser scraping when keys are present)
+# ─────────────────────────────────────────────────────────────────────────────
+# eBay blocks datacenter IPs (GitHub Actions) for HTML scraping, so the DOM scraper
+# above mostly returns nothing. The Browse API is free (5,000 calls/day) and
+# returns structured data incl. shipping cost and a description snippet.
+# Needs EBAY_CLIENT_ID / EBAY_CLIENT_SECRET (Production keyset from developer.ebay.com).
+
+EBAY_API_CATEGORY   = "177831"   # Mountain Bikes
+EBAY_API_PAGE_LIMIT = 200
+EBAY_API_MAX_PAGES  = 2
+EBAY_API_QUERIES = [
+    {"name": "generic hardtail 27.5",  "q": "hardtail 27.5"},
+    {"name": "Tier-1 models",          "q": "(marlin,talon,rockhopper,hardrock,bobcat,kahuna,mahuna,aggressor)"},
+    {"name": "other approved brands",  "q": "(cannondale,diamondback,norco,fuji,jamis,polygon,kona,gt,liv,marin,giant,trek,specialized) 27.5 hardtail"},
+    {"name": "small/medium",           "q": "mountain bike 27.5 (small,medium,15,16,17,18) disc"},
+]
+
+_ebay_token_cache: dict = {}
+
+def _ebay_get_token() -> str:
+    """OAuth2 client-credentials token (application scope), cached for the process lifetime."""
+    now = time.time()
+    if _ebay_token_cache.get("token") and _ebay_token_cache.get("expires", 0) > now + 60:
+        return _ebay_token_cache["token"]
+    creds = base64.b64encode(f"{EBAY_CLIENT_ID}:{EBAY_CLIENT_SECRET}".encode()).decode()
+    body = urllib.parse.urlencode({
+        "grant_type": "client_credentials",
+        "scope":      "https://api.ebay.com/oauth/api_scope",
+    }).encode()
+    req = urllib.request.Request(
+        "https://api.ebay.com/identity/v1/oauth2/token", data=body, method="POST",
+        headers={"Authorization": f"Basic {creds}",
+                 "Content-Type": "application/x-www-form-urlencoded"},
+    )
+    with urllib.request.urlopen(req, timeout=20) as r:
+        data = json.loads(r.read())
+    _ebay_token_cache["token"]   = data["access_token"]
+    _ebay_token_cache["expires"] = now + int(data.get("expires_in", 7200))
+    return _ebay_token_cache["token"]
+
+
+def _ebay_item_to_listing(item: dict) -> dict | None:
+    """Convert one Browse API itemSummary into our listing dict."""
+    try:
+        price = float(item["price"]["value"])
+    except (KeyError, TypeError, ValueError):
+        return None
+    if item.get("price", {}).get("currency", "USD") != "USD":
+        return None
+
+    url = (item.get("itemWebUrl") or "").split("?")[0]
+    if not url:
+        return None
+
+    title = item.get("title", "")
+    notes = []
+    cond = item.get("condition")
+    if cond:
+        notes.append(f"Condition: {cond}")
+
+    ships = False
+    ship_opts = item.get("shippingOptions") or []
+    if ship_opts:
+        ships = True
+        cost = (ship_opts[0].get("shippingCost") or {}).get("value")
+        if cost is not None:
+            try:
+                c = float(cost)
+                notes.append("Shipping: free" if c == 0 else f"Shipping: ${c:.0f} (total ${price + c:.0f})")
+            except ValueError:
+                pass
+    else:
+        notes.append("Shipping: none listed (likely local pickup)")
+
+    loc = item.get("itemLocation") or {}
+    where = ", ".join(x for x in (loc.get("city"), loc.get("stateOrProvince")) if x)
+    if where:
+        notes.append(f"Ships from: {where}")
+
+    seller = item.get("seller") or {}
+    if seller.get("feedbackPercentage"):
+        notes.append(f"Seller feedback: {seller['feedbackPercentage']}% ({seller.get('feedbackScore', '?')} ratings)")
+
+    desc = (item.get("shortDescription") or "").strip()
+    specs = " | ".join(notes + ([desc[:900]] if desc else []))
+
+    return {
+        "source":     "eBay",
+        "title":      title[:120],
+        "price":      price,
+        "msrp":       None,
+        "size":       _extract_size(title),
+        "specs":      specs,
+        "url":        url,
+        "local_only": not ships,
+    }
+
+
+def scrape_ebay_api() -> tuple[list[dict], str | None]:
+    """Run EBAY_API_QUERIES against the Browse API. Returns (listings, error)."""
+    if not (EBAY_CLIENT_ID and EBAY_CLIENT_SECRET):
+        return [], "eBay API keys not configured"
+    try:
+        token = _ebay_get_token()
+    except Exception as e:
+        log(f"  eBay API auth failed: {e}")
+        return [], f"auth failed: {e}"
+
+    headers = {
+        "Authorization":           f"Bearer {token}",
+        "X-EBAY-C-MARKETPLACE-ID": "EBAY_US",
+        "Accept":                  "application/json",
+    }
+    listings, seen, errors, ok_calls = [], set(), [], 0
+    for q in EBAY_API_QUERIES:
+        for page_idx in range(EBAY_API_MAX_PAGES):
+            params = {
+                "q":            q["q"],
+                "category_ids": EBAY_API_CATEGORY,
+                "filter":       f"price:[{PRICE_MIN}..{PRICE_MAX}],priceCurrency:USD,"
+                                "buyingOptions:{FIXED_PRICE},deliveryCountry:US",
+                "sort":         "newlyListed",
+                "limit":        str(EBAY_API_PAGE_LIMIT),
+                "offset":       str(page_idx * EBAY_API_PAGE_LIMIT),
+                "fieldgroups":  "EXTENDED",
+            }
+            url = "https://api.ebay.com/buy/browse/v1/item_summary/search?" + urllib.parse.urlencode(params)
+            try:
+                with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=30) as r:
+                    data = json.loads(r.read())
+                ok_calls += 1
+            except Exception as e:
+                log(f"  eBay API query '{q['name']}' failed: {e}")
+                errors.append(f"{q['name']}: {e}")
+                break
+
+            items = data.get("itemSummaries") or []
+            new_here = 0
+            for item in items:
+                lst = _ebay_item_to_listing(item)
+                if lst and lst["url"] not in seen:
+                    seen.add(lst["url"])
+                    listings.append(lst)
+                    new_here += 1
+            log(f"  eBay API '{q['name']}' p{page_idx + 1}: {len(items)} item(s), {new_here} new")
+            if len(items) < EBAY_API_PAGE_LIMIT:
+                break  # last page
+
+    log(f"  eBay API: {len(listings)} unique listing(s)")
+    if ok_calls == 0:
+        return listings, "; ".join(errors) or "no successful API calls"
+    return listings, None
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 #  SLICKDEALS SCRAPER (RSS feed — no browser needed)
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -1389,53 +1548,77 @@ def _detect_ships(text: str) -> bool:
     return bool(_SHIP_RE.search(text))
 
 
+_PINKBIKE_BUYSELL_JS = """
+() => [...document.querySelectorAll('.bsitem')].map(e => {
+    const a = e.querySelector('.bsitem-title a');
+    const txt = s => { const n = e.querySelector(s); return n ? n.innerText.replace(/\\s+/g, ' ').trim() : ''; };
+    return {
+        title:     a ? a.innerText.trim() : '',
+        url:       a ? a.href.split('?')[0] : '',
+        price:     txt('.bsitem-price'),
+        condition: txt('.bsitem-condition'),
+        desc:      txt('.bsitem-desc'),
+        location:  txt('.bsitem-location'),
+    };
+}).filter(x => x.url && x.title)
+"""
+
 def _scrape_pinkbike_buysell(page, source_config: dict) -> tuple[list[dict], str | None]:
     """
-    Scrape Pinkbike Buy/Sell listings.
-    Uses DOM extractor since Pinkbike's CSS classes change frequently.
-    Flags listings as local_only if no shipping mentioned.
-    Pages through up to PINKBIKE_BUYSELL_MAX_PAGES via &page=N, stopping
-    early once a page yields no listings we haven't already seen.
+    Scrape Pinkbike Buy/Sell search results via its stable `.bsitem` markup
+    (title, "$900 CAD"-style price, condition, description, seller location).
+    The previous generic DOM extractor returned nothing here for months.
+    Pages through up to PINKBIKE_BUYSELL_MAX_PAGES via &page=N, stopping early
+    once a page yields no listings we haven't already seen.
     """
     listings = []
     seen_urls_this_source = set()
     base_url = source_config["url"]
-    dom_err = None
     try:
         for page_num in range(1, PINKBIKE_BUYSELL_MAX_PAGES + 1):
             url = base_url if page_num == 1 else f"{base_url}&page={page_num}"
             page.goto(url, wait_until="domcontentloaded", timeout=45000)
-            page.wait_for_timeout(5000)
-
-            # Use the robust DOM price-based extractor
-            raw, dom_err = _scrape_dom(page, source_config["name"], "https://www.pinkbike.com", None)
+            page.wait_for_timeout(source_config.get("wait_ms", 4000))
+            raw = page.evaluate(_PINKBIKE_BUYSELL_JS)
+            log(f"  {source_config['name']} p{page_num}: {len(raw)} item(s)")
 
             new_this_page = 0
-            for listing in raw:
-                url_key = listing.get("url", "")
-                if url_key:
-                    if url_key in seen_urls_this_source:
-                        continue
-                    seen_urls_this_source.add(url_key)
-                    new_this_page += 1
+            for item in raw:
+                item_url = item["url"]
+                if item_url in seen_urls_this_source:
+                    continue
+                seen_urls_this_source.add(item_url)
+                new_this_page += 1
 
-                text = listing.get("specs", "")
-                listing["local_only"] = not _detect_ships(text)
-                listing["source"]     = "Pinkbike Buy/Sell"
+                raw_price = _extract_price(item.get("price", ""))
+                text = " ".join(filter(None, [item["title"], item.get("desc", "")]))
+                # "$900 CAD" currency tag sits in the price element, so pass it through
+                price, currency = _normalize_currency(raw_price, item.get("price", "") + " " + text)
 
-                raw_price = listing.get("price")
-                price, currency = _normalize_currency(raw_price, text)
-                listing["price"]    = price
-                listing["currency"] = currency
+                notes = []
+                if item.get("condition"):
+                    notes.append(f"Condition: {item['condition']}")
+                if item.get("location"):
+                    notes.append(f"Seller: {item['location']}")
                 if currency == "CAD" and raw_price is not None:
-                    listing["specs"] = f"(orig. ${raw_price:.0f} CAD) {text}"
+                    notes.append(f"(listed ${raw_price:.0f} CAD, converted to USD)")
+                specs = " | ".join(notes + [item.get("desc", "")[:700]])
 
-                listings.append(listing)
+                listings.append({
+                    "source":     "Pinkbike Buy/Sell",
+                    "title":      item["title"][:120],
+                    "price":      price,
+                    "msrp":       None,
+                    "size":       _extract_size(item["title"]),
+                    "specs":      specs,
+                    "url":        item_url,
+                    "currency":   currency,
+                    "local_only": not _detect_ships(text),
+                })
 
-            if new_this_page == 0:
+            if new_this_page == 0 or not raw:
                 break  # no new listings on this page — end of results
-
-        return listings, dom_err
+        return listings, None
 
     except Exception as e:
         log(f"  Pinkbike Buy/Sell error: {e}")
@@ -1587,7 +1770,8 @@ def _all_sources() -> list[str]:
     return (
         [s["name"] for s in SHOPIFY_SOURCES] +
         [s["name"] for s in PLAYWRIGHT_SOURCES] +
-        [s["name"] for s in HTTP_SOURCES]
+        [s["name"] for s in HTTP_SOURCES] +
+        ["eBay API"]
     )
 
 def write_status_page(state: dict):
@@ -1927,6 +2111,26 @@ def main():
             log(f"  ERROR on {source['name']}: {e}")
             _record_source(source["name"], 0, False, str(e))
 
+    # ── Phase 1b: eBay Browse API (official; far more reliable than scraping) ─
+    ebay_api_ok = False
+    if EBAY_CLIENT_ID and EBAY_CLIENT_SECRET:
+        log("Checking: eBay (Browse API)")
+        try:
+            listings, err = scrape_ebay_api()
+            ebay_api_ok = err is None
+            new_deals.extend(_evaluate_listings(listings, seen_urls, eval_cache))
+            _record_source("eBay API", len(listings), err is None, err)
+        except Exception as e:
+            log(f"  ERROR on eBay API: {e}")
+            _record_source("eBay API", 0, False, str(e))
+    else:
+        log("eBay API keys not set — falling back to browser scraping for eBay")
+
+    playwright_sources = [
+        src for src in PLAYWRIGHT_SOURCES
+        if not (ebay_api_ok and src["type"] == "ebay")  # API already covered eBay
+    ]
+
     # ── Phase 2: Playwright sources ───────────────────────────────────────────
     try:
         with sync_playwright() as pw:
@@ -1946,7 +2150,7 @@ def main():
             )
             _stealth.apply_stealth_sync(ctx)
 
-            for source in PLAYWRIGHT_SOURCES:
+            for source in playwright_sources:
                 log(f"Checking: {source['name']}")
                 page = ctx.new_page()
                 try:
@@ -1985,7 +2189,7 @@ def main():
             browser.close()
     except Exception as e:
         log(f"  ERROR: Playwright browser setup/run failed: {e}")
-        for source in PLAYWRIGHT_SOURCES:
+        for source in playwright_sources:
             if source["name"] not in source_checks:
                 _record_source(source["name"], 0, False, "Playwright browser setup/run failed")
 
@@ -2060,6 +2264,12 @@ def main():
 
     log("═══ Run complete ═══\n")
 
+    if _claude_blocked_reason:
+        # Fail the workflow so the failure email goes out — otherwise a dead API key or
+        # empty credit balance just looks like "no deals found" forever.
+        log(f"FAILING RUN: Claude evaluations are unavailable — {_claude_blocked_reason}")
+        sys.exit(1)
+
 
 EVAL_CACHE_DAYS = 7  # re-evaluate listings after this many days (catches price drops)
 # Bump when CRITERIA_PROMPT or the evaluator inputs change materially, so cached
@@ -2129,6 +2339,8 @@ def _evaluate_listings(listings: list[dict], seen_urls: set,
         except Exception as e:
             log(f"    Eval error: {e}")
             continue
+        if evaluation is None:
+            continue  # no trustworthy score: don't cache, don't alert — retried next run
 
         # Store in cache
         if url:

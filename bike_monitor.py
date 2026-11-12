@@ -1502,8 +1502,17 @@ def _ebay_item_to_listing(item: dict) -> dict | None:
 
 def scrape_ebay_api() -> tuple[list[dict], str | None]:
     """Run EBAY_API_QUERIES against the Browse API. Returns (listings, error)."""
+    global EBAY_CLIENT_ID, EBAY_CLIENT_SECRET
     if not (EBAY_CLIENT_ID and EBAY_CLIENT_SECRET):
         return [], "eBay API keys not configured"
+    # eBay's keyset page shows App ID, Dev ID and Cert ID side by side and it's easy to put
+    # them in the wrong secret. A Cert ID starts with "PRD-"/"SBX-"; an App ID doesn't
+    # (it's "name-app-PRD-..."). If they arrive swapped, use them the right way round.
+    _is_cert = lambda v: v.upper().startswith(("PRD-", "SBX-"))
+    if _is_cert(EBAY_CLIENT_ID) and not _is_cert(EBAY_CLIENT_SECRET):
+        log("  eBay credentials look swapped (client id has the Cert ID shape) — using them swapped")
+        EBAY_CLIENT_ID, EBAY_CLIENT_SECRET = EBAY_CLIENT_SECRET, EBAY_CLIENT_ID
+        _ebay_token_cache.clear()
     try:
         token = _ebay_get_token()
     except urllib.error.HTTPError as e:

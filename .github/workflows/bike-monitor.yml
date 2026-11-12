@@ -2,8 +2,9 @@ name: Bike Deal Finder
 
 on:
   schedule:
-    # Run every 4 hours
-    - cron: '0 */4 * * *'
+    # Twice a day: 12:00 and 22:00 UTC (~7-8am and ~5-6pm in East Lansing).
+    # Kept infrequent on purpose to stay inside the small Anthropic credit budget.
+    - cron: '0 12,22 * * *'
   workflow_dispatch:
 
 permissions:

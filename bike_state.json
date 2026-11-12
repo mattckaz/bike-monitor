@@ -281,11 +281,7 @@
     "https://www.marinbikes.com/products/2025-1-bolinas-ridge-1-st",
     "https://www.marinbikes.com/products/2025-1-bolinas-ridge-1",
     "https://www.ddbicyclesandhockey.com/product/liv-tempt-1-398252-1.htm",
-    "https://www.villagebikeshop.com/product/specialized-rockhopper-sport-1243749-1.htm",
-    "https://www.ebay.com/itm/128179145323",
-    "https://www.ebay.com/itm/267748511112",
-    "https://www.ebay.com/itm/128156343332",
-    "https://www.ebay.com/itm/147641216351"
+    "https://www.villagebikeshop.com/product/specialized-rockhopper-sport-1243749-1.htm"
   ],
   "last_run": "2026-11-12T21:18:48.256530+00:00",
   "deals_found": [
@@ -3042,42 +3038,6 @@
       "reason": "Tier 1 Specialized Rockhopper Sport in Small 27.5\", hydraulic MT200 brakes, CUES 1x drivetrain, and SunTour fork\u2014all correct specs; $849.99 is at the upper end of acceptable but justified by the hydraulic brakes and quality drivetrain; local pickup 65 miles away is convenient; verify current stock at Village Bike Shop before committing.",
       "url": "https://www.villagebikeshop.com/product/specialized-rockhopper-sport-1243749-1.htm",
       "found_at": "2026-11-11T17:01:54.918654+00:00"
-    },
-    {
-      "title": "Marin San Quentin 27.5in SMALL Hardtail MTB Front Suspension Hyd Disc Alloy 2024",
-      "price": 821.64,
-      "source": "eBay",
-      "score": 7,
-      "reason": "Tier 2 Marin hardtail (San Quentin 1) in Small 27.5\" with excellent used condition (3 rides), upgraded XT hydraulic brakes and Deore crankset, ships to buyer at $974 total\u2014strong spec and condition justify the premium over MSRP for a lightly used 2024 model.",
-      "url": "https://www.ebay.com/itm/128179145323",
-      "found_at": "2026-11-12T21:18:48.256535+00:00"
-    },
-    {
-      "title": "JAMIS DIVIDE HARDTAIL 27.5 MOUNTAIN BIKE SIZE 13\" GOLDEN POP",
-      "price": 629.99,
-      "source": "eBay",
-      "score": 7,
-      "reason": "Jamis Divide is a Tier 3 hardtail with 27.5\" wheels at $629.99 (within ideal budget), but drivetrain and brake specs are not listed\u2014verify Deore or better 1x drivetrain and hydraulic/mechanical disc brakes before committing; 13\" frame size is appropriate for 5'5\" rider.",
-      "url": "https://www.ebay.com/itm/267748511112",
-      "found_at": "2026-11-12T21:18:48.256539+00:00"
-    },
-    {
-      "title": "Giant Talon 2 Mountain Bike",
-      "price": 400.0,
-      "source": "eBay",
-      "score": 8,
-      "reason": "Giant Talon 2 (Tier 1) in Medium frame, 27.5\" wheels, disc brakes, hardtail at $400\u2014excellent price (40% below typical $650\u2013700 MSRP for used condition); Medium fits 5'5\" rider well on Giant; verify drivetrain spec (likely Altus or Alivio 1x, acceptable for this price point) and condition before committing.",
-      "url": "https://www.ebay.com/itm/128156343332",
-      "found_at": "2026-11-12T21:18:48.256541+00:00"
-    },
-    {
-      "title": "Giant Talon Mountain Bike 27.5\" 18\" Aluminum Front Suspension Disc 10-Speed",
-      "price": 260.0,
-      "source": "eBay",
-      "score": 7,
-      "reason": "Giant Talon 2 (18\" Small, 27.5\" wheels, hardtail, disc brakes, 10-speed Altus) is a Tier 1 target bike at $260\u2014excellent used-market value (~35% of MSRP)\u2014but verify condition, drivetrain 1x vs 3x, and seller reliability (0% feedback is a minor concern); local pickup near Lansing is convenient.",
-      "url": "https://www.ebay.com/itm/147641216351",
-      "found_at": "2026-11-12T21:18:48.256543+00:00"
     }
   ],
   "source_checks": {
@@ -4412,15 +4372,6 @@
       "cached_at": "2026-11-11T16:40:52.258561+00:00",
       "eval_version": 2
     },
-    "https://www.ebay.com/itm/267748511112": {
-      "score": 7,
-      "verdict": "good_deal",
-      "reason": "Jamis Divide is a Tier 3 hardtail with 27.5\" wheels at $629.99 (within ideal budget), but drivetrain and brake specs are not listed\u2014verify Deore or better 1x drivetrain and hydraulic/mechanical disc brakes before committing; 13\" frame size is appropriate for 5'5\" rider.",
-      "reject": false,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
-      "eval_version": 2
-    },
     "https://www.ebay.com/itm/137863187417": {
       "score": 0,
       "verdict": "reject",
@@ -4493,15 +4444,6 @@
       "reject": true,
       "size_confirmed": true,
       "cached_at": "2026-11-06T18:57:48.295072+00:00"
-    },
-    "https://www.ebay.com/itm/128179145323": {
-      "score": 7,
-      "verdict": "good_deal",
-      "reason": "Tier 2 Marin hardtail (San Quentin 1) in Small 27.5\" with excellent used condition (3 rides), upgraded XT hydraulic brakes and Deore crankset, ships to buyer at $974 total\u2014strong spec and condition justify the premium over MSRP for a lightly used 2024 model.",
-      "reject": false,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
-      "eval_version": 2
     },
     "https://www.ebay.com/itm/366505996378": {
       "score": 0,
@@ -5567,15 +5509,6 @@
       "cached_at": "2026-11-12T21:16:20.170733+00:00",
       "eval_version": 2
     },
-    "https://www.ebay.com/itm/128156343332": {
-      "score": 8,
-      "verdict": "good_deal",
-      "reason": "Giant Talon 2 (Tier 1) in Medium frame, 27.5\" wheels, disc brakes, hardtail at $400\u2014excellent price (40% below typical $650\u2013700 MSRP for used condition); Medium fits 5'5\" rider well on Giant; verify drivetrain spec (likely Altus or Alivio 1x, acceptable for this price point) and condition before committing.",
-      "reject": false,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
-      "eval_version": 2
-    },
     "https://www.ebay.com/itm/820276968405": {
       "score": 5,
       "verdict": "fair",
@@ -5599,15 +5532,6 @@
       "verdict": "reject",
       "reason": "Listing is for a men's frame geometry bike, not suitable for a female teenage rider; additionally, critical specs (wheel size, drivetrain, brakes) are not stated and cannot be verified from this vague listing.",
       "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
-      "eval_version": 2
-    },
-    "https://www.ebay.com/itm/147641216351": {
-      "score": 7,
-      "verdict": "good_deal",
-      "reason": "Giant Talon 2 (18\" Small, 27.5\" wheels, hardtail, disc brakes, 10-speed Altus) is a Tier 1 target bike at $260\u2014excellent used-market value (~35% of MSRP)\u2014but verify condition, drivetrain 1x vs 3x, and seller reliability (0% feedback is a minor concern); local pickup near Lansing is convenient.",
-      "reject": false,
       "size_confirmed": true,
       "cached_at": "2026-11-12T21:16:20.170733+00:00",
       "eval_version": 2

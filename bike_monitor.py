@@ -776,7 +776,15 @@ def evaluate_listing(listing: dict) -> dict | None:
     client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
     local_note = ""
     if listing.get("local_only"):
-        local_note = f"\nNOTE: This is a LOCAL PICKUP listing. Buyer is in {BUYER_LOCATION}, max 100 mile travel."
+        loc = listing.get("location")
+        if loc:
+            local_note = (f"\nNOTE: LOCAL PICKUP ONLY (no shipping). Item location: {loc}. Buyer is in "
+                          f"{BUYER_LOCATION} and will travel at most {MAX_TRAVEL_MILES} miles — reject (score 0) "
+                          f"if the item is farther than that.")
+        else:
+            local_note = (f"\nNOTE: LOCAL PICKUP ONLY, and the item's location is NOT stated. Buyer is in "
+                          f"{BUYER_LOCATION}, max {MAX_TRAVEL_MILES} miles. Do NOT assume it is near the buyer: "
+                          f"score at most 6 and say the location must be confirmed first.")
 
     prompt = f"""{CRITERIA_PROMPT}
 {local_note}
@@ -1115,6 +1123,7 @@ def _smartetailing_fetch(source: dict, eval_cache: dict | None = None) -> tuple[
             "specs":      specs,
             "url":        prod_url,
             "local_only": True,
+            "location":   source["location"],
         })
 
     log(f"  {name} (SmartEtailing): {len(cards)} listed, {len(listings)} candidate(s) after pre-filter "
@@ -1470,7 +1479,7 @@ def _ebay_item_to_listing(item: dict) -> dict | None:
         if cost is not None:
             try:
                 c = float(cost)
-                notes.append("Shipping: free" if c == 0 else f"Shipping: ${c:.0f} (total ${price + c:.0f})")
+                notes.append("Shipping option: $0 (unverified)" if c == 0 else f"Shipping option: ${c:.0f} (total ${price + c:.0f}, unverified)")
             except ValueError:
                 pass
     else:
@@ -1497,7 +1506,91 @@ def _ebay_item_to_listing(item: dict) -> dict | None:
         "specs":      specs,
         "url":        url,
         "local_only": not ships,
+        # Search summaries can't reliably tell "free shipping" from "free local pickup", and
+        # they omit city/state. Before paying for a Claude call, _evaluate_listings runs this
+        # hook, which reads the full item record (ship-to regions, location, item specifics).
+        "_ebay_item_id": item.get("itemId", ""),
+        "_enrich":       _ebay_enrich,
     }
+
+
+def _ebay_api_headers() -> dict:
+    return {
+        "Authorization":           f"Bearer {_ebay_get_token()}",
+        "X-EBAY-C-MARKETPLACE-ID": "EBAY_US",
+        # Buyer context makes eBay compute shipping cost/eligibility for the buyer's ZIP
+        "X-EBAY-C-ENDUSERCTX":     f"contextualLocation=country=US,zip={BUYER_ZIP}",
+        "Accept":                  "application/json",
+    }
+
+
+def _ebay_enrich(listing: dict):
+    """
+    Read the full eBay item record (free API call) and settle what the search summary can't:
+    does it really ship to the US, and where is it? Returns an updated listing dict, or a
+    str reason when the listing should be rejected without spending a Claude call
+    (pickup-only and outside Michigan), or None when the lookup failed (skip, retry next run).
+    """
+    item_id = listing.get("_ebay_item_id")
+    if not item_id:
+        return listing
+    try:
+        url = "https://api.ebay.com/buy/browse/v1/item/" + urllib.parse.quote(item_id, safe="")
+        with urllib.request.urlopen(urllib.request.Request(url, headers=_ebay_api_headers()), timeout=20) as r:
+            item = json.loads(r.read())
+    except Exception as e:
+        # Don't guess from the unreliable search data — skip now, retry on the next run.
+        log(f"    eBay item detail unavailable ({e}); skipping for now")
+        return None
+
+    # Shipping: needs a real, non-pickup shipping option AND the US among ship-to regions
+    opts = [o for o in (item.get("shippingOptions") or [])
+            if "pickup" not in f"{o.get('type', '')} {o.get('shippingServiceCode', '')}".lower()]
+    regions = ((item.get("shipToLocations") or {}).get("regionIncluded")) or []
+    us_ok = (not regions) or any(
+        str(r.get("regionId", "")).upper() == "US" or "united states" in str(r.get("regionName", "")).lower()
+        for r in regions)
+    ships = bool(opts) and us_ok
+
+    loc = item.get("itemLocation") or {}
+    where = ", ".join(x for x in (loc.get("city"), loc.get("stateOrProvince")) if x)
+    state = str(loc.get("stateOrProvince", "")).strip().upper()
+    log(f"    eBay item {item_id.split('|')[1] if '|' in item_id else item_id}: "
+        f"ships={ships} (options={[o.get('type') or o.get('shippingServiceCode') for o in opts]}, "
+        f"ship-to={'US ok' if us_ok else 'no US'}) location={where or loc.get('postalCode') or '?'}")
+
+    if not ships:
+        in_michigan = state in ("MI", "MICHIGAN") or str(loc.get("postalCode", ""))[:3] in {str(z) for z in range(480, 500)}
+        if (where or loc.get("postalCode")) and not in_michigan:
+            return f"pickup-only item in {where or loc.get('postalCode')} (too far)"
+
+    notes = []
+    if item.get("condition"):
+        notes.append(f"Condition: {item['condition']}")
+    if ships:
+        cost = ((opts[0].get("shippingCost") or {}).get("value"))
+        try:
+            c = float(cost)
+            notes.append("Ships to buyer: free" if c == 0 else
+                         f"Ships to buyer: ${c:.0f} (total ${listing['price'] + c:.0f})")
+        except (TypeError, ValueError):
+            notes.append("Ships to buyer: yes (cost not shown)")
+    else:
+        notes.append("LOCAL PICKUP ONLY — does not ship")
+    if where:
+        notes.append(f"Item location: {where}")
+    aspects = [f"{a.get('name')}: {a.get('value')}" for a in (item.get("localizedAspects") or [])
+               if a.get("name") and a.get("value")]
+    if aspects:
+        notes.append("Item specifics: " + "; ".join(aspects[:16]))
+    seller = item.get("seller") or {}
+    if seller.get("feedbackPercentage"):
+        notes.append(f"Seller feedback: {seller['feedbackPercentage']}% ({seller.get('feedbackScore', '?')} ratings)")
+    desc = (item.get("shortDescription") or _strip_html(item.get("description", "")) or "").strip()
+    if desc:
+        notes.append(desc[:700])
+
+    return {**listing, "local_only": not ships, "location": where or None, "specs": " | ".join(notes)}
 
 
 def scrape_ebay_api() -> tuple[list[dict], str | None]:
@@ -1535,11 +1628,7 @@ def scrape_ebay_api() -> tuple[list[dict], str | None]:
         log(f"  eBay API auth failed: {e}")
         return [], f"auth failed: {e}"
 
-    headers = {
-        "Authorization":           f"Bearer {token}",
-        "X-EBAY-C-MARKETPLACE-ID": "EBAY_US",
-        "Accept":                  "application/json",
-    }
+    headers = _ebay_api_headers()
     listings, seen, errors, ok_calls = [], set(), [], 0
     for q in EBAY_API_QUERIES:
         for page_idx in range(EBAY_API_MAX_PAGES):
@@ -1813,6 +1902,7 @@ def _scrape_pinkbike_buysell(page, source_config: dict) -> tuple[list[dict], str
                     "url":        item_url,
                     "currency":   currency,
                     "local_only": not _detect_ships(text),
+                    "location":   item.get("location") or None,
                 })
 
             if new_this_page == 0 or not raw:
@@ -1845,6 +1935,7 @@ def _scrape_craigslist(page, source_config: dict) -> tuple[list[dict], str | Non
         for listing in raw:
             listing["source"]     = "Craigslist"
             listing["local_only"] = True
+            listing["location"]   = f"within about {MAX_TRAVEL_MILES} miles of {BUYER_LOCATION} (search radius)"
             listings.append(listing)
 
         return listings, dom_err
@@ -2550,6 +2641,25 @@ def _evaluate_listings(listings: list[dict], seen_urls: set,
             if not cached.get("reject", False) and score >= MIN_SCORE_TO_ALERT:
                 deals.append({"listing": listing, "evaluation": cached})
             continue
+
+        # ── Optional free pre-check (eBay: real shipping/location) ────────────
+        enrich = listing.get("_enrich")
+        if enrich:
+            try:
+                enriched = enrich(listing)
+            except Exception as e:
+                log(f"    enrichment error ({e}); evaluating from search data")
+                enriched = listing
+            if enriched is None:            # lookup failed: don't guess, don't cache — retry next run
+                continue
+            if isinstance(enriched, str):   # rejected without a Claude call
+                log(f"    skipped: {enriched}")
+                if url:
+                    eval_cache[url] = {"score": 0, "verdict": "reject", "reason": enriched, "reject": True,
+                                       "size_confirmed": False, "cached_at": now.isoformat(),
+                                       "eval_version": EVAL_VERSION}
+                continue
+            listing = enriched
 
         # ── Claude evaluation ─────────────────────────────────────────────────
         try:

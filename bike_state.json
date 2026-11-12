@@ -281,9 +281,13 @@
     "https://www.marinbikes.com/products/2025-1-bolinas-ridge-1-st",
     "https://www.marinbikes.com/products/2025-1-bolinas-ridge-1",
     "https://www.ddbicyclesandhockey.com/product/liv-tempt-1-398252-1.htm",
-    "https://www.villagebikeshop.com/product/specialized-rockhopper-sport-1243749-1.htm"
+    "https://www.villagebikeshop.com/product/specialized-rockhopper-sport-1243749-1.htm",
+    "https://www.ebay.com/itm/128179145323",
+    "https://www.ebay.com/itm/267748511112",
+    "https://www.ebay.com/itm/128156343332",
+    "https://www.ebay.com/itm/147641216351"
   ],
-  "last_run": "2026-11-12T21:08:42.118320+00:00",
+  "last_run": "2026-11-12T21:18:48.256530+00:00",
   "deals_found": [
     {
       "title": "Talon 4 (2026)",
@@ -3038,14 +3042,50 @@
       "reason": "Tier 1 Specialized Rockhopper Sport in Small 27.5\", hydraulic MT200 brakes, CUES 1x drivetrain, and SunTour fork\u2014all correct specs; $849.99 is at the upper end of acceptable but justified by the hydraulic brakes and quality drivetrain; local pickup 65 miles away is convenient; verify current stock at Village Bike Shop before committing.",
       "url": "https://www.villagebikeshop.com/product/specialized-rockhopper-sport-1243749-1.htm",
       "found_at": "2026-11-11T17:01:54.918654+00:00"
+    },
+    {
+      "title": "Marin San Quentin 27.5in SMALL Hardtail MTB Front Suspension Hyd Disc Alloy 2024",
+      "price": 821.64,
+      "source": "eBay",
+      "score": 7,
+      "reason": "Tier 2 Marin hardtail (San Quentin 1) in Small 27.5\" with excellent used condition (3 rides), upgraded XT hydraulic brakes and Deore crankset, ships to buyer at $974 total\u2014strong spec and condition justify the premium over MSRP for a lightly used 2024 model.",
+      "url": "https://www.ebay.com/itm/128179145323",
+      "found_at": "2026-11-12T21:18:48.256535+00:00"
+    },
+    {
+      "title": "JAMIS DIVIDE HARDTAIL 27.5 MOUNTAIN BIKE SIZE 13\" GOLDEN POP",
+      "price": 629.99,
+      "source": "eBay",
+      "score": 7,
+      "reason": "Jamis Divide is a Tier 3 hardtail with 27.5\" wheels at $629.99 (within ideal budget), but drivetrain and brake specs are not listed\u2014verify Deore or better 1x drivetrain and hydraulic/mechanical disc brakes before committing; 13\" frame size is appropriate for 5'5\" rider.",
+      "url": "https://www.ebay.com/itm/267748511112",
+      "found_at": "2026-11-12T21:18:48.256539+00:00"
+    },
+    {
+      "title": "Giant Talon 2 Mountain Bike",
+      "price": 400.0,
+      "source": "eBay",
+      "score": 8,
+      "reason": "Giant Talon 2 (Tier 1) in Medium frame, 27.5\" wheels, disc brakes, hardtail at $400\u2014excellent price (40% below typical $650\u2013700 MSRP for used condition); Medium fits 5'5\" rider well on Giant; verify drivetrain spec (likely Altus or Alivio 1x, acceptable for this price point) and condition before committing.",
+      "url": "https://www.ebay.com/itm/128156343332",
+      "found_at": "2026-11-12T21:18:48.256541+00:00"
+    },
+    {
+      "title": "Giant Talon Mountain Bike 27.5\" 18\" Aluminum Front Suspension Disc 10-Speed",
+      "price": 260.0,
+      "source": "eBay",
+      "score": 7,
+      "reason": "Giant Talon 2 (18\" Small, 27.5\" wheels, hardtail, disc brakes, 10-speed Altus) is a Tier 1 target bike at $260\u2014excellent used-market value (~35% of MSRP)\u2014but verify condition, drivetrain 1x vs 3x, and seller reliability (0% feedback is a minor concern); local pickup near Lansing is convenient.",
+      "url": "https://www.ebay.com/itm/147641216351",
+      "found_at": "2026-11-12T21:18:48.256543+00:00"
     }
   ],
   "source_checks": {
     "The Pro's Closet": {
-      "last_checked": "2026-11-12T21:05:36.706579+00:00",
+      "last_checked": "2026-11-12T21:15:07.808436+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 169,
+      "zero_streak": 170,
       "error": null
     },
     "Jenson USA": {
@@ -3054,42 +3094,42 @@
       "status": "ok"
     },
     "Worldwide Cyclery": {
-      "last_checked": "2026-11-12T21:05:49.291180+00:00",
+      "last_checked": "2026-11-12T21:15:25.154229+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 171,
+      "zero_streak": 172,
       "error": null
     },
     "Fanatik Bike": {
-      "last_checked": "2026-11-12T21:05:50.035508+00:00",
+      "last_checked": "2026-11-12T21:15:26.276311+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 182,
+      "zero_streak": 183,
       "error": null
     },
     "Cambria Bike": {
-      "last_checked": "2026-11-12T21:05:51.016869+00:00",
+      "last_checked": "2026-11-12T21:15:27.321729+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 158,
+      "zero_streak": 159,
       "error": null
     },
     "Bicycle Warehouse": {
-      "last_checked": "2026-11-12T21:05:40.229772+00:00",
+      "last_checked": "2026-11-12T21:15:11.423450+00:00",
       "count_evaluated": 107,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Mike's Bikes": {
-      "last_checked": "2026-11-12T21:05:52.132954+00:00",
+      "last_checked": "2026-11-12T21:15:28.692967+00:00",
       "count_evaluated": 11,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "ERIK'S Bike Shop": {
-      "last_checked": "2026-11-12T21:05:52.854880+00:00",
+      "last_checked": "2026-11-12T21:15:29.732384+00:00",
       "count_evaluated": 8,
       "status": "ok",
       "zero_streak": 0,
@@ -3101,10 +3141,10 @@
       "status": "ok"
     },
     "Velomine": {
-      "last_checked": "2026-11-12T21:05:53.616324+00:00",
+      "last_checked": "2026-11-12T21:15:30.914244+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 158,
+      "zero_streak": 159,
       "error": null
     },
     "Bicycle Blue Book": {
@@ -3123,56 +3163,56 @@
       "status": "ok"
     },
     "Incycle": {
-      "last_checked": "2026-11-12T21:05:43.090269+00:00",
+      "last_checked": "2026-11-12T21:15:14.830615+00:00",
       "count_evaluated": 37,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Colorado Cyclist": {
-      "last_checked": "2026-11-12T21:05:44.007335+00:00",
+      "last_checked": "2026-11-12T21:15:16.388484+00:00",
       "count_evaluated": 20,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "BikesOnline": {
-      "last_checked": "2026-11-12T21:05:45.096075+00:00",
+      "last_checked": "2026-11-12T21:15:18.210459+00:00",
       "count_evaluated": 11,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Kona (Direct)": {
-      "last_checked": "2026-11-12T21:05:46.329222+00:00",
+      "last_checked": "2026-11-12T21:15:20.346984+00:00",
       "count_evaluated": 14,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Fuji (Direct)": {
-      "last_checked": "2026-11-12T21:05:46.588570+00:00",
+      "last_checked": "2026-11-12T21:15:20.585341+00:00",
       "count_evaluated": 0,
       "status": "error",
       "zero_streak": 0,
       "error": "no working Shopify collection found"
     },
     "GT Bicycles (Direct)": {
-      "last_checked": "2026-11-12T21:05:47.807552+00:00",
+      "last_checked": "2026-11-12T21:15:22.704875+00:00",
       "count_evaluated": 2,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Diamondback (Direct)": {
-      "last_checked": "2026-11-12T21:05:48.551443+00:00",
+      "last_checked": "2026-11-12T21:15:24.191048+00:00",
       "count_evaluated": 17,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Ari Bikes": {
-      "last_checked": "2026-11-12T21:05:54.535426+00:00",
+      "last_checked": "2026-11-12T21:15:32.348323+00:00",
       "count_evaluated": 1,
       "status": "ok",
       "zero_streak": 0,
@@ -3194,7 +3234,7 @@
       "status": "ok"
     },
     "Marin": {
-      "last_checked": "2026-11-12T21:05:59.005541+00:00",
+      "last_checked": "2026-11-12T21:15:40.111268+00:00",
       "count_evaluated": 11,
       "status": "ok",
       "zero_streak": 0,
@@ -3213,10 +3253,10 @@
       "status": "error"
     },
     "Pinkbike Deals": {
-      "last_checked": "2026-11-12T21:07:05.885935+00:00",
-      "count_evaluated": 0,
+      "last_checked": "2026-11-12T21:17:53.328665+00:00",
+      "count_evaluated": 39,
       "status": "ok",
-      "zero_streak": 1,
+      "zero_streak": 0,
       "error": null
     },
     "Pinkbike Buy/Sell": {
@@ -3232,14 +3272,14 @@
       "error": null
     },
     "Trailhead Cycling": {
-      "last_checked": "2026-11-12T21:07:25.850246+00:00",
+      "last_checked": "2026-11-12T21:18:04.362717+00:00",
       "count_evaluated": 30,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "88 Cycling": {
-      "last_checked": "2026-11-12T21:07:44.804549+00:00",
+      "last_checked": "2026-11-12T21:18:23.036010+00:00",
       "count_evaluated": 31,
       "status": "ok",
       "zero_streak": 0,
@@ -3253,7 +3293,7 @@
       "error": null
     },
     "Batch Bicycles": {
-      "last_checked": "2026-11-12T21:06:00.266859+00:00",
+      "last_checked": "2026-11-12T21:15:42.071744+00:00",
       "count_evaluated": 12,
       "status": "ok",
       "zero_streak": 0,
@@ -3272,14 +3312,14 @@
       "error": null
     },
     "Giant Clearance": {
-      "last_checked": "2026-11-12T21:06:40.849365+00:00",
+      "last_checked": "2026-11-12T21:17:40.138387+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 158,
+      "zero_streak": 159,
       "error": null
     },
     "Specialized Sale": {
-      "last_checked": "2026-11-12T21:06:59.831427+00:00",
+      "last_checked": "2026-11-12T21:17:47.162641+00:00",
       "count_evaluated": 2,
       "status": "ok",
       "zero_streak": 0,
@@ -3296,7 +3336,7 @@
       "status": "ok"
     },
     "Bike Mart": {
-      "last_checked": "2026-11-12T21:05:57.715827+00:00",
+      "last_checked": "2026-11-12T21:15:37.774204+00:00",
       "count_evaluated": 144,
       "status": "ok",
       "zero_streak": 0,
@@ -3313,7 +3353,7 @@
       "status": "ok"
     },
     "Slickdeals": {
-      "last_checked": "2026-11-12T21:08:42.118194+00:00",
+      "last_checked": "2026-11-12T21:18:48.256415+00:00",
       "count_evaluated": 26,
       "status": "ok",
       "zero_streak": 0,
@@ -3362,31 +3402,31 @@
       "error": null
     },
     "Craigslist (hardtail)": {
-      "last_checked": "2026-11-12T21:08:23.761885+00:00",
+      "last_checked": "2026-11-12T21:18:30.307098+00:00",
       "count_evaluated": 26,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Craigslist (27.5)": {
-      "last_checked": "2026-11-12T21:08:30.788637+00:00",
+      "last_checked": "2026-11-12T21:18:37.324330+00:00",
       "count_evaluated": 24,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Trek Mountain": {
-      "last_checked": "2026-11-12T21:06:35.521690+00:00",
+      "last_checked": "2026-11-12T21:17:34.388222+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 10,
+      "zero_streak": 11,
       "error": null
     },
     "Pinkbike Buy/Sell (hardtail 27.5)": {
-      "last_checked": "2026-11-12T21:07:16.598896+00:00",
-      "count_evaluated": 20,
+      "last_checked": "2026-11-12T21:17:59.425089+00:00",
+      "count_evaluated": 0,
       "status": "ok",
-      "zero_streak": 0,
+      "zero_streak": 1,
       "error": null
     },
     "Pinkbike Buy/Sell (marlin)": {
@@ -3418,32 +3458,32 @@
       "error": null
     },
     "Craigslist (models)": {
-      "last_checked": "2026-11-12T21:08:37.855876+00:00",
+      "last_checked": "2026-11-12T21:18:44.350617+00:00",
       "count_evaluated": 22,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "D&D Bicycles & Hockey": {
-      "last_checked": "2026-11-12T21:06:17.031048+00:00",
-      "count_evaluated": 13,
+      "last_checked": "2026-11-12T21:16:00.035766+00:00",
+      "count_evaluated": 14,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Village Bike Shop": {
-      "last_checked": "2026-11-12T21:06:29.300994+00:00",
-      "count_evaluated": 4,
+      "last_checked": "2026-11-12T21:16:16.407195+00:00",
+      "count_evaluated": 5,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "eBay API": {
-      "last_checked": "2026-11-12T21:06:29.525112+00:00",
-      "count_evaluated": 0,
-      "status": "error",
+      "last_checked": "2026-11-12T21:17:29.273799+00:00",
+      "count_evaluated": 368,
+      "status": "ok",
       "zero_streak": 0,
-      "error": "auth failed: HTTP 401"
+      "error": null
     }
   },
   "eval_cache": {
@@ -4140,12 +4180,13 @@
       "eval_version": 2
     },
     "https://www.ebay.com/itm/128020559443": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Fantom is an unknown/unreputable brand not on tier system, frame size is not listed (critical for proper fit), and brand cannot be verified as legitimate MTB manufacturer.",
-      "reject": true,
+      "score": 3,
+      "verdict": "skip",
+      "reason": "Fantom is an unknown/unverified brand not on Tier 1/2 list; frame size not listed; price is appealing but cannot confirm fit for 5'5\" rider without brand/model verification and size confirmation.",
+      "reject": false,
       "size_confirmed": false,
-      "cached_at": "2026-11-04T19:26:11.650426+00:00"
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
     },
     "https://www.bikesonline.com/products/ex-demo-polygon-cascade-3-mountain-bike-new": {
       "score": 0,
@@ -4157,12 +4198,13 @@
       "eval_version": 2
     },
     "https://www.ebay.com/itm/257663270656": {
-      "score": 3,
-      "verdict": "skip",
-      "reason": "Jamis Divide is a Tier 3 gravel/adventure bike (not a pure MTB hardtail), frame size 13\" is ambiguous and likely too small for a 5'5\" rider, and seller provides no drivetrain/brake specs to verify they meet hardtail MTB requirements.",
+      "score": 6,
+      "verdict": "fair",
+      "reason": "Jamis Divide is a Tier 3 hardtail with 27.5\" wheels and disc brakes at a reasonable price ($629.99), but frame size is stated as 13\" (unclear if this matches a Small for 5'5\" rider\u2014typical Small Jamis is 13.5\"-14\")\u2014verify exact fit before purchase; drivetrain and brake type not listed, so condition of spec must be confirmed.",
       "reject": false,
       "size_confirmed": false,
-      "cached_at": "2026-11-06T12:02:44.119889+00:00"
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
     },
     "https://www.ebay.com/itm/336847711989": {
       "score": 0,
@@ -4371,12 +4413,13 @@
       "eval_version": 2
     },
     "https://www.ebay.com/itm/267748511112": {
-      "score": 3,
-      "verdict": "skip",
-      "reason": "Jamis Divide is Tier 3 (acceptable only if deeply discounted), price is at the high end of budget for entry-spec hardtail, and critical specs (drivetrain, brakes, exact frame size) are completely missing from listing\u2014cannot verify fit for 5'5\" rider on a 13\" frame.",
+      "score": 7,
+      "verdict": "good_deal",
+      "reason": "Jamis Divide is a Tier 3 hardtail with 27.5\" wheels at $629.99 (within ideal budget), but drivetrain and brake specs are not listed\u2014verify Deore or better 1x drivetrain and hydraulic/mechanical disc brakes before committing; 13\" frame size is appropriate for 5'5\" rider.",
       "reject": false,
-      "size_confirmed": false,
-      "cached_at": "2026-11-05T00:46:33.952097+00:00"
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
     },
     "https://www.ebay.com/itm/137863187417": {
       "score": 0,
@@ -4452,12 +4495,13 @@
       "cached_at": "2026-11-06T18:57:48.295072+00:00"
     },
     "https://www.ebay.com/itm/128179145323": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Insufficient specification details provided (drivetrain, brake model, weight, condition not listed) to verify hard requirements; seller is in Australia with import fees/duties adding significant cost and complexity for Michigan buyer.",
-      "reject": true,
+      "score": 7,
+      "verdict": "good_deal",
+      "reason": "Tier 2 Marin hardtail (San Quentin 1) in Small 27.5\" with excellent used condition (3 rides), upgraded XT hydraulic brakes and Deore crankset, ships to buyer at $974 total\u2014strong spec and condition justify the premium over MSRP for a lightly used 2024 model.",
+      "reject": false,
       "size_confirmed": true,
-      "cached_at": "2026-11-06T18:57:48.295072+00:00"
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
     },
     "https://www.ebay.com/itm/366505996378": {
       "score": 0,
@@ -5341,6 +5385,330 @@
       "reject": true,
       "size_confirmed": true,
       "cached_at": "2026-11-12T21:07:16.600714+00:00",
+      "eval_version": 2
+    },
+    "https://www.ddbicyclesandhockey.com/product/giant-talon-4-1260907-1.htm": {
+      "score": 6,
+      "verdict": "fair",
+      "reason": "Giant Talon 4 (Tier 2) is a solid hardtail at $650, local pickup in East Lansing is perfect, but size and exact drivetrain/brake spec are unconfirmed\u2014verify Small/27.5\" and hydraulic disc brakes before committing.",
+      "reject": false,
+      "size_confirmed": false,
+      "cached_at": "2026-11-12T21:15:57.686468+00:00",
+      "eval_version": 2
+    },
+    "https://www.villagebikeshop.com/product/giant-talon-4-1260907-1.htm": {
+      "score": 5,
+      "verdict": "fair",
+      "reason": "Giant Talon 4 (Tier 2) at $650 is fair pricing, but critical specs are unconfirmed (size availability, wheel size for Medium, drivetrain/brake details, thru-axle/1x applicability to this model year); verify Small or 27.5\" Medium in stock, confirm hydraulic brakes and 1x drivetrain before committing\u2014distance is acceptable (65 miles).",
+      "reject": false,
+      "size_confirmed": false,
+      "cached_at": "2026-11-12T21:16:13.948210+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/920135738467": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Mongoose is a Walmart-tier brand explicitly rejected; 21-speed (3x7) drivetrain is outdated and specifically rejected; no confirmation of disc brakes, frame size, or aluminum/carbon frame material.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/820281414254": {
+      "score": 6,
+      "verdict": "fair",
+      "reason": "Marin Bobcat Trail 3 is a solid Tier 2 hardtail in Small/27.5\" (correct spec), price is reasonable at $600, but new seller with zero feedback and vague condition description ('New other') creates risk; verify actual condition and component spec (drivetrain/brakes) before committing.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/198660933789": {
+      "score": 4,
+      "verdict": "skip",
+      "reason": "Raleigh Tokul 2 is a Tier 3 brand with unknown drivetrain/brake specs at $497; verify that it has 1x drivetrain and hydraulic or mechanical disc brakes before committing, as the listing lacks critical component details and Raleigh hardtails at this price often ship with budget 3x or mechanical-only setups.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/257663271484": {
+      "score": 6,
+      "verdict": "fair",
+      "reason": "Jamis Divide is a Tier 3 hardtail with 27.5\" wheels and likely mechanical disc brakes (spec incomplete), size 15\" frame (~Small) fits the rider, price $629.99 is reasonable but drivetrain/brake details must be verified before purchase.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/127632279627": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Galano is not a reputable brand (unknown/unverifiable), seller has zero feedback on eBay, and frame size is unconfirmed\u2014cannot verify fit for this rider.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/126702908397": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Reject: Listed as 'RACE BIKE' and 'RIGID' \u2014 this appears to be a fixed-gear or single-speed road/gravel bike, not a mountain bike hardtail with suspension fork required for the buyer's use case (neighborhood/bike paths/light trails on a teenage MTB).",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/235525441620": {
+      "score": 6,
+      "verdict": "fair",
+      "reason": "Marin Bolinas Ridge is a solid Tier 3 flat-bar hardtail in Small (27.5\", appropriate for 5'5\"), used condition with recent tune-up at $400 is fair value, but seller has zero eBay feedback and local pickup requires verification of actual condition; confirm drivetrain/brake specs before committing.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/198789180940": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "29\" wheels fail the hard requirement (27.5\"/650b only); shipped from Vancouver, BC which exceeds the 100-mile local pickup radius for East Lansing, MI buyer.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/198789171864": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Seller is in Vancouver (BC or WA), not within 100-mile travel range from East Lansing, MI, and listing does not indicate shipping availability.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/840108680107": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Frame size is listed as 'large' which exceeds the hard requirement (Small or Medium only for 5'5\" rider); additionally, the listing describes a full-suspension bike ('front suspension system') rather than hardtail-only, which violates the hardtail requirement.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/366795372111": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Seller is in New Orleans (1000+ miles from East Lansing), listing states 'Shipping: none listed' and buyer requirement is local pickup only; hard requirement violation on geography and logistics.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/860125085133": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Vintage 1992 Specialized Rockhopper is a steel-frame road/hybrid bike from the pre-mountain-bike era, not a modern hardtail MTB; fails aluminum/carbon frame requirement and wheel/drivetrain specs cannot be verified for a beginner teenager.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/407345471299": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Location in New Paltz, NY is approximately 600+ miles from East Lansing, MI, far exceeding the stated 100-mile maximum travel distance for pickup.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/198777738962": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "26-inch wheels and cantilever brakes both violate hard requirements (27.5\"/650b wheels and disc brakes required); additionally, size is unknown and seller has 0% feedback.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/227593341753": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "2000 GT Aggressor is a 26\" hardtail (not 27.5\"), fails wheel size requirement; additionally at $1050 total cost this is drastically overpriced for a 24-year-old used bike regardless of cosmetic customization.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/920094997554": {
+      "score": 6,
+      "verdict": "fair",
+      "reason": "GT Aggressor is Tier 2 hardtail with 27.5\" wheels and disc brakes; Medium frame fits rider, but $250 price is suspiciously low for new/near-new condition (verify actual condition and component spec\u2014Deore vs. Altus matters significantly), zero seller feedback is a trust risk, and shipping cost is unknown.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/168828879055": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Fails hard requirements: 29\" wheels (not 27.5\"/650b) and 3x24-speed drivetrain (outdated, reject criterion).",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/327423689008": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Frame size listed as Large (LG), which exceeds the hard requirement of Small or Medium for a 5'5\" beginner-intermediate rider.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/128156343332": {
+      "score": 8,
+      "verdict": "good_deal",
+      "reason": "Giant Talon 2 (Tier 1) in Medium frame, 27.5\" wheels, disc brakes, hardtail at $400\u2014excellent price (40% below typical $650\u2013700 MSRP for used condition); Medium fits 5'5\" rider well on Giant; verify drivetrain spec (likely Altus or Alivio 1x, acceptable for this price point) and condition before committing.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/820276968405": {
+      "score": 5,
+      "verdict": "fair",
+      "reason": "Trek Marlin 5 is a Tier 1 hardtail at a reasonable price ($700), but the listing omits frame size, wheel size, and drivetrain/brake spec\u2014verify Small/27.5\"/disc brakes before committing; new seller (0 feedback) adds risk on a used bike.",
+      "reject": false,
+      "size_confirmed": false,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/820259846863": {
+      "score": 2,
+      "verdict": "skip",
+      "reason": "GT Aggressor is Tier 2 and could be acceptable used, but 21-speed (3x7) drivetrain violates hard requirement against 3x systems, tires may not hold air, size is unstated ('15 inch' frame size is unclear for this rider's fit), and location (Long Branch, NJ) exceeds 100-mile travel range from East Lansing\u2014do not pursue.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/860058547345": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Listing is for a men's frame geometry bike, not suitable for a female teenage rider; additionally, critical specs (wheel size, drivetrain, brakes) are not stated and cannot be verified from this vague listing.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/147641216351": {
+      "score": 7,
+      "verdict": "good_deal",
+      "reason": "Giant Talon 2 (18\" Small, 27.5\" wheels, hardtail, disc brakes, 10-speed Altus) is a Tier 1 target bike at $260\u2014excellent used-market value (~35% of MSRP)\u2014but verify condition, drivetrain 1x vs 3x, and seller reliability (0% feedback is a minor concern); local pickup near Lansing is convenient.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/366738339841": {
+      "score": 6,
+      "verdict": "fair",
+      "reason": "GT Aggressor Sport is a Tier 2 hardtail in Small/27.5\" (correct size/wheels), used in good condition at $200 is strong value (~40% of typical MSRP), but critical details missing\u2014verify drivetrain is 1x (not 3x), brakes are disc (not rim), and actual component spec before committing.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/137823959091": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Early 1990s chromoly steel frame violates aluminum/carbon requirement; vintage single-speed conversion lacks modern drivetrain standards and appropriate gearing for beginner-intermediate rider.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/227555804393": {
+      "score": 3,
+      "verdict": "skip",
+      "reason": "Specialized Rockhopper is Tier 1, but listing lacks critical details (frame size, wheel size, drivetrain, brake type, year), South Yarmouth MA is 500+ miles from East Lansing (exceeds 100-mile pickup range), and 0% seller feedback on eBay is a significant trust concern; cannot verify fit or specs before committing.",
+      "reject": false,
+      "size_confirmed": false,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/206599252647": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "1998 Specialized Hardrock is a 26-inch wheeled vintage bike with likely rim brakes and outdated 3x drivetrain\u2014fails wheel size and brake requirements; also located in Denver (100+ miles from East Lansing) and seller has zero feedback.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/147612779233": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "1989 vintage rigid frame (no fork suspension) fails hardtail requirement; likely 26\" wheels and obsolete drivetrain; unsuitable for beginner-intermediate rider needing modern hardtail with front fork.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/298715280945": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Reject: 1989 vintage Cr-Mo steel frame violates aluminum/carbon requirement; 3x drivetrain (Shimano Deore from 80s) is outdated; this is a collectible vintage bike, not suitable for a beginner-intermediate teen rider on neighborhood/trail use.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/158337819261": {
+      "score": 2,
+      "verdict": "reject",
+      "reason": "Listing title claims Size Small but description says 'size medium'\u2014critical size mismatch creates unacceptable fit risk for 5'5\" rider; also unclear wheel size (27.5\" vs 29\" on Medium Marlin 4) and location (Neptune) is likely beyond 100-mile range from East Lansing.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/128094042117": {
+      "score": 3,
+      "verdict": "skip",
+      "reason": "GT Aggressor is a solid Tier 2 hardtail at an excellent price ($400), but seller has zero eBay feedback, ships internationally from Jamaica (high risk for a teenage buyer's first bike), and condition is vague ('New other')\u2014too many red flags for a beginner despite the good spec and size match.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/398401750087": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "2005 Gary Fisher Marlin is 20 years old with unknown frame size, wheel size, drivetrain (likely 3x), and brake type; cannot verify hard requirements (27.5\" wheels, 1x drivetrain, disc brakes, aluminum frame) from vintage bike without explicit spec confirmation.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/168689418565": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Gary Fisher Marlin is a steel-frame vintage bike (1990s\u20132000s), violating the aluminum/carbon requirement; also unclear if it retains original 27.5\" wheels after buyer's city-conversion modification, making wheel size unverifiable and drivetrain/brake specs entirely unknown.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/398394563807": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Listing states '9 speeds, derailleur gears' indicating a 3x drivetrain (3x3 or similar), which violates the hard requirement for 1x drivetrains only.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-12T21:16:20.170733+00:00",
       "eval_version": 2
     }
   }

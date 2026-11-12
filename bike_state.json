@@ -281,8 +281,7 @@
     "https://www.marinbikes.com/products/2025-1-bolinas-ridge-1-st",
     "https://www.marinbikes.com/products/2025-1-bolinas-ridge-1",
     "https://www.ddbicyclesandhockey.com/product/liv-tempt-1-398252-1.htm",
-    "https://www.villagebikeshop.com/product/specialized-rockhopper-sport-1243749-1.htm",
-    "https://www.ebay.com/itm/306931076255"
+    "https://www.villagebikeshop.com/product/specialized-rockhopper-sport-1243749-1.htm"
   ],
   "last_run": "2026-11-12T21:30:24.889101+00:00",
   "deals_found": [
@@ -3039,15 +3038,6 @@
       "reason": "Tier 1 Specialized Rockhopper Sport in Small 27.5\", hydraulic MT200 brakes, CUES 1x drivetrain, and SunTour fork\u2014all correct specs; $849.99 is at the upper end of acceptable but justified by the hydraulic brakes and quality drivetrain; local pickup 65 miles away is convenient; verify current stock at Village Bike Shop before committing.",
       "url": "https://www.villagebikeshop.com/product/specialized-rockhopper-sport-1243749-1.htm",
       "found_at": "2026-11-11T17:01:54.918654+00:00"
-    },
-    {
-      "title": "Trek Marlin",
-      "price": 350.0,
-      "source": "eBay",
-      "score": 7,
-      "reason": "Used Trek Marlin (Tier 1 brand) with 27.5\" wheels, hydraulic disc brakes, and hardtail confirmed; 13.5\" frame (Small) fits the rider; $550 total ($350 + $200 shipping) is ~40% of typical MSRP for a used Marlin in good condition\u2014excellent value, though drivetrain spec and detailed condition should be verified before committing.",
-      "url": "https://www.ebay.com/itm/306931076255",
-      "found_at": "2026-11-12T21:30:24.889110+00:00"
     }
   ],
   "source_checks": {
@@ -6022,15 +6012,6 @@
       "reason": "pickup-only item in Cambridge, Maryland (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
-      "eval_version": 2
-    },
-    "https://www.ebay.com/itm/306931076255": {
-      "score": 7,
-      "verdict": "good_deal",
-      "reason": "Used Trek Marlin (Tier 1 brand) with 27.5\" wheels, hydraulic disc brakes, and hardtail confirmed; 13.5\" frame (Small) fits the rider; $550 total ($350 + $200 shipping) is ~40% of typical MSRP for a used Marlin in good condition\u2014excellent value, though drivetrain spec and detailed condition should be verified before committing.",
-      "reject": false,
-      "size_confirmed": true,
       "cached_at": "2026-11-12T21:27:14.837788+00:00",
       "eval_version": 2
     },

@@ -708,6 +708,13 @@ Reject: Rim brakes, V-brakes
 
 SIZE NOTE: Small (S) and Medium (M) both count as a confirmed size — do not mark Medium down for being Medium. Only if size is ambiguous or not listed, score conservatively and flag it.
 
+━━━ FRAME SIZES GIVEN IN INCHES (seat-tube) — do not guess ━━━
+Many used listings give inches, not S/M. For a 5'5" rider:
+  · 13.5" or smaller = XS → too small, REJECT (e.g. Trek 13.5" = XS; Trek 15.5" = Small; Trek 17.5" = Medium)
+  · 15"–17.5" = Small to Medium → fits
+  · 18" and up = Medium/Large or bigger → usually too big; reject 19"+ outright, score 18" low unless the maker's chart says it fits
+Never relabel an inch size as "Small" to make it pass. If the size is only a number you can't map, say so and score ≤6.
+
 ━━━ MISSING INFORMATION ≠ FAILED REQUIREMENT ━━━
 Listings are often terse (a title, a price, a truncated blurb). Only set reject=true / score 0 when the
 listing shows evidence a requirement FAILS (e.g. only Large/XS sizes in stock, 29" wheels, 3x drivetrain,

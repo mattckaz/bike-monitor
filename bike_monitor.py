@@ -60,8 +60,8 @@ EMAIL_ADDRESS  = os.environ.get("EMAIL_ADDRESS", "")
 EMAIL_PASSWORD = os.environ.get("EMAIL_APP_PASSWORD", "")
 NOTIFY_EMAILS  = [e.strip() for e in os.environ.get("NOTIFY_EMAILS", "").split(",") if e.strip()]
 ANTHROPIC_KEY  = os.environ.get("ANTHROPIC_API_KEY", "")
-EBAY_CLIENT_ID     = os.environ.get("EBAY_CLIENT_ID", "")
-EBAY_CLIENT_SECRET = os.environ.get("EBAY_CLIENT_SECRET", "")
+EBAY_CLIENT_ID     = os.environ.get("EBAY_CLIENT_ID", "").strip()      # strip: pasted secrets often carry a newline/space
+EBAY_CLIENT_SECRET = os.environ.get("EBAY_CLIENT_SECRET", "").strip()
 
 # GitHub dashboard deployment
 GITHUB_TOKEN   = os.environ.get("GITHUB_TOKEN", os.environ.get("GH_TOKEN", ""))
@@ -1506,6 +1506,18 @@ def scrape_ebay_api() -> tuple[list[dict], str | None]:
         return [], "eBay API keys not configured"
     try:
         token = _ebay_get_token()
+    except urllib.error.HTTPError as e:
+        # eBay's JSON body says exactly what's wrong (invalid_client, disabled keyset, ...)
+        try:
+            body = e.read().decode("utf-8", errors="replace")[:300]
+        except Exception:
+            body = ""
+        # Safe diagnostics only: never log the secret itself, just its shape.
+        id_kind = "SBX" if "-SBX-" in EBAY_CLIENT_ID.upper() else "PRD" if "-PRD-" in EBAY_CLIENT_ID.upper() else "?"
+        log(f"  eBay API auth failed: HTTP {e.code} {body} "
+            f"(client id env={'set' if EBAY_CLIENT_ID else 'EMPTY'} kind={id_kind} len={len(EBAY_CLIENT_ID)}; "
+            f"secret env={'set' if EBAY_CLIENT_SECRET else 'EMPTY'} len={len(EBAY_CLIENT_SECRET)})")
+        return [], f"auth failed: HTTP {e.code}"
     except Exception as e:
         log(f"  eBay API auth failed: {e}")
         return [], f"auth failed: {e}"

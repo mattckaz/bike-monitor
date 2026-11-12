@@ -1514,9 +1514,13 @@ def scrape_ebay_api() -> tuple[list[dict], str | None]:
             body = ""
         # Safe diagnostics only: never log the secret itself, just its shape.
         id_kind = "SBX" if "-SBX-" in EBAY_CLIENT_ID.upper() else "PRD" if "-PRD-" in EBAY_CLIENT_ID.upper() else "?"
+        def _shape(v: str) -> str:   # 'Abc-12' -> 'Aaa-99' : structure only, no real characters
+            return "".join("9" if c.isdigit() else "a" if c.islower() else "A" if c.isupper() else c for c in v)
         log(f"  eBay API auth failed: HTTP {e.code} {body} "
-            f"(client id env={'set' if EBAY_CLIENT_ID else 'EMPTY'} kind={id_kind} len={len(EBAY_CLIENT_ID)}; "
-            f"secret env={'set' if EBAY_CLIENT_SECRET else 'EMPTY'} len={len(EBAY_CLIENT_SECRET)})")
+            f"(client id env={'set' if EBAY_CLIENT_ID else 'EMPTY'} kind={id_kind} len={len(EBAY_CLIENT_ID)} "
+            f"shape={_shape(EBAY_CLIENT_ID)}; "
+            f"secret env={'set' if EBAY_CLIENT_SECRET else 'EMPTY'} len={len(EBAY_CLIENT_SECRET)} "
+            f"shape={_shape(EBAY_CLIENT_SECRET)})")
         return [], f"auth failed: HTTP {e.code}"
     except Exception as e:
         log(f"  eBay API auth failed: {e}")

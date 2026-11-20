@@ -285,7 +285,7 @@
     "https://www.coloradocyclist.com/products/kona-fire-mountain-27-5-gloss-emerald",
     "https://www.coloradocyclist.com/products/kona-fire-mountain-27-5-gloss-fancy-karman"
   ],
-  "last_run": "2026-11-20T02:55:31.847195+00:00",
+  "last_run": "2026-11-20T19:38:43.945266+00:00",
   "deals_found": [
     {
       "title": "Talon 4 (2026)",
@@ -3062,10 +3062,10 @@
   ],
   "source_checks": {
     "The Pro's Closet": {
-      "last_checked": "2026-11-20T02:53:37.643433+00:00",
+      "last_checked": "2026-11-20T19:35:57.177222+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 186,
+      "zero_streak": 187,
       "error": null
     },
     "Jenson USA": {
@@ -3074,42 +3074,42 @@
       "status": "ok"
     },
     "Worldwide Cyclery": {
-      "last_checked": "2026-11-20T02:53:45.909832+00:00",
+      "last_checked": "2026-11-20T19:36:08.954187+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 188,
+      "zero_streak": 189,
       "error": null
     },
     "Fanatik Bike": {
-      "last_checked": "2026-11-20T02:53:46.471168+00:00",
+      "last_checked": "2026-11-20T19:36:09.783069+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 199,
+      "zero_streak": 200,
       "error": null
     },
     "Cambria Bike": {
-      "last_checked": "2026-11-20T02:53:46.987722+00:00",
+      "last_checked": "2026-11-20T19:36:10.446098+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 175,
+      "zero_streak": 176,
       "error": null
     },
     "Bicycle Warehouse": {
-      "last_checked": "2026-11-20T02:53:39.826420+00:00",
-      "count_evaluated": 108,
+      "last_checked": "2026-11-20T19:35:59.449615+00:00",
+      "count_evaluated": 109,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Mike's Bikes": {
-      "last_checked": "2026-11-20T02:53:47.738024+00:00",
+      "last_checked": "2026-11-20T19:36:11.769003+00:00",
       "count_evaluated": 11,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "ERIK'S Bike Shop": {
-      "last_checked": "2026-11-20T02:53:48.295905+00:00",
+      "last_checked": "2026-11-20T19:36:12.585152+00:00",
       "count_evaluated": 10,
       "status": "ok",
       "zero_streak": 0,
@@ -3121,10 +3121,10 @@
       "status": "ok"
     },
     "Velomine": {
-      "last_checked": "2026-11-20T02:53:48.854958+00:00",
+      "last_checked": "2026-11-20T19:36:13.384641+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 175,
+      "zero_streak": 176,
       "error": null
     },
     "Bicycle Blue Book": {
@@ -3143,56 +3143,56 @@
       "status": "ok"
     },
     "Incycle": {
-      "last_checked": "2026-11-20T02:53:41.218785+00:00",
+      "last_checked": "2026-11-20T19:36:01.662109+00:00",
       "count_evaluated": 40,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Colorado Cyclist": {
-      "last_checked": "2026-11-20T02:53:41.959980+00:00",
+      "last_checked": "2026-11-20T19:36:02.886957+00:00",
       "count_evaluated": 26,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "BikesOnline": {
-      "last_checked": "2026-11-20T02:53:42.792309+00:00",
+      "last_checked": "2026-11-20T19:36:04.160916+00:00",
       "count_evaluated": 11,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Kona (Direct)": {
-      "last_checked": "2026-11-20T02:53:43.605420+00:00",
+      "last_checked": "2026-11-20T19:36:05.701209+00:00",
       "count_evaluated": 14,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Fuji (Direct)": {
-      "last_checked": "2026-11-20T02:53:43.642795+00:00",
+      "last_checked": "2026-11-20T19:36:05.865523+00:00",
       "count_evaluated": 0,
       "status": "error",
       "zero_streak": 0,
       "error": "no working Shopify collection found"
     },
     "GT Bicycles (Direct)": {
-      "last_checked": "2026-11-20T02:53:44.860628+00:00",
+      "last_checked": "2026-11-20T19:36:07.340235+00:00",
       "count_evaluated": 2,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Diamondback (Direct)": {
-      "last_checked": "2026-11-20T02:53:45.549418+00:00",
+      "last_checked": "2026-11-20T19:36:08.350853+00:00",
       "count_evaluated": 17,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Ari Bikes": {
-      "last_checked": "2026-11-20T02:53:49.558841+00:00",
+      "last_checked": "2026-11-20T19:36:14.439802+00:00",
       "count_evaluated": 1,
       "status": "ok",
       "zero_streak": 0,
@@ -3214,7 +3214,7 @@
       "status": "ok"
     },
     "Marin": {
-      "last_checked": "2026-11-20T02:53:55.107483+00:00",
+      "last_checked": "2026-11-20T19:36:19.834947+00:00",
       "count_evaluated": 11,
       "status": "ok",
       "zero_streak": 0,
@@ -3233,10 +3233,10 @@
       "status": "error"
     },
     "Pinkbike Deals": {
-      "last_checked": "2026-11-20T02:54:35.574163+00:00",
+      "last_checked": "2026-11-20T19:37:40.921125+00:00",
       "count_evaluated": 0,
       "status": "ok",
-      "zero_streak": 3,
+      "zero_streak": 4,
       "error": null
     },
     "Pinkbike Buy/Sell": {
@@ -3252,14 +3252,14 @@
       "error": null
     },
     "Trailhead Cycling": {
-      "last_checked": "2026-11-20T02:54:46.087752+00:00",
+      "last_checked": "2026-11-20T19:37:59.189436+00:00",
       "count_evaluated": 30,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "88 Cycling": {
-      "last_checked": "2026-11-20T02:55:04.797798+00:00",
+      "last_checked": "2026-11-20T19:38:19.077734+00:00",
       "count_evaluated": 31,
       "status": "ok",
       "zero_streak": 0,
@@ -3273,7 +3273,7 @@
       "error": null
     },
     "Batch Bicycles": {
-      "last_checked": "2026-11-20T02:53:55.906236+00:00",
+      "last_checked": "2026-11-20T19:36:21.077711+00:00",
       "count_evaluated": 12,
       "status": "ok",
       "zero_streak": 0,
@@ -3292,14 +3292,14 @@
       "error": null
     },
     "Giant Clearance": {
-      "last_checked": "2026-11-20T02:54:23.631382+00:00",
+      "last_checked": "2026-11-20T19:37:26.531286+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 175,
+      "zero_streak": 176,
       "error": null
     },
     "Specialized Sale": {
-      "last_checked": "2026-11-20T02:54:29.649295+00:00",
+      "last_checked": "2026-11-20T19:37:34.785108+00:00",
       "count_evaluated": 3,
       "status": "ok",
       "zero_streak": 0,
@@ -3316,8 +3316,8 @@
       "status": "ok"
     },
     "Bike Mart": {
-      "last_checked": "2026-11-20T02:53:53.976332+00:00",
-      "count_evaluated": 137,
+      "last_checked": "2026-11-20T19:36:18.355653+00:00",
+      "count_evaluated": 138,
       "status": "ok",
       "zero_streak": 0,
       "error": null
@@ -3333,7 +3333,7 @@
       "status": "ok"
     },
     "Slickdeals": {
-      "last_checked": "2026-11-20T02:55:31.847084+00:00",
+      "last_checked": "2026-11-20T19:38:43.945138+00:00",
       "count_evaluated": 26,
       "status": "ok",
       "zero_streak": 0,
@@ -3382,31 +3382,31 @@
       "error": null
     },
     "Craigslist (hardtail)": {
-      "last_checked": "2026-11-20T02:55:11.761917+00:00",
+      "last_checked": "2026-11-20T19:38:26.310545+00:00",
       "count_evaluated": 26,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Craigslist (27.5)": {
-      "last_checked": "2026-11-20T02:55:18.699314+00:00",
+      "last_checked": "2026-11-20T19:38:33.318677+00:00",
       "count_evaluated": 25,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Trek Mountain": {
-      "last_checked": "2026-11-20T02:54:19.162432+00:00",
+      "last_checked": "2026-11-20T19:37:19.256627+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 27,
+      "zero_streak": 28,
       "error": null
     },
     "Pinkbike Buy/Sell (hardtail 27.5)": {
-      "last_checked": "2026-11-20T02:54:41.652509+00:00",
-      "count_evaluated": 0,
-      "status": "stale",
-      "zero_streak": 15,
+      "last_checked": "2026-11-20T19:37:51.553451+00:00",
+      "count_evaluated": 20,
+      "status": "ok",
+      "zero_streak": 0,
       "error": null
     },
     "Pinkbike Buy/Sell (marlin)": {
@@ -3438,29 +3438,29 @@
       "error": null
     },
     "Craigslist (models)": {
-      "last_checked": "2026-11-20T02:55:27.771463+00:00",
+      "last_checked": "2026-11-20T19:38:40.345998+00:00",
       "count_evaluated": 21,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "D&D Bicycles & Hockey": {
-      "last_checked": "2026-11-20T02:54:03.572413+00:00",
-      "count_evaluated": 14,
+      "last_checked": "2026-11-20T19:36:30.805012+00:00",
+      "count_evaluated": 13,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Village Bike Shop": {
-      "last_checked": "2026-11-20T02:54:11.824740+00:00",
-      "count_evaluated": 5,
+      "last_checked": "2026-11-20T19:36:40.387751+00:00",
+      "count_evaluated": 4,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "eBay API": {
-      "last_checked": "2026-11-20T02:54:14.618378+00:00",
-      "count_evaluated": 364,
+      "last_checked": "2026-11-20T19:37:12.705891+00:00",
+      "count_evaluated": 365,
       "status": "ok",
       "zero_streak": 0,
       "error": null
@@ -4203,14 +4203,6 @@
       "cached_at": "2026-11-11T16:39:00.128715+00:00",
       "eval_version": 2
     },
-    "https://www.ebay.com/itm/376439441342": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "1993 Schwinn High Plains is a 3x21-speed steel hardtail from the 1990s\u2014fails hard requirements: outdated 3x drivetrain (rejected), likely steel frame, unknown size/wheels, and unverifiable condition; also Schwinn is not a reputable modern MTB brand for this use case.",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-11-06T18:57:48.295072+00:00"
-    },
     "https://konaworld.com/products/fire-mountain-b37-bl": {
       "score": 7,
       "verdict": "good_deal",
@@ -4264,22 +4256,6 @@
       "size_confirmed": false,
       "cached_at": "2026-11-11T16:43:11.782131+00:00",
       "eval_version": 2
-    },
-    "https://www.ebay.com/itm/366719198252": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Frame only (no drivetrain, brakes, fork, or complete bike) \u2014 cannot be used as-is and fails hard requirement for complete hardtail mountain bike.",
-      "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-06T12:02:44.119889+00:00"
-    },
-    "https://www.ebay.com/itm/377557343319": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Listing is for frame only (not complete bike) and XS size fails hard requirement (too small for 5'5\" rider); Cannondale Catalyst/Trail hardtails are Tier 2 but F-Si is not a hardtail MTB option for this use case.",
-      "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-06T12:02:44.119889+00:00"
     },
     "https://www.bikemart.com/products/2027-talon-2-hardtail-mountain-bike": {
       "score": 0,
@@ -4370,22 +4346,6 @@
       "cached_at": "2026-11-11T16:39:00.128715+00:00",
       "eval_version": 2
     },
-    "https://www.ebay.com/itm/137881099802": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Trek 820 is a 3x21-speed drivetrain (outdated, not 1x), fails hard requirement for modern drivetrain standard.",
-      "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-06T18:57:48.295072+00:00"
-    },
-    "https://www.ebay.com/itm/800458007405": {
-      "score": 1,
-      "verdict": "reject",
-      "reason": "Fails hard requirements: 8-speed drivetrain is likely 3x (outdated, harder to maintain), and Specialized Pitch is typically entry-level with mechanical disc brakes and older component spec unsuitable for this buyer's needs even at low price.",
-      "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-06T18:57:48.295072+00:00"
-    },
     "https://www.ebay.com/itm/198624438549": {
       "score": 0,
       "verdict": "reject",
@@ -4394,30 +4354,6 @@
       "size_confirmed": false,
       "cached_at": "2026-11-12T21:27:14.837788+00:00",
       "eval_version": 2
-    },
-    "https://www.ebay.com/itm/158020585791": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Schwinn Homegrown Pro is a 1990s-era rigid bike (no suspension), fails hardtail requirement and does not meet modern MTB safety/performance standards for a teen rider.",
-      "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-06T18:57:48.295072+00:00"
-    },
-    "https://www.ebay.com/itm/366505996378": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "1997 Specialized StumpJumper M2 is a vintage steel frame hardtail from 27 years ago with unknown size, likely 26\" wheels, outdated 3x drivetrain, and rim brakes \u2014 fails multiple hard requirements (frame material, wheel size, brake type, drivetrain) and is not appropriate for a beginner-intermediate teenage rider.",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-11-06T18:57:48.295072+00:00"
-    },
-    "https://www.craigslist.org/view/d/eastpointe-like-new-giant-boulder-se-mt/eQKud21pqpeaASsbybgXz7": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Missing critical specifications (frame size, wheel size, drivetrain, brakes, frame material) make evaluation impossible; Giant Boulder SE is typically a heavy steel casual/comfort bike unsuitable for trail riding, not a hardtail MTB.",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-11-06T18:58:29.909121+00:00"
     },
     "https://www.mikesbikes.com/products/cannondale-trail-1": {
       "score": 7,
@@ -7094,6 +7030,24 @@
       "reject": false,
       "size_confirmed": false,
       "cached_at": "2026-11-20T02:55:18.702043+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/128206900729": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "pickup-only item in Queens Park (too far)",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-20T19:37:12.066809+00:00",
+      "eval_version": 2
+    },
+    "https://www.pinkbike.com/buysell/3790015/": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Hamilton, Ontario is approximately 350+ miles from East Lansing, MI (well beyond the 100-mile travel limit), and the frame is size 19\" (too large for a 5'5\" rider; XL range), making this listing ineligible on two hard requirements.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-20T19:37:51.556429+00:00",
       "eval_version": 2
     }
   }

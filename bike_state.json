@@ -284,9 +284,13 @@
     "https://www.villagebikeshop.com/product/specialized-rockhopper-sport-1243749-1.htm",
     "https://www.coloradocyclist.com/products/kona-fire-mountain-27-5-gloss-emerald",
     "https://www.coloradocyclist.com/products/kona-fire-mountain-27-5-gloss-fancy-karman",
-    "https://www.incycle.com/products/2025-specialized-rockhopper-expert"
+    "https://www.incycle.com/products/2025-specialized-rockhopper-expert",
+    "https://www.mikesbikes.com/products/cannondale-trail-3",
+    "https://www.mikesbikes.com/products/liv-tempt-4",
+    "https://www.mikesbikes.com/products/liv-tempt-2-2027",
+    "https://www.mikesbikes.com/products/liv-tempt-4-2027"
   ],
-  "last_run": "2026-11-25T21:05:02.272450+00:00",
+  "last_run": "2026-11-26T04:00:14.663614+00:00",
   "deals_found": [
     {
       "title": "Talon 4 (2026)",
@@ -3068,14 +3072,50 @@
       "reason": "Tier 1 Specialized Rockhopper Expert with excellent spec (Deore-level SRAM NX 1x12, RockShox Judy SoloAir, Shimano MT-200 hydraulic brakes, aluminum frame) at $741 is good value, but Small (27.5\") is available and fits the rider\u2014Medium was not offered, so size is confirmed.",
       "url": "https://www.incycle.com/products/2025-specialized-rockhopper-expert",
       "found_at": "2026-11-25T04:49:04.304867+00:00"
+    },
+    {
+      "title": "Trail 3",
+      "price": 575.95,
+      "source": "Mike's Bikes",
+      "score": 7,
+      "reason": "Cannondale Trail 3 is a Tier 2 hardtail with 1x8 drivetrain and aluminum frame at $575.95 (well within budget); Small size with 27.5\" wheels confirmed available; verify brake type (spec sheet needed) and that Small frame geometry fits 5'5\" rider before purchasing.",
+      "url": "https://www.mikesbikes.com/products/cannondale-trail-3",
+      "found_at": "2026-11-26T04:00:14.663620+00:00"
+    },
+    {
+      "title": "Tempt 4",
+      "price": 649.99,
+      "source": "Mike's Bikes",
+      "score": 7,
+      "reason": "Liv Tempt 4 is a reputable Tier 3 women's hardtail at $649.99 (ideal price), Medium frame fits 5'5\" rider, 27.5\"/29\" wheel options with Medium getting 27.5\", aluminum frame, 1x drivetrain with clutch RD, and modern MTB features\u2014verify final brake type (hydraulic or mechanical disc) and that Medium spec includes 27.5\" wheels before purchase.",
+      "url": "https://www.mikesbikes.com/products/liv-tempt-4",
+      "found_at": "2026-11-26T04:00:14.663624+00:00"
+    },
+    {
+      "title": "Tempt 2",
+      "price": 799.99,
+      "source": "Mike's Bikes",
+      "score": 7,
+      "reason": "Liv Tempt 2 (Giant's women's sub-brand, Tier 3) in Small with 27.5\" wheels, aluminum frame, 1x drivetrain with clutch derailleur, and disc brakes at $799.99 is reasonable for a beginner-intermediate teen rider; verify that Small frame + 27.5\" combo is correct for this model and that brakes are hydraulic.",
+      "url": "https://www.mikesbikes.com/products/liv-tempt-2-2027",
+      "found_at": "2026-11-26T04:00:14.663628+00:00"
+    },
+    {
+      "title": "Tempt 4",
+      "price": 649.99,
+      "source": "Mike's Bikes",
+      "score": 7,
+      "reason": "Liv Tempt 4 (Giant's women's sub-brand) is a Tier 3 hardtail available in Small with 27.5\" wheels, 1x drivetrain with clutch derailleur, aluminum frame, and disc brakes; $649.99 is at the top of ideal budget and fair for the spec\u2014verify component details (brake type, drivetrain model, fork travel) and that Small frame geometry fits a 5'5\" teen before committing.",
+      "url": "https://www.mikesbikes.com/products/liv-tempt-4-2027",
+      "found_at": "2026-11-26T04:00:14.663632+00:00"
     }
   ],
   "source_checks": {
     "The Pro's Closet": {
-      "last_checked": "2026-11-25T21:00:37.592528+00:00",
+      "last_checked": "2026-11-26T03:56:35.987731+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 196,
+      "zero_streak": 197,
       "error": null
     },
     "Jenson USA": {
@@ -3084,43 +3124,43 @@
       "status": "ok"
     },
     "Worldwide Cyclery": {
-      "last_checked": "2026-11-25T21:02:54.153053+00:00",
+      "last_checked": "2026-11-26T03:57:47.741277+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 198,
+      "zero_streak": 199,
       "error": null
     },
     "Fanatik Bike": {
-      "last_checked": "2026-11-25T21:02:55.011870+00:00",
+      "last_checked": "2026-11-26T03:57:48.574900+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 209,
+      "zero_streak": 210,
       "error": null
     },
     "Cambria Bike": {
-      "last_checked": "2026-11-25T21:02:55.725244+00:00",
+      "last_checked": "2026-11-26T03:57:49.223648+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 185,
+      "zero_streak": 186,
       "error": null
     },
     "Bicycle Warehouse": {
-      "last_checked": "2026-11-25T21:02:43.951290+00:00",
+      "last_checked": "2026-11-26T03:56:46.612649+00:00",
       "count_evaluated": 111,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Mike's Bikes": {
-      "last_checked": "2026-11-25T21:02:56.778455+00:00",
+      "last_checked": "2026-11-26T03:58:02.127965+00:00",
       "count_evaluated": 11,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "ERIK'S Bike Shop": {
-      "last_checked": "2026-11-25T21:02:57.573190+00:00",
-      "count_evaluated": 10,
+      "last_checked": "2026-11-26T03:58:08.281207+00:00",
+      "count_evaluated": 9,
       "status": "ok",
       "zero_streak": 0,
       "error": null
@@ -3131,10 +3171,10 @@
       "status": "ok"
     },
     "Velomine": {
-      "last_checked": "2026-11-25T21:02:58.345579+00:00",
+      "last_checked": "2026-11-26T03:58:09.038989+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 185,
+      "zero_streak": 186,
       "error": null
     },
     "Bicycle Blue Book": {
@@ -3153,56 +3193,56 @@
       "status": "ok"
     },
     "Incycle": {
-      "last_checked": "2026-11-25T21:02:46.227787+00:00",
-      "count_evaluated": 39,
+      "last_checked": "2026-11-26T03:57:22.466860+00:00",
+      "count_evaluated": 38,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Colorado Cyclist": {
-      "last_checked": "2026-11-25T21:02:47.389310+00:00",
-      "count_evaluated": 26,
+      "last_checked": "2026-11-26T03:57:32.284156+00:00",
+      "count_evaluated": 25,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "BikesOnline": {
-      "last_checked": "2026-11-25T21:02:48.755762+00:00",
+      "last_checked": "2026-11-26T03:57:38.533817+00:00",
       "count_evaluated": 10,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Kona (Direct)": {
-      "last_checked": "2026-11-25T21:02:50.219068+00:00",
+      "last_checked": "2026-11-26T03:57:44.677178+00:00",
       "count_evaluated": 13,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Fuji (Direct)": {
-      "last_checked": "2026-11-25T21:02:50.395392+00:00",
+      "last_checked": "2026-11-26T03:57:44.829398+00:00",
       "count_evaluated": 0,
       "status": "error",
       "zero_streak": 0,
       "error": "no working Shopify collection found"
     },
     "GT Bicycles (Direct)": {
-      "last_checked": "2026-11-25T21:02:52.241960+00:00",
+      "last_checked": "2026-11-26T03:57:46.155509+00:00",
       "count_evaluated": 2,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Diamondback (Direct)": {
-      "last_checked": "2026-11-25T21:02:53.275850+00:00",
+      "last_checked": "2026-11-26T03:57:47.184023+00:00",
       "count_evaluated": 17,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Ari Bikes": {
-      "last_checked": "2026-11-25T21:02:59.458266+00:00",
+      "last_checked": "2026-11-26T03:58:10.121450+00:00",
       "count_evaluated": 1,
       "status": "ok",
       "zero_streak": 0,
@@ -3224,7 +3264,7 @@
       "status": "ok"
     },
     "Marin": {
-      "last_checked": "2026-11-25T21:03:05.776163+00:00",
+      "last_checked": "2026-11-26T03:58:16.386373+00:00",
       "count_evaluated": 11,
       "status": "ok",
       "zero_streak": 0,
@@ -3243,10 +3283,10 @@
       "status": "error"
     },
     "Pinkbike Deals": {
-      "last_checked": "2026-11-25T21:04:07.535298+00:00",
+      "last_checked": "2026-11-26T03:59:13.914073+00:00",
       "count_evaluated": 0,
       "status": "ok",
-      "zero_streak": 2,
+      "zero_streak": 3,
       "error": null
     },
     "Pinkbike Buy/Sell": {
@@ -3262,14 +3302,14 @@
       "error": null
     },
     "Trailhead Cycling": {
-      "last_checked": "2026-11-25T21:04:18.316463+00:00",
+      "last_checked": "2026-11-26T03:59:29.679004+00:00",
       "count_evaluated": 30,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "88 Cycling": {
-      "last_checked": "2026-11-25T21:04:37.389999+00:00",
+      "last_checked": "2026-11-26T03:59:49.117599+00:00",
       "count_evaluated": 31,
       "status": "ok",
       "zero_streak": 0,
@@ -3283,7 +3323,7 @@
       "error": null
     },
     "Batch Bicycles": {
-      "last_checked": "2026-11-25T21:03:07.178696+00:00",
+      "last_checked": "2026-11-26T03:58:17.580303+00:00",
       "count_evaluated": 12,
       "status": "ok",
       "zero_streak": 0,
@@ -3302,14 +3342,14 @@
       "error": null
     },
     "Giant Clearance": {
-      "last_checked": "2026-11-25T21:03:54.709997+00:00",
+      "last_checked": "2026-11-26T03:59:01.465457+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 185,
+      "zero_streak": 186,
       "error": null
     },
     "Specialized Sale": {
-      "last_checked": "2026-11-25T21:04:01.560213+00:00",
+      "last_checked": "2026-11-26T03:59:07.892408+00:00",
       "count_evaluated": 2,
       "status": "ok",
       "zero_streak": 0,
@@ -3326,8 +3366,8 @@
       "status": "ok"
     },
     "Bike Mart": {
-      "last_checked": "2026-11-25T21:03:03.876983+00:00",
-      "count_evaluated": 154,
+      "last_checked": "2026-11-26T03:58:14.994813+00:00",
+      "count_evaluated": 149,
       "status": "ok",
       "zero_streak": 0,
       "error": null
@@ -3343,7 +3383,7 @@
       "status": "ok"
     },
     "Slickdeals": {
-      "last_checked": "2026-11-25T21:05:02.272341+00:00",
+      "last_checked": "2026-11-26T04:00:14.663491+00:00",
       "count_evaluated": 26,
       "status": "ok",
       "zero_streak": 0,
@@ -3392,31 +3432,31 @@
       "error": null
     },
     "Craigslist (hardtail)": {
-      "last_checked": "2026-11-25T21:04:44.545581+00:00",
+      "last_checked": "2026-11-26T03:59:56.371747+00:00",
       "count_evaluated": 25,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Craigslist (27.5)": {
-      "last_checked": "2026-11-25T21:04:51.532071+00:00",
-      "count_evaluated": 22,
+      "last_checked": "2026-11-26T04:00:03.346289+00:00",
+      "count_evaluated": 6,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Trek Mountain": {
-      "last_checked": "2026-11-25T21:03:49.858955+00:00",
+      "last_checked": "2026-11-26T03:58:56.017480+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 37,
+      "zero_streak": 38,
       "error": null
     },
     "Pinkbike Buy/Sell (hardtail 27.5)": {
-      "last_checked": "2026-11-25T21:04:13.606037+00:00",
-      "count_evaluated": 0,
+      "last_checked": "2026-11-26T03:59:24.703756+00:00",
+      "count_evaluated": 20,
       "status": "ok",
-      "zero_streak": 1,
+      "zero_streak": 0,
       "error": null
     },
     "Pinkbike Buy/Sell (marlin)": {
@@ -3448,29 +3488,29 @@
       "error": null
     },
     "Craigslist (models)": {
-      "last_checked": "2026-11-25T21:04:58.533990+00:00",
+      "last_checked": "2026-11-26T04:00:10.346591+00:00",
       "count_evaluated": 21,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "D&D Bicycles & Hockey": {
-      "last_checked": "2026-11-25T21:03:26.853862+00:00",
+      "last_checked": "2026-11-26T03:58:36.314857+00:00",
       "count_evaluated": 13,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Village Bike Shop": {
-      "last_checked": "2026-11-25T21:03:41.460783+00:00",
+      "last_checked": "2026-11-26T03:58:48.233952+00:00",
       "count_evaluated": 4,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "eBay API": {
-      "last_checked": "2026-11-25T21:03:44.488300+00:00",
-      "count_evaluated": 373,
+      "last_checked": "2026-11-26T03:58:50.998066+00:00",
+      "count_evaluated": 370,
       "status": "ok",
       "zero_streak": 0,
       "error": null
@@ -3885,10 +3925,10 @@
     "https://www.incycle.com/products/roll-2-0-4263358": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Specialized Roll 2.0 is a gravel/comfort bike with upright geometry and 700C wheels, not a mountain bike hardtail; fails wheel size requirement (700C \u2260 27.5\"/650b despite tires being labeled 650b, the frame is designed for 700C), making it unsuitable for the rider's intended use (neighborhood/bike paths/light trails MTB experience).",
+      "reason": "Specialized Roll 2.0 is a fitness/commuter bike (700C wheels, upright geometry, comfort focus), not a mountain bike\u2014fails hard requirement for hardtail MTB and 27.5\" wheels despite mentioning 650b tires in marketing copy.",
       "reject": true,
       "size_confirmed": true,
-      "cached_at": "2026-11-11T22:29:01.699026+00:00",
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
       "eval_version": 2
     },
     "https://www.bikemart.com/products/2027-tempt-4-hardtail-mountain-bike": {
@@ -5860,6 +5900,357 @@
       "reject": false,
       "size_confirmed": true,
       "cached_at": "2026-11-25T04:46:58.277438+00:00",
+      "eval_version": 2
+    },
+    "https://bicyclewarehouse.com/products/2025-scene-1": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Norco Scene 1 is a hybrid commuter bike, not a hardtail mountain bike; this listing does not meet the hardtail requirement for the intended use case (neighborhood/bike paths/light trails).",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:56:38.437868+00:00",
+      "eval_version": 2
+    },
+    "https://bicyclewarehouse.com/products/treadwell-4": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Treadwell 2 is a hybrid commuter bike, not a mountain bike hardtail\u2014it lacks knobby tires, proper MTB geometry, and suspension fork required for light trails; also 8-speed drivetrain is outdated and not 1x.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:56:38.437868+00:00",
+      "eval_version": 2
+    },
+    "https://bicyclewarehouse.com/products/treadwell-1": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Cannondale Treadwell 1 is a hybrid/comfort bike, not a hardtail mountain bike; lacks the suspension fork and trail geometry required for the rider's intended use on bike paths and light trails.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:56:38.437868+00:00",
+      "eval_version": 2
+    },
+    "https://bicyclewarehouse.com/products/dew-dl-37": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Bike fails three hard requirements: 29\" wheels (not 27.5\"), unknown brand \"Dew\" (not a reputable tier), and size XL available but Small frame size not confirmed as 27.5\"\u2014only XL is listed as 29\", making Small potentially 26\" or unspecified.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:56:38.437868+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/rockhopper-sport-kh-4263616": {
+      "score": 5,
+      "verdict": "fair",
+      "reason": "Tier 1 Specialized Rockhopper Sport with excellent hydraulic brakes (MT200) and 1x drivetrain at $849.99 is above ideal budget and size/wheel specifics are not confirmed in listing\u2014verify Small/27.5\" match before purchase.",
+      "reject": false,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/specialized-roll-3-0": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Specialized Roll 3.0 is a flat-bar commuter/urban bike, not a mountain bike; it lacks the suspension fork, trail geometry, and rugged drivetrain required for neighborhood/bike paths/light trails use by a beginner-intermediate rider.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/2025-specialized-sirrus-x-3-0": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Sirrus X is a flat-bar hybrid/fitness bike with 700c wheels, not a 27.5\" hardtail mountain bike; only Large/XL available (too big for 5'5\" rider); does not meet hard requirements.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/specialized-sirrus-x-3-0-step-through": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Sirrus X is a flat-bar hybrid/fitness bike with 700C wheels, not a 27.5\" hardtail mountain bike; fails core requirement.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/2026-specialized-sirrus-x-2-0": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Sirrus X 2.0 is a hybrid/gravel bike (700C wheels, flat bar, comfort geometry) not a hardtail mountain bike; fails core requirement.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/2025-specialized-sirrus-x-2-0-step-through": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Sirrus X is a fitness/hybrid bike with 700c wheels and flat bars, not a hardtail mountain bike; fails core requirement for 27.5\" wheels and MTB geometry.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/2026-specialized-hotwalk": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "This is a 12-inch kids' balance bike (18 months\u20134 years), not a mountain bike for a teenage rider; fails all hard requirements (wrong age group, wrong wheel size, wrong bike type).",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/2026-specialized-roll-2-0": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Specialized Roll 2.0 is a hybrid/urban commuter bike, not a mountain bike\u2014wrong category for trail/beginner MTB use despite 650b wheels and disc brakes.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/2026-specialized-roll-3-0-low-entry": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Specialized Roll 3.0 is a fitness/urban hybrid bike, not a hardtail mountain bike; it lacks the suspension fork and trail-oriented geometry required for the rider's stated use case (neighborhood/bike paths/light trails on an MTB).",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/sirrus-x-2-0-km-4296260": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Sirrus X is a hybrid/flat-bar commuter bike with 700C wheels and active riding position, not a mountain bike; fails hardtail MTB requirement and wheel size requirement (700C \u2260 27.5\"/650b).",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/roll-3-0-4222070": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Specialized Roll is a hybrid/commuter bike, not a mountain bike\u2014wrong category entirely; hardtail MTB requirement failed.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/roll-2-0-low-entry-4263359": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Specialized Roll 2.0 is a fitness/commuter bike with 650b wheels and upright geometry, NOT a mountain bike hardtail; this model lacks the suspension fork and aggressive trail-oriented spec required for the buyer's use case (neighborhood/bike paths/light trails on a beginner-intermediate MTB).",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/sirrus-x-3-0-step-through-4291507": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Sirrus X is a flat-bar hybrid/fitness bike with 700C wheels, not a mountain bike; 27.5\" hardtail with disc brakes is a core requirement and this listing fails it.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/2023-specialized-sirrus-4-0": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Sirrus 4.0 is a fitness/hybrid bike with 700c wheels and 2x10 drivetrain, not a mountain bike; fails wheel size (700c \u2260 27.5\"/650b) and drivetrain (2x is rejected per requirements) hard requirements.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/2026-specialized-sirrus-x-2-0-step-through": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Sirrus X is a hybrid/flat-bar commuter bike with 700C wheels, not a mountain bike; fails hardtail requirement and wheel size requirement (700C \u2260 27.5\"/650b).",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/2026-specialized-roll-2-0-low-entry": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Specialized Roll 2.0 is a flat-bar comfort/hybrid bike, not a hardtail mountain bike; this model does not meet the hardtail requirement.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.incycle.com/products/sirrus-x-2-0-step-through-4295241": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Sirrus X is a flat-bar hybrid/fitness bike with 700C wheels, not a mountain bike; fails hard requirement for 27.5\" wheels and hardtail MTB category.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:56:48.530360+00:00",
+      "eval_version": 2
+    },
+    "https://www.coloradocyclist.com/products/eastern-alpaka-27-5-mtb-hardtail-bike-white": {
+      "score": 2,
+      "verdict": "reject",
+      "reason": "Eastern Alpaka is not a recognized reputable brand (Tier 1/2/3); Eastern Bikes lacks verifiable product history and third-party reviews, making it a high-risk unknown brand purchase despite correct wheel size, hardtail type, and hydraulic brakes.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:57:23.519004+00:00",
+      "eval_version": 2
+    },
+    "https://www.coloradocyclist.com/products/eastern-alpaka-27-5-mtb-hardtail-bike-purple": {
+      "score": 3,
+      "verdict": "skip",
+      "reason": "Eastern is an unknown/unreputable brand not on tier lists; 9-speed drivetrain spec is unclear (no component details provided); price is low but insufficient to overcome brand risk and missing drivetrain transparency.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:57:23.519004+00:00",
+      "eval_version": 2
+    },
+    "https://www.coloradocyclist.com/products/eastern-alpaka-27-5-mtb-hardtail-bike-blue": {
+      "score": 3,
+      "verdict": "skip",
+      "reason": "Eastern Bikes is an unknown/unverified brand not on tier list; 9-speed drivetrain spec is unclear (possibly 3x9), and Medium size (17\" seat tube) is at lower end of fit range for 5'5\" rider\u2014needs verification despite meeting wheel/brake requirements.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:57:23.519004+00:00",
+      "eval_version": 2
+    },
+    "https://www.coloradocyclist.com/products/norco-storm-120-27-5-vanilla-2026": {
+      "score": 3,
+      "verdict": "skip",
+      "reason": "Norco Storm 120 is a quality Tier 2 hardtail with solid 1x10 Shimano Cues drivetrain and aluminum frame, but at $949 it exceeds the acceptable stretch budget ($900 max) for a beginner-intermediate rider on neighborhood/light trails; spec does not justify the premium price, and brakes are not specified (verify before buying).",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:57:23.519004+00:00",
+      "eval_version": 2
+    },
+    "https://www.bikesonline.com/products/polygon-xtrada-6-mountain-bike-new": {
+      "score": 5,
+      "verdict": "fair",
+      "reason": "Polygon Xtrada 6 is a Tier 2 hardtail with solid 1x spec, but at $899.99 it's at the top of acceptable budget (spec must be verified: drivetrain/brake details not listed), and you should confirm Small is 27.5\" wheels and verify fit before buying\u2014Medium may push to 29\".",
+      "reject": false,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:57:33.454385+00:00",
+      "eval_version": 2
+    },
+    "https://www.bikesonline.com/products/ex-demo-polygon-xtrada-5-mountain-bike-new-1": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Listed size is Large (L), which exceeds the hard requirement of Small (S) or Medium (M) for a 5'5\" rider; Large is too big.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:57:33.454385+00:00",
+      "eval_version": 2
+    },
+    "https://www.bikesonline.com/products/ex-demo-polygon-cascade-3-mountain-bike-new": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Only Large (L) frame available; rider is 5'5\" and requires Small or Medium \u2014 Large is too big.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:57:33.454385+00:00",
+      "eval_version": 2
+    },
+    "https://konaworld.com/products/fire-mountain-37": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Fails hard requirements: drivetrain is 8-speed (outdated, non-1x setup), and Medium size uses 29",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:57:39.894963+00:00",
+      "eval_version": 2
+    },
+    "https://konaworld.com/products/fire-mountain-b37-gn": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Only XL and XS sizes available; XS is too small for a 5'5\" rider, and XL is too large. The Small (27.5\" wheels) that would fit is not in stock.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:57:39.894963+00:00",
+      "eval_version": 2
+    },
+    "https://konaworld.com/products/makena-1": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Kona Makena is a 20\" kids' bike, not a 27.5\" hardtail for a 5'5\" teenager; it fails the wheel size and frame size hard requirements.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:57:39.894963+00:00",
+      "eval_version": 2
+    },
+    "https://www.mikesbikes.com/products/giant-talon-4": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Only Large and X-Small sizes available; rider at 5'5\" requires Small or Medium, and X-Small is too small while Large is too big.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:57:50.186275+00:00",
+      "eval_version": 2
+    },
+    "https://www.mikesbikes.com/products/cannondale-trail-3": {
+      "score": 7,
+      "verdict": "good_deal",
+      "reason": "Cannondale Trail 3 is a Tier 2 hardtail with 1x8 drivetrain and aluminum frame at $575.95 (well within budget); Small size with 27.5\" wheels confirmed available; verify brake type (spec sheet needed) and that Small frame geometry fits 5'5\" rider before purchasing.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:57:50.186275+00:00",
+      "eval_version": 2
+    },
+    "https://www.mikesbikes.com/products/liv-tempt-4": {
+      "score": 7,
+      "verdict": "good_deal",
+      "reason": "Liv Tempt 4 is a reputable Tier 3 women's hardtail at $649.99 (ideal price), Medium frame fits 5'5\" rider, 27.5\"/29\" wheel options with Medium getting 27.5\", aluminum frame, 1x drivetrain with clutch RD, and modern MTB features\u2014verify final brake type (hydraulic or mechanical disc) and that Medium spec includes 27.5\" wheels before purchase.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:57:50.186275+00:00",
+      "eval_version": 2
+    },
+    "https://www.mikesbikes.com/products/giant-talon-4-2027": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Only Large and X-Small sizes available; rider is 5'5\" (needs Small/Medium), and XS is too small while Large is too big.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:57:50.186275+00:00",
+      "eval_version": 2
+    },
+    "https://www.mikesbikes.com/products/liv-tempt-2-2027": {
+      "score": 7,
+      "verdict": "good_deal",
+      "reason": "Liv Tempt 2 (Giant's women's sub-brand, Tier 3) in Small with 27.5\" wheels, aluminum frame, 1x drivetrain with clutch derailleur, and disc brakes at $799.99 is reasonable for a beginner-intermediate teen rider; verify that Small frame + 27.5\" combo is correct for this model and that brakes are hydraulic.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:57:50.186275+00:00",
+      "eval_version": 2
+    },
+    "https://www.mikesbikes.com/products/liv-tempt-4-2027": {
+      "score": 7,
+      "verdict": "good_deal",
+      "reason": "Liv Tempt 4 (Giant's women's sub-brand) is a Tier 3 hardtail available in Small with 27.5\" wheels, 1x drivetrain with clutch derailleur, aluminum frame, and disc brakes; $649.99 is at the top of ideal budget and fair for the spec\u2014verify component details (brake type, drivetrain model, fork travel) and that Small frame geometry fits a 5'5\" teen before committing.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-26T03:57:50.186275+00:00",
+      "eval_version": 2
+    },
+    "https://www.eriksbikeshop.com/products/specialized-2026-rockhopper-hardtail-mountain-bike-pr5a26408": {
+      "score": 6,
+      "verdict": "fair",
+      "reason": "Specialized Rockhopper (Tier 1) with hydraulic disc brakes is solid, but 2x9 drivetrain is outdated and $749.99 is at the upper stretch for entry-spec; Medium available but verify fit before purchase, and confirm whether Medium pairs with 27.5\" wheels (Rockhopper uses size-specific wheel sizing).",
+      "reject": false,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:58:02.906698+00:00",
+      "eval_version": 2
+    },
+    "https://www.eriksbikeshop.com/products/batch-mb-1-pr5a27408": {
+      "score": 2,
+      "verdict": "reject",
+      "reason": "Batch MB.1 uses 8-speed drivetrain (likely 3x) which is outdated and explicitly rejected per requirements; wheel size not confirmed in listing and 'multiple wheel size options' suggests possible 29\" variants; brand (Batch) is not a recognized Tier 1/2 manufacturer and appears to be a house brand with insufficient market reputation for verification.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-26T03:58:02.906698+00:00",
       "eval_version": 2
     }
   }

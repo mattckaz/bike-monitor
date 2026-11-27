@@ -289,9 +289,10 @@
     "https://www.mikesbikes.com/products/liv-tempt-4",
     "https://www.mikesbikes.com/products/liv-tempt-2-2027",
     "https://www.mikesbikes.com/products/liv-tempt-4-2027",
-    "https://www.marinbikes.com/products/bobcat-trail-3-new"
+    "https://www.marinbikes.com/products/bobcat-trail-3-new",
+    "https://www.craigslist.org/view/d/ann-arbor-rei-drt-11-mountain-bike/vLbkdvXNyA971eRNzJw6RG"
   ],
-  "last_run": "2026-11-26T20:57:35.615931+00:00",
+  "last_run": "2026-11-27T04:00:30.982424+00:00",
   "deals_found": [
     {
       "title": "Talon 4 (2026)",
@@ -3118,14 +3119,23 @@
       "reason": "Tier 2 Marin hardtail with hydraulic brakes, 1x drivetrain, and aluminum frame; Small or Medium sizes available (verify 27.5\" wheel option on selected size); $879 is at the acceptable stretch threshold for 2025 spec but justified by hydraulic brakes and modern 1x setup.",
       "url": "https://www.marinbikes.com/products/bobcat-trail-3-new",
       "found_at": "2026-11-26T20:57:35.615937+00:00"
+    },
+    {
+      "title": "no image",
+      "price": 350,
+      "source": "Craigslist",
+      "score": 7,
+      "reason": "Co-op Cycles DRT 1.1 is a Tier 2 standout (hydraulic brakes, 1x10 Deore, $699 MSRP) at $350 (50% off), located in Ann Arbor (~40 miles from East Lansing), but size is not stated\u2014verify Small/Medium fits before committing.",
+      "url": "https://www.craigslist.org/view/d/ann-arbor-rei-drt-11-mountain-bike/vLbkdvXNyA971eRNzJw6RG",
+      "found_at": "2026-11-27T04:00:30.982431+00:00"
     }
   ],
   "source_checks": {
     "The Pro's Closet": {
-      "last_checked": "2026-11-26T20:53:50.884372+00:00",
+      "last_checked": "2026-11-27T03:55:56.380934+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 198,
+      "zero_streak": 199,
       "error": null
     },
     "Jenson USA": {
@@ -3134,42 +3144,42 @@
       "status": "ok"
     },
     "Worldwide Cyclery": {
-      "last_checked": "2026-11-26T20:54:02.705772+00:00",
+      "last_checked": "2026-11-27T03:56:05.800384+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 200,
+      "zero_streak": 201,
       "error": null
     },
     "Fanatik Bike": {
-      "last_checked": "2026-11-26T20:54:03.463963+00:00",
+      "last_checked": "2026-11-27T03:56:06.463170+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 211,
+      "zero_streak": 212,
       "error": null
     },
     "Cambria Bike": {
-      "last_checked": "2026-11-26T20:54:04.183320+00:00",
+      "last_checked": "2026-11-27T03:56:07.053635+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 187,
+      "zero_streak": 188,
       "error": null
     },
     "Bicycle Warehouse": {
-      "last_checked": "2026-11-26T20:53:53.259437+00:00",
+      "last_checked": "2026-11-27T03:55:58.288111+00:00",
       "count_evaluated": 110,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Mike's Bikes": {
-      "last_checked": "2026-11-26T20:54:05.179334+00:00",
+      "last_checked": "2026-11-27T03:56:07.907202+00:00",
       "count_evaluated": 11,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "ERIK'S Bike Shop": {
-      "last_checked": "2026-11-26T20:54:12.555575+00:00",
+      "last_checked": "2026-11-27T03:56:08.545162+00:00",
       "count_evaluated": 9,
       "status": "ok",
       "zero_streak": 0,
@@ -3181,10 +3191,10 @@
       "status": "ok"
     },
     "Velomine": {
-      "last_checked": "2026-11-26T20:54:13.338694+00:00",
+      "last_checked": "2026-11-27T03:56:09.311960+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 187,
+      "zero_streak": 188,
       "error": null
     },
     "Bicycle Blue Book": {
@@ -3203,56 +3213,56 @@
       "status": "ok"
     },
     "Incycle": {
-      "last_checked": "2026-11-26T20:53:55.444833+00:00",
+      "last_checked": "2026-11-27T03:55:59.924758+00:00",
       "count_evaluated": 40,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Colorado Cyclist": {
-      "last_checked": "2026-11-26T20:53:56.599829+00:00",
+      "last_checked": "2026-11-27T03:56:00.813915+00:00",
       "count_evaluated": 25,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "BikesOnline": {
-      "last_checked": "2026-11-26T20:53:57.899516+00:00",
+      "last_checked": "2026-11-27T03:56:01.827916+00:00",
       "count_evaluated": 10,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Kona (Direct)": {
-      "last_checked": "2026-11-26T20:53:59.275827+00:00",
+      "last_checked": "2026-11-27T03:56:03.112543+00:00",
       "count_evaluated": 13,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Fuji (Direct)": {
-      "last_checked": "2026-11-26T20:53:59.395341+00:00",
+      "last_checked": "2026-11-27T03:56:03.256021+00:00",
       "count_evaluated": 0,
       "status": "error",
       "zero_streak": 0,
       "error": "no working Shopify collection found"
     },
     "GT Bicycles (Direct)": {
-      "last_checked": "2026-11-26T20:54:00.955779+00:00",
+      "last_checked": "2026-11-27T03:56:04.410018+00:00",
       "count_evaluated": 2,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Diamondback (Direct)": {
-      "last_checked": "2026-11-26T20:54:02.000953+00:00",
+      "last_checked": "2026-11-27T03:56:05.266438+00:00",
       "count_evaluated": 17,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Ari Bikes": {
-      "last_checked": "2026-11-26T20:54:14.418529+00:00",
+      "last_checked": "2026-11-27T03:56:10.138094+00:00",
       "count_evaluated": 1,
       "status": "ok",
       "zero_streak": 0,
@@ -3274,7 +3284,7 @@
       "status": "ok"
     },
     "Marin": {
-      "last_checked": "2026-11-26T20:54:47.458693+00:00",
+      "last_checked": "2026-11-27T03:56:15.533655+00:00",
       "count_evaluated": 11,
       "status": "ok",
       "zero_streak": 0,
@@ -3293,10 +3303,10 @@
       "status": "error"
     },
     "Pinkbike Deals": {
-      "last_checked": "2026-11-26T20:56:32.587030+00:00",
-      "count_evaluated": 0,
+      "last_checked": "2026-11-27T03:58:53.462580+00:00",
+      "count_evaluated": 36,
       "status": "ok",
-      "zero_streak": 4,
+      "zero_streak": 0,
       "error": null
     },
     "Pinkbike Buy/Sell": {
@@ -3312,14 +3322,14 @@
       "error": null
     },
     "Trailhead Cycling": {
-      "last_checked": "2026-11-26T20:56:43.514590+00:00",
+      "last_checked": "2026-11-27T03:59:04.927000+00:00",
       "count_evaluated": 30,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "88 Cycling": {
-      "last_checked": "2026-11-26T20:57:10.658185+00:00",
+      "last_checked": "2026-11-27T03:59:24.275817+00:00",
       "count_evaluated": 31,
       "status": "ok",
       "zero_streak": 0,
@@ -3333,7 +3343,7 @@
       "error": null
     },
     "Batch Bicycles": {
-      "last_checked": "2026-11-26T20:54:54.177307+00:00",
+      "last_checked": "2026-11-27T03:56:16.612011+00:00",
       "count_evaluated": 12,
       "status": "ok",
       "zero_streak": 0,
@@ -3352,14 +3362,14 @@
       "error": null
     },
     "Giant Clearance": {
-      "last_checked": "2026-11-26T20:56:15.840690+00:00",
+      "last_checked": "2026-11-27T03:58:39.930285+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 187,
+      "zero_streak": 188,
       "error": null
     },
     "Specialized Sale": {
-      "last_checked": "2026-11-26T20:56:22.815011+00:00",
+      "last_checked": "2026-11-27T03:58:47.135137+00:00",
       "count_evaluated": 3,
       "status": "ok",
       "zero_streak": 0,
@@ -3376,8 +3386,8 @@
       "status": "ok"
     },
     "Bike Mart": {
-      "last_checked": "2026-11-26T20:54:41.678646+00:00",
-      "count_evaluated": 150,
+      "last_checked": "2026-11-27T03:56:14.293814+00:00",
+      "count_evaluated": 149,
       "status": "ok",
       "zero_streak": 0,
       "error": null
@@ -3393,7 +3403,7 @@
       "status": "ok"
     },
     "Slickdeals": {
-      "last_checked": "2026-11-26T20:57:35.615794+00:00",
+      "last_checked": "2026-11-27T04:00:30.982291+00:00",
       "count_evaluated": 26,
       "status": "ok",
       "zero_streak": 0,
@@ -3442,31 +3452,31 @@
       "error": null
     },
     "Craigslist (hardtail)": {
-      "last_checked": "2026-11-26T20:57:17.816749+00:00",
+      "last_checked": "2026-11-27T03:59:39.101047+00:00",
       "count_evaluated": 25,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Craigslist (27.5)": {
-      "last_checked": "2026-11-26T20:57:24.813321+00:00",
+      "last_checked": "2026-11-27T04:00:05.641129+00:00",
       "count_evaluated": 22,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Trek Mountain": {
-      "last_checked": "2026-11-26T20:56:10.440221+00:00",
+      "last_checked": "2026-11-27T03:58:34.273156+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 39,
+      "zero_streak": 40,
       "error": null
     },
     "Pinkbike Buy/Sell (hardtail 27.5)": {
-      "last_checked": "2026-11-26T20:56:38.680742+00:00",
+      "last_checked": "2026-11-27T03:58:59.566142+00:00",
       "count_evaluated": 0,
       "status": "ok",
-      "zero_streak": 1,
+      "zero_streak": 2,
       "error": null
     },
     "Pinkbike Buy/Sell (marlin)": {
@@ -3498,29 +3508,29 @@
       "error": null
     },
     "Craigslist (models)": {
-      "last_checked": "2026-11-26T20:57:31.827619+00:00",
-      "count_evaluated": 21,
+      "last_checked": "2026-11-27T04:00:27.206227+00:00",
+      "count_evaluated": 201,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "D&D Bicycles & Hockey": {
-      "last_checked": "2026-11-26T20:55:41.142022+00:00",
+      "last_checked": "2026-11-27T03:56:26.319376+00:00",
       "count_evaluated": 13,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Village Bike Shop": {
-      "last_checked": "2026-11-26T20:56:00.873427+00:00",
+      "last_checked": "2026-11-27T03:56:36.751445+00:00",
       "count_evaluated": 4,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "eBay API": {
-      "last_checked": "2026-11-26T20:56:04.395451+00:00",
-      "count_evaluated": 370,
+      "last_checked": "2026-11-27T03:58:17.398856+00:00",
+      "count_evaluated": 371,
       "status": "ok",
       "zero_streak": 0,
       "error": null
@@ -3681,21 +3691,21 @@
       "eval_version": 2
     },
     "https://www.ebay.com/itm/128020559443": {
-      "score": 3,
-      "verdict": "skip",
-      "reason": "Fantom is an unknown/unverified brand not on Tier 1/2 list; frame size not listed; price is appealing but cannot confirm fit for 5'5\" rider without brand/model verification and size confirmation.",
-      "reject": false,
-      "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Frame size 21 inches is too large for a 5'5\" beginner-intermediate rider (21\" typically fits riders 5'10\"+); Motobecane is an unknown/unreliable brand not on approved Tier 1-3 list.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/257663270656": {
-      "score": 6,
-      "verdict": "fair",
-      "reason": "Jamis Divide is a Tier 3 hardtail with 27.5\" wheels and disc brakes at a reasonable price ($629.99), but frame size is stated as 13\" (unclear if this matches a Small for 5'5\" rider\u2014typical Small Jamis is 13.5\"-14\")\u2014verify exact fit before purchase; drivetrain and brake type not listed, so condition of spec must be confirmed.",
-      "reject": false,
+      "score": 0,
+      "verdict": "reject",
+      "reason": "pickup-only item in Waunakee, Wisconsin (too far)",
+      "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://bicyclewarehouse.com/products/tempt-2": {
@@ -3713,7 +3723,7 @@
       "reason": "pickup-only item in Lakewood, Washington (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/198624438549": {
@@ -3722,7 +3732,7 @@
       "reason": "pickup-only item in Vancouver, Washington (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://bicyclewarehouse.com/products/rockhopper-sport-2026": {
@@ -3941,346 +3951,247 @@
       "cached_at": "2026-11-26T20:54:19.042204+00:00",
       "eval_version": 2
     },
-    "https://www.pinkbike.com/buysell/4065274/": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Listing specifies 3x8 drivetrain (explicitly prohibited), location is Kelowna BC (outside 100-mile travel radius from East Lansing, MI), and frame size is unknown; additionally, Bolinas Ridge is a flat-bar adventure/hybrid bike, not a mountain bike hardtail appropriate for trail riding.",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-11-12T21:07:16.600714+00:00",
-      "eval_version": 2
-    },
-    "https://www.pinkbike.com/buysell/4248831/": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Trek Roscoe 8 is a full-suspension bike with rear travel, not a hardtail; fails hard requirement for hardtail-only specification.",
-      "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:07:16.600714+00:00",
-      "eval_version": 2
-    },
-    "https://www.ddbicyclesandhockey.com/product/giant-talon-4-1260907-1.htm": {
-      "score": 6,
-      "verdict": "fair",
-      "reason": "Giant Talon 4 (Tier 2) is a solid hardtail at $650, local pickup in East Lansing is perfect, but size and exact drivetrain/brake spec are unconfirmed\u2014verify Small/27.5\" and hydraulic disc brakes before committing.",
-      "reject": false,
-      "size_confirmed": false,
-      "cached_at": "2026-11-12T21:15:57.686468+00:00",
-      "eval_version": 2
-    },
-    "https://www.villagebikeshop.com/product/giant-talon-4-1260907-1.htm": {
-      "score": 5,
-      "verdict": "fair",
-      "reason": "Giant Talon 4 (Tier 2) at $650 is fair pricing, but critical specs are unconfirmed (size availability, wheel size for Medium, drivetrain/brake details, thru-axle/1x applicability to this model year); verify Small or 27.5\" Medium in stock, confirm hydraulic brakes and 1x drivetrain before committing\u2014distance is acceptable (65 miles).",
-      "reject": false,
-      "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:13.948210+00:00",
-      "eval_version": 2
-    },
     "https://www.ebay.com/itm/920135738467": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Mongoose is a Walmart-tier brand explicitly rejected; 21-speed (3x7) drivetrain is outdated and specifically rejected; no confirmation of disc brakes, frame size, or aluminum/carbon frame material.",
+      "reason": "Mongoose is a Walmart/big-box brand explicitly on the reject list; 21-speed drivetrain is outdated 3x setup; size not specified and aluminum frame does not overcome the brand and drivetrain failures.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/820281414254": {
-      "score": 6,
-      "verdict": "fair",
-      "reason": "Marin Bobcat Trail 3 is a solid Tier 2 hardtail in Small/27.5\" (correct spec), price is reasonable at $600, but new seller with zero feedback and vague condition description ('New other') creates risk; verify actual condition and component spec (drivetrain/brakes) before committing.",
-      "reject": false,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "score": 0,
+      "verdict": "reject",
+      "reason": "pickup-only item in Mableton, Georgia (too far)",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/198660933789": {
-      "score": 4,
-      "verdict": "skip",
-      "reason": "Raleigh Tokul 2 is a Tier 3 brand with unknown drivetrain/brake specs at $497; verify that it has 1x drivetrain and hydraulic or mechanical disc brakes before committing, as the listing lacks critical component details and Raleigh hardtails at this price often ship with budget 3x or mechanical-only setups.",
-      "reject": false,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "score": 0,
+      "verdict": "reject",
+      "reason": "pickup-only item in Vancouver, Washington (too far)",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/257663271484": {
-      "score": 6,
-      "verdict": "fair",
-      "reason": "Jamis Divide is a Tier 3 hardtail with 27.5\" wheels and likely mechanical disc brakes (spec incomplete), size 15\" frame (~Small) fits the rider, price $629.99 is reasonable but drivetrain/brake details must be verified before purchase.",
-      "reject": false,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "score": 0,
+      "verdict": "reject",
+      "reason": "pickup-only item in Waunakee, Wisconsin (too far)",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/127632279627": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Galano is not a reputable brand (unknown/unverifiable), seller has zero feedback on eBay, and frame size is unconfirmed\u2014cannot verify fit for this rider.",
+      "reason": "pickup-only item in Braila (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/126702908397": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Reject: Listed as 'RACE BIKE' and 'RIGID' \u2014 this appears to be a fixed-gear or single-speed road/gravel bike, not a mountain bike hardtail with suspension fork required for the buyer's use case (neighborhood/bike paths/light trails on a teenage MTB).",
+      "reason": "pickup-only item in Aiken, South Carolina (too far)",
       "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
-      "eval_version": 2
-    },
-    "https://www.ebay.com/itm/235525441620": {
-      "score": 6,
-      "verdict": "fair",
-      "reason": "Marin Bolinas Ridge is a solid Tier 3 flat-bar hardtail in Small (27.5\", appropriate for 5'5\"), used condition with recent tune-up at $400 is fair value, but seller has zero eBay feedback and local pickup requires verification of actual condition; confirm drivetrain/brake specs before committing.",
-      "reject": false,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
-      "eval_version": 2
-    },
-    "https://www.ebay.com/itm/198789180940": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "29\" wheels fail the hard requirement (27.5\"/650b only); shipped from Vancouver, BC which exceeds the 100-mile local pickup radius for East Lansing, MI buyer.",
-      "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
-      "eval_version": 2
-    },
-    "https://www.ebay.com/itm/198789171864": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Seller is in Vancouver (BC or WA), not within 100-mile travel range from East Lansing, MI, and listing does not indicate shipping availability.",
-      "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/840108680107": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Frame size is listed as 'large' which exceeds the hard requirement (Small or Medium only for 5'5\" rider); additionally, the listing describes a full-suspension bike ('front suspension system') rather than hardtail-only, which violates the hardtail requirement.",
+      "reason": "pickup-only item in Ithaca, New York (too far)",
       "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/366795372111": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Seller is in New Orleans (1000+ miles from East Lansing), listing states 'Shipping: none listed' and buyer requirement is local pickup only; hard requirement violation on geography and logistics.",
+      "reason": "pickup-only item in New Orleans, Louisiana (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
-      "eval_version": 2
-    },
-    "https://www.ebay.com/itm/860125085133": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Vintage 1992 Specialized Rockhopper is a steel-frame road/hybrid bike from the pre-mountain-bike era, not a modern hardtail MTB; fails aluminum/carbon frame requirement and wheel/drivetrain specs cannot be verified for a beginner teenager.",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/407345471299": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Location in New Paltz, NY is approximately 600+ miles from East Lansing, MI, far exceeding the stated 100-mile maximum travel distance for pickup.",
+      "reason": "pickup-only item in New Paltz, New York (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/198777738962": {
       "score": 0,
       "verdict": "reject",
-      "reason": "26-inch wheels and cantilever brakes both violate hard requirements (27.5\"/650b wheels and disc brakes required); additionally, size is unknown and seller has 0% feedback.",
+      "reason": "pickup-only item in Ontario, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/227593341753": {
       "score": 0,
       "verdict": "reject",
-      "reason": "2000 GT Aggressor is a 26\" hardtail (not 27.5\"), fails wheel size requirement; additionally at $1050 total cost this is drastically overpriced for a 24-year-old used bike regardless of cosmetic customization.",
+      "reason": "pickup-only item in Plainview, Texas (too far)",
       "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/920094997554": {
-      "score": 6,
-      "verdict": "fair",
-      "reason": "GT Aggressor is Tier 2 hardtail with 27.5\" wheels and disc brakes; Medium frame fits rider, but $250 price is suspiciously low for new/near-new condition (verify actual condition and component spec\u2014Deore vs. Altus matters significantly), zero seller feedback is a trust risk, and shipping cost is unknown.",
-      "reject": false,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "score": 0,
+      "verdict": "reject",
+      "reason": "pickup-only item in Miami, Florida (too far)",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/168828879055": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Fails hard requirements: 29\" wheels (not 27.5\"/650b) and 3x24-speed drivetrain (outdated, reject criterion).",
+      "reason": "pickup-only item in Hyde Park, Massachusetts (too far)",
       "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/327423689008": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Frame size listed as Large (LG), which exceeds the hard requirement of Small or Medium for a 5'5\" beginner-intermediate rider.",
+      "reason": "pickup-only item in Thousand Oaks, California (too far)",
       "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/820276968405": {
-      "score": 5,
-      "verdict": "fair",
-      "reason": "Trek Marlin 5 is a Tier 1 hardtail at a reasonable price ($700), but the listing omits frame size, wheel size, and drivetrain/brake spec\u2014verify Small/27.5\"/disc brakes before committing; new seller (0 feedback) adds risk on a used bike.",
-      "reject": false,
-      "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
-      "eval_version": 2
-    },
-    "https://www.ebay.com/itm/820259846863": {
-      "score": 2,
-      "verdict": "skip",
-      "reason": "GT Aggressor is Tier 2 and could be acceptable used, but 21-speed (3x7) drivetrain violates hard requirement against 3x systems, tires may not hold air, size is unstated ('15 inch' frame size is unclear for this rider's fit), and location (Long Branch, NJ) exceeds 100-mile travel range from East Lansing\u2014do not pursue.",
+      "score": 0,
+      "verdict": "reject",
+      "reason": "pickup-only item in Seagoville, Texas (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/860058547345": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Listing is for a men's frame geometry bike, not suitable for a female teenage rider; additionally, critical specs (wheel size, drivetrain, brakes) are not stated and cannot be verified from this vague listing.",
+      "reason": "pickup-only item in Highland Mills, New York (too far)",
       "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/366738339841": {
-      "score": 6,
-      "verdict": "fair",
-      "reason": "GT Aggressor Sport is a Tier 2 hardtail in Small/27.5\" (correct size/wheels), used in good condition at $200 is strong value (~40% of typical MSRP), but critical details missing\u2014verify drivetrain is 1x (not 3x), brakes are disc (not rim), and actual component spec before committing.",
-      "reject": false,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "score": 0,
+      "verdict": "reject",
+      "reason": "pickup-only item in Hallandale, Florida (too far)",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/137823959091": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Early 1990s chromoly steel frame violates aluminum/carbon requirement; vintage single-speed conversion lacks modern drivetrain standards and appropriate gearing for beginner-intermediate rider.",
+      "reason": "Fails multiple hard requirements: 26\" wheels (must be 27.5\"), cantilever rim brakes (must be disc), chromoly steel frame (must be aluminum/carbon), and 1-speed drivetrain (not suitable for trails); vintage 1991 urban commuter, not a modern mountain bike.",
       "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "size_confirmed": true,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/227555804393": {
-      "score": 3,
-      "verdict": "skip",
-      "reason": "Specialized Rockhopper is Tier 1, but listing lacks critical details (frame size, wheel size, drivetrain, brake type, year), South Yarmouth MA is 500+ miles from East Lansing (exceeds 100-mile pickup range), and 0% seller feedback on eBay is a significant trust concern; cannot verify fit or specs before committing.",
-      "reject": false,
+      "score": 0,
+      "verdict": "reject",
+      "reason": "pickup-only item in South Yarmouth, Massachusetts (too far)",
+      "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/206599252647": {
       "score": 0,
       "verdict": "reject",
-      "reason": "1998 Specialized Hardrock is a 26-inch wheeled vintage bike with likely rim brakes and outdated 3x drivetrain\u2014fails wheel size and brake requirements; also located in Denver (100+ miles from East Lansing) and seller has zero feedback.",
+      "reason": "pickup-only item in Denver, Colorado (too far)",
       "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/147612779233": {
       "score": 0,
       "verdict": "reject",
-      "reason": "1989 vintage rigid frame (no fork suspension) fails hardtail requirement; likely 26\" wheels and obsolete drivetrain; unsuitable for beginner-intermediate rider needing modern hardtail with front fork.",
+      "reason": "pickup-only item in Marble, North Carolina (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
-      "eval_version": 2
-    },
-    "https://www.ebay.com/itm/298715280945": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Reject: 1989 vintage Cr-Mo steel frame violates aluminum/carbon requirement; 3x drivetrain (Shimano Deore from 80s) is outdated; this is a collectible vintage bike, not suitable for a beginner-intermediate teen rider on neighborhood/trail use.",
-      "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/158337819261": {
-      "score": 2,
+      "score": 0,
       "verdict": "reject",
-      "reason": "Listing title claims Size Small but description says 'size medium'\u2014critical size mismatch creates unacceptable fit risk for 5'5\" rider; also unclear wheel size (27.5\" vs 29\" on Medium Marlin 4) and location (Neptune) is likely beyond 100-mile range from East Lansing.",
+      "reason": "pickup-only item in Neptune, New Jersey (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/128094042117": {
-      "score": 3,
-      "verdict": "skip",
-      "reason": "GT Aggressor is a solid Tier 2 hardtail at an excellent price ($400), but seller has zero eBay feedback, ships internationally from Jamaica (high risk for a teenage buyer's first bike), and condition is vague ('New other')\u2014too many red flags for a beginner despite the good spec and size match.",
-      "reject": false,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "score": 0,
+      "verdict": "reject",
+      "reason": "pickup-only item in Jamaica, New York (too far)",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/398401750087": {
       "score": 0,
       "verdict": "reject",
-      "reason": "2005 Gary Fisher Marlin is 20 years old with unknown frame size, wheel size, drivetrain (likely 3x), and brake type; cannot verify hard requirements (27.5\" wheels, 1x drivetrain, disc brakes, aluminum frame) from vintage bike without explicit spec confirmation.",
+      "reason": "pickup-only item in Louisville, Kentucky (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/168689418565": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Gary Fisher Marlin is a steel-frame vintage bike (1990s\u20132000s), violating the aluminum/carbon requirement; also unclear if it retains original 27.5\" wheels after buyer's city-conversion modification, making wheel size unverifiable and drivetrain/brake specs entirely unknown.",
+      "reason": "pickup-only item in Brooklyn, New York (too far)",
       "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/398394563807": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Listing states '9 speeds, derailleur gears' indicating a 3x drivetrain (3x3 or similar), which violates the hard requirement for 1x drivetrains only.",
-      "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:16:20.170733+00:00",
-      "eval_version": 2
-    },
-    "https://www.ebay.com/itm/128179145323": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "pickup-only item in Queens Park (too far)",
+      "reason": "pickup-only item in Clermont, Florida (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/267748511112": {
-      "score": 3,
-      "verdict": "skip",
-      "reason": "21-speed 3x drivetrain is outdated and harder to maintain (violates drivetrain requirement), and while Jamis Divide is Tier 3 acceptable, the spec does not justify the $629.99 price point\u2014verify frame size fits before any purchase.",
-      "reject": false,
+      "score": 0,
+      "verdict": "reject",
+      "reason": "pickup-only item in Waunakee, Wisconsin (too far)",
+      "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/128156343332": {
@@ -4289,7 +4200,7 @@
       "reason": "pickup-only item in Lynn, Massachusetts (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/147641216351": {
@@ -4298,7 +4209,7 @@
       "reason": "pickup-only item in La Grange, Kentucky (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/227519044685": {
@@ -4307,16 +4218,7 @@
       "reason": "pickup-only item in Miami, Florida (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
-      "eval_version": 2
-    },
-    "https://www.ebay.com/itm/147556462394": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "pickup-only item in Richmond Hill, New York (too far)",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/257728063083": {
@@ -4325,7 +4227,7 @@
       "reason": "pickup-only item in New York, New York (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/188887068385": {
@@ -4334,7 +4236,7 @@
       "reason": "pickup-only item in Vancouver, Washington (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/206535927311": {
@@ -4343,16 +4245,7 @@
       "reason": "pickup-only item in Gorham, Maine (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
-      "eval_version": 2
-    },
-    "https://www.ebay.com/itm/267773768257": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "pickup-only item in Portland, Oregon (too far)",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/820070574168": {
@@ -4361,7 +4254,7 @@
       "reason": "pickup-only item in Geneseo, New York (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/278327396232": {
@@ -4370,7 +4263,7 @@
       "reason": "pickup-only item in Pompano Beach, Florida (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/287552942034": {
@@ -4379,7 +4272,7 @@
       "reason": "pickup-only item in Petaluma, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/318792820898": {
@@ -4388,7 +4281,7 @@
       "reason": "pickup-only item in Vacaville, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/407174695002": {
@@ -4397,7 +4290,7 @@
       "reason": "pickup-only item in Morgantown, West Virginia (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/398324228274": {
@@ -4406,7 +4299,7 @@
       "reason": "pickup-only item in Sykesville, Maryland (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/267763894687": {
@@ -4415,7 +4308,7 @@
       "reason": "pickup-only item in Peoria, Illinois (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/178403845965": {
@@ -4424,7 +4317,7 @@
       "reason": "pickup-only item in Mechanicsburg, Pennsylvania (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/307122954020": {
@@ -4433,7 +4326,7 @@
       "reason": "pickup-only item in Plano, Texas (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/168605789118": {
@@ -4442,34 +4335,34 @@
       "reason": "pickup-only item in Brockport, New York (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/377404141480": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Wheel size is 29\", not 27.5\"/650b\u2014hard requirement fails.",
+      "reason": "29\" wheels fail the hard requirement of 27.5\"/650b only; this model is disqualified regardless of price or other specs.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/188744094639": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Fails multiple hard requirements: 26\" wheels (need 27.5\"), steel frame (need aluminum/carbon), 3x21 drivetrain (reject 3x), cantilever rim brakes (need disc), and 1989 vintage tech inappropriate for this rider's needs.",
+      "reason": "Fails multiple hard requirements: 26\" wheels (requires 27.5\"), steel frame (requires aluminum/carbon), 3\u00d721 drivetrain (requires 1x), cantilever brakes (requires disc brakes), and full suspension not explicitly ruled out for vintage\u2014this 1989 vintage bike does not meet modern hardtail standards for a beginner-intermediate teen rider.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/128010904362": {
       "score": 0,
       "verdict": "reject",
-      "reason": "29\" wheels fail the hard requirement of 27.5\"/650b only; this bike does not meet the rider's wheel size specification.",
+      "reason": "29\" wheel size violates the hard requirement for 27.5\"/650b wheels; this Marlin 4 Gen 2 is a 29er model, not suitable for a 5'5\" beginner-intermediate rider on neighborhood/light trails.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/227587941183": {
@@ -4478,7 +4371,7 @@
       "reason": "pickup-only item in Manteca, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/318652851091": {
@@ -4487,7 +4380,7 @@
       "reason": "pickup-only item in Coppell, Texas (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/407099168067": {
@@ -4496,7 +4389,7 @@
       "reason": "pickup-only item in Akron, Ohio (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/237149425900": {
@@ -4505,7 +4398,7 @@
       "reason": "pickup-only item in Burke, Virginia (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/178320235048": {
@@ -4514,7 +4407,7 @@
       "reason": "pickup-only item in Charlotte, North Carolina (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/188641810691": {
@@ -4523,7 +4416,7 @@
       "reason": "pickup-only item in Chicago, Illinois (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/198495556213": {
@@ -4532,16 +4425,16 @@
       "reason": "pickup-only item in Denver, Colorado (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/318555367742": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Fails multiple hard requirements: 26\" wheels (not 27.5\"), rim brakes (not disc), and 3x21 drivetrain (outdated).",
+      "reason": "Fails multiple hard requirements: 26-inch wheels (require 27.5\"), rim brakes (require disc), and 3x21-speed drivetrain (require 1x); Specialized HardRock is an older entry-level model that does not meet current specifications for this rider.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/318504684921": {
@@ -4550,7 +4443,7 @@
       "reason": "pickup-only item in Syracuse, New York (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/407022710860": {
@@ -4559,7 +4452,7 @@
       "reason": "pickup-only item in Winchester, Virginia (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/327445316632": {
@@ -4568,16 +4461,16 @@
       "reason": "pickup-only item in Glendora, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/257559833401": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Listing specifies 29\" wheels (RUOTA 29) and frame size M/L, both incompatible with rider requirements (need 27.5\" and S/M); additionally, shipping cost of $3150 makes total price $3830, far exceeding budget.",
+      "reason": "Frame size 18.5\" (M/L) is too large for a 5'5\" beginner-intermediate rider, and 29\" wheels contradict the hard requirement for 27.5\"/650b; additionally, shipping from Italy to Michigan at $3,117 is prohibitively expensive and outside buyer's stated logistics.",
       "reject": true,
       "size_confirmed": true,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/358662059448": {
@@ -4586,7 +4479,7 @@
       "reason": "pickup-only item in Fort Lauderdale, Florida (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/278072222677": {
@@ -4595,7 +4488,7 @@
       "reason": "pickup-only item in Monterey Park, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/406988112656": {
@@ -4604,7 +4497,7 @@
       "reason": "pickup-only item in Martinsburg, West Virginia (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/227371731333": {
@@ -4613,7 +4506,7 @@
       "reason": "pickup-only item in Pomona, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/178184294903": {
@@ -4622,7 +4515,7 @@
       "reason": "pickup-only item in Attica, New York (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/157919912668": {
@@ -4631,7 +4524,7 @@
       "reason": "pickup-only item in Rancho Santa Margarita, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/277996565598": {
@@ -4640,25 +4533,16 @@
       "reason": "pickup-only item in Cambridge, Maryland (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
-      "eval_version": 2
-    },
-    "https://www.ebay.com/itm/227611199228": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Fails hard requirements: 26-inch wheels (requires 27.5\"), cantilever rim brakes (requires disc brakes), 3x18-speed drivetrain (outdated), chromoly steel frame (requires aluminum/carbon), and 1988 vintage with non-modern geometry unsuitable for beginner-intermediate teenage rider.",
-      "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/318414885099": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Bike is missing critical components (derailleur, disc brake, chain) and is incomplete/non-functional as listed.",
+      "reason": "Missing critical drivetrain and braking components (derailleur, disc brake, chain) make this a non-functional bike; at 27 cm frame size (~10.6 inches), it is significantly undersized for a 5'5\" rider and would be rejected regardless.",
       "reject": true,
       "size_confirmed": true,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/306901041457": {
@@ -4667,7 +4551,7 @@
       "reason": "pickup-only item in Trinity, Texas (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/366354899256": {
@@ -4676,7 +4560,7 @@
       "reason": "pickup-only item in Rosemount, Minnesota (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/137229261958": {
@@ -4685,7 +4569,7 @@
       "reason": "pickup-only item in Bristol, Pennsylvania (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/277897210589": {
@@ -4694,7 +4578,7 @@
       "reason": "pickup-only item in Cave Creek, Arizona (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/318102841076": {
@@ -4703,7 +4587,7 @@
       "reason": "pickup-only item in Aurora, Colorado (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/336504820256": {
@@ -4712,7 +4596,7 @@
       "reason": "pickup-only item in Spring, Texas (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/227251696022": {
@@ -4721,25 +4605,16 @@
       "reason": "pickup-only item in Newark, Delaware (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/188134835706": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Rockhopper is 29\" wheel only (hard requirement: 27.5\" or 650b), and frame size is not listed; a 5'5\" rider on a 29\" hardtail risks poor handling and reach geometry issues.",
+      "reason": "29\" wheels fail the hard requirement for 27.5\"/650b; Specialized Rockhopper comes in both 27.5\" and 29\" variants by size, and 29\" is too large for a 5'5\" rider on a Small frame.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
-      "eval_version": 2
-    },
-    "https://www.ebay.com/itm/306796450338": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "pickup-only item in Littleton, Colorado (too far)",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/317857603999": {
@@ -4748,7 +4623,7 @@
       "reason": "pickup-only item in Omagh (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/267568359078": {
@@ -4757,7 +4632,7 @@
       "reason": "pickup-only item in North Easton, Massachusetts (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/198072042999": {
@@ -4766,7 +4641,7 @@
       "reason": "pickup-only item in San Diego, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/389546978514": {
@@ -4775,7 +4650,7 @@
       "reason": "pickup-only item in Bronx, New York (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/157620031335": {
@@ -4784,7 +4659,7 @@
       "reason": "pickup-only item in Clearwater, Florida (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/147055440160": {
@@ -4793,7 +4668,7 @@
       "reason": "pickup-only item in Seattle, Washington (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/376784852719": {
@@ -4802,7 +4677,7 @@
       "reason": "pickup-only item in Greer, South Carolina (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/205909342071": {
@@ -4811,16 +4686,16 @@
       "reason": "pickup-only item in Corona, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/366040790109": {
       "score": 0,
       "verdict": "reject",
-      "reason": "This is a circus stunt mini bicycle (6-inch wheels, 17-inch frame), not a mountain bike; it fails every hard requirement including wheel size (6\" vs. required 27.5\"), frame size (17\" is not S/M), brake type (hub brake, not disc), and intended use.",
+      "reason": "This is a novelty circus/clown mini bicycle (6-inch wheels, designed for stunts), not a mountain bike; it fails multiple hard requirements: wheel size is 6\" (not 27.5\"/650b), hub brakes (not disc), and is unsuitable for the rider's intended use (neighborhood/bike paths/light trails).",
       "reject": true,
       "size_confirmed": true,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/376746396313": {
@@ -4829,7 +4704,7 @@
       "reason": "pickup-only item in Palmdale, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/147384027126": {
@@ -4838,25 +4713,25 @@
       "reason": "pickup-only item in Mechanicsville, Virginia (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/286949525983": {
-      "score": 0,
+      "score": 1,
       "verdict": "reject",
-      "reason": "Shipping cost of $3,150 is prohibitively expensive and makes total cost $3,830, which vastly exceeds budget; additionally, the Marlin 4 Gen 3 with 8-speed Shimano Altus is below ideal spec for the price tier even before shipping.",
+      "reason": "Listing claims $673.80 price but then states shipping cost of $3117 (total $3790), which is prohibitively expensive and suggests this is a scam or mislabeled international listing from Italy\u2014reject on price grounds alone, regardless of otherwise correct spec (Marlin 4, 15.5\" Small, 27.5\", hydraulic disc, Shimano 8-speed).",
       "reject": true,
       "size_confirmed": true,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/286903266157": {
-      "score": 0,
+      "score": 1,
       "verdict": "reject",
-      "reason": "Fails hard requirements: shipping cost of $3150 is prohibitive (total $3930 > budget), frame size is M/L (too large for 5'5\" rider), and wheel specification is contradictory (listed as both 29\" and 27.5\").",
+      "reason": "Frame size 18.5\" M/L exceeds the 17.5\" maximum for a 5'5\" rider, and conflicting wheel specs (title says 29\", specs say 27.5\") combined with international shipping cost ($3117) making total $3889 makes this a poor value and poor fit regardless of spec.",
       "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "size_confirmed": true,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/376634623234": {
@@ -4865,7 +4740,7 @@
       "reason": "pickup-only item in Fresno, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/205770782694": {
@@ -4874,7 +4749,7 @@
       "reason": "pickup-only item in Long Valley, New Jersey (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/306533658481": {
@@ -4883,7 +4758,7 @@
       "reason": "pickup-only item in Hershey, Pennsylvania (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/326772027946": {
@@ -4892,7 +4767,7 @@
       "reason": "pickup-only item in Philadelphia, Pennsylvania (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/388961524444": {
@@ -4901,7 +4776,7 @@
       "reason": "pickup-only item in Frederick, Colorado (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/297602041502": {
@@ -4910,16 +4785,16 @@
       "reason": "pickup-only item in Saint Joseph, Missouri (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/376528071775": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Listed as Men's XL (too large for 5'5\" rider); only Small size available contradicts title; 29\" wheels incompatible with requirement for 27.5\"/650b.",
+      "reason": "Title lists XL size, but only Small is available for purchase\u2014mismatch indicates listing error or XL is primary stock; Small alone fails to confirm fit, and the XL specification contradicts the buyer's hard requirement.",
       "reject": true,
-      "size_confirmed": true,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/157279453590": {
@@ -4928,7 +4803,7 @@
       "reason": "pickup-only item in Maspeth, New York (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/406164709362": {
@@ -4937,7 +4812,7 @@
       "reason": "pickup-only item in Berkeley Heights, New Jersey (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/226925872210": {
@@ -4946,7 +4821,7 @@
       "reason": "pickup-only item in Santa Rosa, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/197598329553": {
@@ -4955,7 +4830,7 @@
       "reason": "pickup-only item in Cottonwood, Arizona (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/306434197359": {
@@ -4964,7 +4839,7 @@
       "reason": "pickup-only item in Renton, Washington (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/177296022086": {
@@ -4973,7 +4848,7 @@
       "reason": "pickup-only item in Mission Viejo, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/317119110780": {
@@ -4982,7 +4857,7 @@
       "reason": "pickup-only item in Glastonbury, Connecticut (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/406068742466": {
@@ -4991,7 +4866,7 @@
       "reason": "pickup-only item in Little Hocking, Ohio (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/357322421540": {
@@ -5000,7 +4875,7 @@
       "reason": "pickup-only item in Saint Paul, Minnesota (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/146710386213": {
@@ -5009,7 +4884,7 @@
       "reason": "pickup-only item in Baton Rouge, Louisiana (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/388653708900": {
@@ -5018,7 +4893,7 @@
       "reason": "pickup-only item in Bronx, New York (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/197440377648": {
@@ -5027,7 +4902,7 @@
       "reason": "pickup-only item in Denver, Colorado (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/326636453477": {
@@ -5036,7 +4911,7 @@
       "reason": "pickup-only item in El Monte, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/167578244426": {
@@ -5045,7 +4920,7 @@
       "reason": "pickup-only item in Austin, Texas (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/365659232998": {
@@ -5054,16 +4929,16 @@
       "reason": "pickup-only item in North Hollywood, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/335989009774": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Frame size is X-Large, which exceeds the hard requirement of Small or Medium for a 5'5\" beginner-intermediate rider.",
+      "reason": "Frame size is X-Large, which is too big for a 5'5\" rider; hard requirement is Small or Medium only.",
       "reject": true,
       "size_confirmed": true,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/226767358475": {
@@ -5072,7 +4947,7 @@
       "reason": "pickup-only item in Santa Rosa, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/376255558319": {
@@ -5081,7 +4956,7 @@
       "reason": "pickup-only item in Oswego, New York (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/316812325971": {
@@ -5090,7 +4965,7 @@
       "reason": "pickup-only item in Sparks, Nevada (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/177078481195": {
@@ -5099,7 +4974,7 @@
       "reason": "pickup-only item in Bayville, New Jersey (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/135724530260": {
@@ -5108,7 +4983,7 @@
       "reason": "pickup-only item in Apex, North Carolina (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/156895565385": {
@@ -5117,7 +4992,7 @@
       "reason": "pickup-only item in Pacifica, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/226683421385": {
@@ -5126,7 +5001,7 @@
       "reason": "pickup-only item in Upland, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/405677092898": {
@@ -5135,7 +5010,7 @@
       "reason": "pickup-only item in Kingman, Arizona (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/226652576373": {
@@ -5144,7 +5019,7 @@
       "reason": "pickup-only item in Sylmar, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/388026788152": {
@@ -5153,16 +5028,16 @@
       "reason": "pickup-only item in Savannah, Georgia (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/286293524115": {
-      "score": 0,
+      "score": 2,
       "verdict": "reject",
-      "reason": "Reject: shipping cost of $3,150 makes total price $3,998, far exceeding budget; international seller (Napoli, Italy) with prohibitive shipping charges makes this unworkable for a local buyer in Michigan.",
+      "reason": "Shipping cost of $3,117 from Italy makes total price $3,956\u2014far exceeding budget and stated willingness to buy anything that ships; while the Trek Marlin 6 Gen3 in 15.5\" Small with 27.5\" wheels and hydraulic disc brakes meets all hard requirements, the obscene shipping fee disqualifies this as a viable purchase.",
       "reject": true,
       "size_confirmed": true,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/387840897442": {
@@ -5171,7 +5046,7 @@
       "reason": "pickup-only item in Spring Valley, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/396105826983": {
@@ -5180,7 +5055,7 @@
       "reason": "pickup-only item in Federal Way, Washington (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/316106201635": {
@@ -5189,7 +5064,7 @@
       "reason": "pickup-only item in Colorado Springs, Colorado (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/146301463751": {
@@ -5198,7 +5073,7 @@
       "reason": "pickup-only item in Yorba Linda, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/396043358216": {
@@ -5207,7 +5082,7 @@
       "reason": "pickup-only item in Hanford, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/395990224039": {
@@ -5216,7 +5091,7 @@
       "reason": "pickup-only item in Savannah, Georgia (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/156553470141": {
@@ -5225,16 +5100,16 @@
       "reason": "pickup-only item in El Paso, Texas (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/286176830279": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Frame size is XL (21.5\"), which exceeds the hard requirement of Small or Medium for a 5'5\" rider; additionally, wheels are 29\", not 27.5\"/650b as required.",
+      "reason": "Frame size 21.5\" XL with 29\" wheels vastly exceeds the Small/Medium requirement for a 5'5\" rider; XL is too large and 29\" wheels are explicitly rejected. Additionally, shipping cost of $3,117 is unrealistic and raises authenticity concerns.",
       "reject": true,
       "size_confirmed": true,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/365223035052": {
@@ -5243,7 +5118,7 @@
       "reason": "pickup-only item in Norristown, Pennsylvania (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/405325379314": {
@@ -5252,7 +5127,7 @@
       "reason": "pickup-only item in Simpsonville, South Carolina (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/356194743367": {
@@ -5261,7 +5136,7 @@
       "reason": "pickup-only item in South Dartmouth, Massachusetts (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/126735784006": {
@@ -5270,7 +5145,7 @@
       "reason": "pickup-only item in Eden Prairie, Minnesota (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/205142664786": {
@@ -5279,7 +5154,7 @@
       "reason": "pickup-only item in Tracy, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/387352120863": {
@@ -5288,7 +5163,7 @@
       "reason": "pickup-only item in Beaverton, Oregon (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/166943988910": {
@@ -5297,7 +5172,7 @@
       "reason": "pickup-only item in Huntington Beach, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/176543003257": {
@@ -5306,16 +5181,16 @@
       "reason": "pickup-only item in Laconia, New Hampshire (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/126636107347": {
       "score": 0,
       "verdict": "reject",
-      "reason": "1996 vintage bike with 26\" wheels (not 27.5\"/650b) and outdated 3x drivetrain fails hard requirements; vintage collectible, not suitable for beginner-intermediate rider's intended use.",
+      "reason": "1996 vintage bike with 26\" wheels (not 27.5\"/650b required) and full suspension rear contradicts hardtail requirement; also outdated drivetrain and components inappropriate for a modern beginner rider.",
       "reject": true,
       "size_confirmed": true,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/405178828767": {
@@ -5324,7 +5199,7 @@
       "reason": "pickup-only item in Akron, Ohio (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/196509395872": {
@@ -5333,16 +5208,16 @@
       "reason": "pickup-only item in El Dorado Hills, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/187926024954": {
       "score": 0,
       "verdict": "reject",
-      "reason": "26\" wheels fail hard requirement (27.5\"/650b only); Specialized Rockhopper Womens typically come in 27.5\" \u2014 this listing appears to be an older model or incorrect spec.",
+      "reason": "26\" wheels fail hard requirement (must be 27.5\"/650b); Rockhopper line uses 27.5\" or 29\" depending on size, and this 13\" frame with 26\" wheels is an older model that does not meet current specifications for this rider.",
       "reject": true,
       "size_confirmed": true,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/135102587998": {
@@ -5351,7 +5226,7 @@
       "reason": "pickup-only item in Hot Springs National Park, Arkansas (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/364934973545": {
@@ -5360,7 +5235,7 @@
       "reason": "pickup-only item in Mooresville, North Carolina (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/315397827830": {
@@ -5369,7 +5244,7 @@
       "reason": "pickup-only item in Enola, Pennsylvania (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/166689280002": {
@@ -5378,7 +5253,7 @@
       "reason": "pickup-only item in Mesa, Arizona (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/355259705885": {
@@ -5387,7 +5262,7 @@
       "reason": "pickup-only item in West Rutland, Vermont (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/176012935481": {
@@ -5396,7 +5271,7 @@
       "reason": "pickup-only item in Oviedo, Florida (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/195997470653": {
@@ -5405,7 +5280,7 @@
       "reason": "pickup-only item in Galveston, Texas (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/354990625001": {
@@ -5414,7 +5289,7 @@
       "reason": "pickup-only item in Buzzards Bay, Massachusetts (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/266354900108": {
@@ -5423,7 +5298,7 @@
       "reason": "pickup-only item in San Andreas, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/225664010836": {
@@ -5432,7 +5307,7 @@
       "reason": "pickup-only item in Lewisburg, Pennsylvania (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/404363105429": {
@@ -5441,7 +5316,7 @@
       "reason": "pickup-only item in Baltimore, Maryland (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/204377273738": {
@@ -5450,7 +5325,7 @@
       "reason": "pickup-only item in Nunda, New York (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/155467002881": {
@@ -5459,7 +5334,7 @@
       "reason": "pickup-only item in Portland, Oregon (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/314475026726": {
@@ -5468,7 +5343,7 @@
       "reason": "pickup-only item in Gary, Indiana (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/304744960204": {
@@ -5477,7 +5352,7 @@
       "reason": "pickup-only item in Columbia, Missouri (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/354440158222": {
@@ -5486,7 +5361,7 @@
       "reason": "pickup-only item in Los Angeles, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/115500499752": {
@@ -5495,7 +5370,7 @@
       "reason": "pickup-only item in Los Angeles, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/354147347493": {
@@ -5504,7 +5379,7 @@
       "reason": "pickup-only item in Lakewood, Washington (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/255521090580": {
@@ -5513,7 +5388,7 @@
       "reason": "pickup-only item in Bergenfield, New Jersey (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/334388193286": {
@@ -5522,7 +5397,7 @@
       "reason": "pickup-only item in Rancho Cucamonga, California (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/314824744107": {
@@ -5531,7 +5406,7 @@
       "reason": "pickup-only item in Staten Island, New York (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/124750987986": {
@@ -5540,7 +5415,7 @@
       "reason": "pickup-only item in South Vienna, Ohio (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/306893116750": {
@@ -5549,25 +5424,16 @@
       "reason": "pickup-only item in Woodside, New York (too far)",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-12T21:27:14.837788+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/306931076255": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Frame size 13.5\" is XS (too small for 5'5\" rider); hard requirement violation.",
+      "reason": "Frame size 13.5\" is XS (too small for a 5'5\" rider; Trek XS frames are designed for riders ~5'0\"-5'3\"), fails hard requirement.",
       "reject": true,
       "size_confirmed": true,
-      "cached_at": "2026-11-13T02:23:44.619006+00:00",
-      "eval_version": 2
-    },
-    "https://www.craigslist.org/view/d/eastpointe-like-new-giant-boulder-se-mt/dqBFxjuP6AYN8JsmgBrTY3": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "Giant Boulder is a 26\" hardtail MTB (not 27.5\"/650b), which fails the wheel size hard requirement; additionally, size and detailed specs are not listed, and Eastpointe, MI is approximately 120+ miles from East Lansing, exceeding the 100-mile travel radius.",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-11-13T02:24:45.489983+00:00",
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
     "https://www.ebay.com/itm/128192635263": {
@@ -6603,6 +6469,195 @@
       "reject": false,
       "size_confirmed": false,
       "cached_at": "2026-11-26T20:56:43.520968+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/206729557212": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "pickup-only item in Corona, New York (too far)",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:56:39.121611+00:00",
+      "eval_version": 2
+    },
+    "https://88cycling.com/products/uma-gt-jersey-s11-small-white-series": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "This is a cycling jersey, not a mountain bike \u2014 it fails the fundamental requirement of being a bicycle.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:59:24.331954+00:00",
+      "eval_version": 2
+    },
+    "https://88cycling.com/products/uma-gt-jersey-s11-s-future-dusk": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "This is a cycling jersey, not a mountain bike \u2014 it fails the fundamental requirement of being a bicycle.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:59:24.331954+00:00",
+      "eval_version": 2
+    },
+    "https://88cycling.com/products/uma-gt-jersey-s11-m-bronze-ash": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "This is a cycling jersey/apparel, not a mountain bike; listing fails the core requirement of being a bicycle.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:59:24.331954+00:00",
+      "eval_version": 2
+    },
+    "https://88cycling.com/products/mille-gt-jersey-s11-small": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "This is a cycling jersey, not a mountain bike \u2014 it fails the fundamental requirement of being a bicycle.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:59:24.331954+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/eaton-rapids-trek-3700-bike/iEh9sD6jCeTt9RG6HHbuu7": {
+      "score": 1,
+      "verdict": "reject",
+      "reason": "Trek 3700 is an entry-level hybrid/comfort bike with rim brakes and 3x drivetrain, not a mountain bike; fails hardtail MTB requirement.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:59:39.103633+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/eastpointe-like-new-giant-boulder-se-mt/cNzxi1RCV5hUKb7gKdAyj6": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Giant Boulder is a full-suspension mountain bike, not a hardtail; listing location (Eastpointe, MI) is ~200 miles from East Lansing, exceeding the 100-mile travel radius.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:59:39.103633+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/wyoming-trek-marlin/ewftRSejBgAwrfhGs5ejiU": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Wyoming is approximately 1,500+ miles from East Lansing, MI, far exceeding the 100-mile travel radius; listing fails location requirement.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:59:39.103633+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/royal-oak-dbr-diamondback-wcf-shimano/eVyviM7aDuTGxDvtKzQom5": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Listing is too sparse to verify critical requirements (frame size, wheel size, model variant); 'Dbr Diamondback WCF' is not a recognized model, and location (Royal Oak, Oakland County, MI) is approximately 70-80 miles from East Lansing but uncertainty on exact address combined with unverified specs makes this unviable.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:59:39.103633+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/fraser-trek-3500-series-all-bontrager/aVq8mLNsJSFyXKX94yJHBZ": {
+      "score": 2,
+      "verdict": "skip",
+      "reason": "Trek 3500 is an older steel-frame mountain bike with mechanical 3x drivetrain and rim brakes\u2014fails modern hardtail requirements (aluminum/carbon frame, disc brakes, 1x drivetrain); size and wheel size unknown; price is very low but bike doesn't meet spec standards for a 5'5\" beginner-intermediate rider.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:59:39.103633+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/harper-woods-1997-cannondale-silk-path/5cAWeKkpYnQRXC3bcK8EQL": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "1997 Cannondale Silk Path 700 is a road/hybrid bike with 700c wheels and rim brakes, not a 27.5\" hardtail mountain bike; fails multiple hard requirements (wheel size, brake type, bike category).",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:59:39.103633+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/ann-arbor-small-gt-outpost-mountain-bike/qw7TBUQFZKos664nUpui1J": {
+      "score": 3,
+      "verdict": "skip",
+      "reason": "GT Outpost is a hybrid/flat-bar adventure bike, not a hardtail mountain bike; wheel size, drivetrain, and brake type are unspecified and uncertain for this model\u2014verify before engaging, but price alone ($175) does not overcome the model mismatch.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-27T03:59:39.103633+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/marshall-cannondale-quick-fatty-cx-mt/jigL86dKUNGqDhD9ogFciA": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Cannondale Quick is a hybrid/fitness bike, not a mountain bike; listing lacks critical specs (frame size, wheel size, drivetrain, brakes) and cannot be verified as meeting hardtail MTB requirements.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:59:39.103633+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/roseville-mens-diamondback-axis-xe/vk9bbZVvTYeAcv68xLTQgz": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Listing is essentially empty (only title/price, no specifications provided); cannot verify frame size, wheel size, drivetrain, brakes, or frame material\u2014fails multiple hard requirements.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:59:39.103633+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/troy-2021-giant-talon-29er/wbFfQvjJJUnpu4yDHYuGbb": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "29\" wheels do not meet the 27.5\"/650b hard requirement for this rider; Giant Talon 1 in size Medium comes with 29\" wheels, which are too large for a 5'5\" beginner-intermediate rider on neighborhood/light trail use.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T03:59:39.103633+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/ann-arbor-rei-drt-12/eKLrgg3mC3bTECYeE4NJiP": {
+      "score": 6,
+      "verdict": "fair",
+      "reason": "REI Co-op DRT 1.2 is a Tier 2 hardtail with strong spec (hydraulic disc, 1x10 Deore, 27.5\"), price is good at $400, location (Ann Arbor) is within 100 miles of East Lansing, but frame size is not stated\u2014verify Small or Medium before committing, as this is critical for fit on a 5'5\" rider.",
+      "reject": false,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T04:00:05.643594+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/ann-arbor-rei-drt-11-mountain-bike/vLbkdvXNyA971eRNzJw6RG": {
+      "score": 7,
+      "verdict": "good_deal",
+      "reason": "Co-op Cycles DRT 1.1 is a Tier 2 standout (hydraulic brakes, 1x10 Deore, $699 MSRP) at $350 (50% off), located in Ann Arbor (~40 miles from East Lansing), but size is not stated\u2014verify Small/Medium fits before committing.",
+      "reject": false,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T04:00:05.643594+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/stevensville-specialized-stumpjumper/j4AdZpMpoUraDKiDBfEDzV": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "21\" frame is too large for a 5'5\" rider (Medium/Large sizing); Specialized StumpJumper Comp is a full-suspension bike, not a hardtail as required.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-27T04:00:05.643594+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/cleveland-fuji-mx-650-bicycle/iByonjMfomfTgXyDgg9EMv": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Fuji MX 650 is a cruiser/comfort bike, not a mountain bike; listing is in Cleveland, OH (outside 100-mile radius from East Lansing, MI); insufficient specs to verify hardtail/disc brakes/frame size.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T04:00:05.643594+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/evanston-trek-6500sl/tBA39EJf6w5Fg9kby7cszS": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Trek 6500SL is a 1990s steel rigid mountain bike (full rigid, not hardtail with suspension fork), does not meet modern hardtail or aluminum frame requirements, and location (Evanston, IL) is approximately 250+ miles from East Lansing, MI, exceeding the 100-mile travel limit.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T04:00:05.643594+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/crown-point-gt-pantera-mountain-bike/pVuh8tdxUWh9ycrk6TyQpY": {
+      "score": 2,
+      "verdict": "skip",
+      "reason": "GT Pantera is a full-suspension mountain bike, not a hardtail; listing lacks critical specs (size, wheel size, drivetrain, brakes) and cannot be verified against requirements.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T04:00:05.643594+00:00",
       "eval_version": 2
     }
   }

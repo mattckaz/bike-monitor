@@ -292,7 +292,7 @@
     "https://www.marinbikes.com/products/bobcat-trail-3-new",
     "https://www.craigslist.org/view/d/ann-arbor-rei-drt-11-mountain-bike/vLbkdvXNyA971eRNzJw6RG"
   ],
-  "last_run": "2026-11-27T04:00:30.982424+00:00",
+  "last_run": "2026-11-27T20:42:28.102414+00:00",
   "deals_found": [
     {
       "title": "Talon 4 (2026)",
@@ -3132,10 +3132,10 @@
   ],
   "source_checks": {
     "The Pro's Closet": {
-      "last_checked": "2026-11-27T03:55:56.380934+00:00",
+      "last_checked": "2026-11-27T20:39:41.979482+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 199,
+      "zero_streak": 200,
       "error": null
     },
     "Jenson USA": {
@@ -3144,42 +3144,42 @@
       "status": "ok"
     },
     "Worldwide Cyclery": {
-      "last_checked": "2026-11-27T03:56:05.800384+00:00",
+      "last_checked": "2026-11-27T20:39:50.483419+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 201,
+      "zero_streak": 202,
       "error": null
     },
     "Fanatik Bike": {
-      "last_checked": "2026-11-27T03:56:06.463170+00:00",
+      "last_checked": "2026-11-27T20:39:51.083255+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 212,
+      "zero_streak": 213,
       "error": null
     },
     "Cambria Bike": {
-      "last_checked": "2026-11-27T03:56:07.053635+00:00",
+      "last_checked": "2026-11-27T20:39:51.609552+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 188,
+      "zero_streak": 189,
       "error": null
     },
     "Bicycle Warehouse": {
-      "last_checked": "2026-11-27T03:55:58.288111+00:00",
+      "last_checked": "2026-11-27T20:39:44.018333+00:00",
       "count_evaluated": 110,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Mike's Bikes": {
-      "last_checked": "2026-11-27T03:56:07.907202+00:00",
+      "last_checked": "2026-11-27T20:39:52.351608+00:00",
       "count_evaluated": 11,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "ERIK'S Bike Shop": {
-      "last_checked": "2026-11-27T03:56:08.545162+00:00",
+      "last_checked": "2026-11-27T20:39:52.913069+00:00",
       "count_evaluated": 9,
       "status": "ok",
       "zero_streak": 0,
@@ -3191,10 +3191,10 @@
       "status": "ok"
     },
     "Velomine": {
-      "last_checked": "2026-11-27T03:56:09.311960+00:00",
+      "last_checked": "2026-11-27T20:39:53.567862+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 188,
+      "zero_streak": 189,
       "error": null
     },
     "Bicycle Blue Book": {
@@ -3213,56 +3213,56 @@
       "status": "ok"
     },
     "Incycle": {
-      "last_checked": "2026-11-27T03:55:59.924758+00:00",
-      "count_evaluated": 40,
+      "last_checked": "2026-11-27T20:39:45.449489+00:00",
+      "count_evaluated": 39,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Colorado Cyclist": {
-      "last_checked": "2026-11-27T03:56:00.813915+00:00",
-      "count_evaluated": 25,
+      "last_checked": "2026-11-27T20:39:46.202384+00:00",
+      "count_evaluated": 26,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "BikesOnline": {
-      "last_checked": "2026-11-27T03:56:01.827916+00:00",
+      "last_checked": "2026-11-27T20:39:47.091571+00:00",
       "count_evaluated": 10,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Kona (Direct)": {
-      "last_checked": "2026-11-27T03:56:03.112543+00:00",
+      "last_checked": "2026-11-27T20:39:47.980373+00:00",
       "count_evaluated": 13,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Fuji (Direct)": {
-      "last_checked": "2026-11-27T03:56:03.256021+00:00",
+      "last_checked": "2026-11-27T20:39:48.011399+00:00",
       "count_evaluated": 0,
       "status": "error",
       "zero_streak": 0,
       "error": "no working Shopify collection found"
     },
     "GT Bicycles (Direct)": {
-      "last_checked": "2026-11-27T03:56:04.410018+00:00",
+      "last_checked": "2026-11-27T20:39:49.105067+00:00",
       "count_evaluated": 2,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Diamondback (Direct)": {
-      "last_checked": "2026-11-27T03:56:05.266438+00:00",
+      "last_checked": "2026-11-27T20:39:49.911647+00:00",
       "count_evaluated": 17,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Ari Bikes": {
-      "last_checked": "2026-11-27T03:56:10.138094+00:00",
+      "last_checked": "2026-11-27T20:39:54.325825+00:00",
       "count_evaluated": 1,
       "status": "ok",
       "zero_streak": 0,
@@ -3284,7 +3284,7 @@
       "status": "ok"
     },
     "Marin": {
-      "last_checked": "2026-11-27T03:56:15.533655+00:00",
+      "last_checked": "2026-11-27T20:40:05.171706+00:00",
       "count_evaluated": 11,
       "status": "ok",
       "zero_streak": 0,
@@ -3303,10 +3303,10 @@
       "status": "error"
     },
     "Pinkbike Deals": {
-      "last_checked": "2026-11-27T03:58:53.462580+00:00",
-      "count_evaluated": 36,
+      "last_checked": "2026-11-27T20:40:57.287455+00:00",
+      "count_evaluated": 0,
       "status": "ok",
-      "zero_streak": 0,
+      "zero_streak": 1,
       "error": null
     },
     "Pinkbike Buy/Sell": {
@@ -3322,14 +3322,14 @@
       "error": null
     },
     "Trailhead Cycling": {
-      "last_checked": "2026-11-27T03:59:04.927000+00:00",
+      "last_checked": "2026-11-27T20:41:19.186738+00:00",
       "count_evaluated": 30,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "88 Cycling": {
-      "last_checked": "2026-11-27T03:59:24.275817+00:00",
+      "last_checked": "2026-11-27T20:41:38.340568+00:00",
       "count_evaluated": 31,
       "status": "ok",
       "zero_streak": 0,
@@ -3343,7 +3343,7 @@
       "error": null
     },
     "Batch Bicycles": {
-      "last_checked": "2026-11-27T03:56:16.612011+00:00",
+      "last_checked": "2026-11-27T20:40:06.113043+00:00",
       "count_evaluated": 12,
       "status": "ok",
       "zero_streak": 0,
@@ -3362,14 +3362,14 @@
       "error": null
     },
     "Giant Clearance": {
-      "last_checked": "2026-11-27T03:58:39.930285+00:00",
+      "last_checked": "2026-11-27T20:40:44.874605+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 188,
+      "zero_streak": 189,
       "error": null
     },
     "Specialized Sale": {
-      "last_checked": "2026-11-27T03:58:47.135137+00:00",
+      "last_checked": "2026-11-27T20:40:51.346363+00:00",
       "count_evaluated": 3,
       "status": "ok",
       "zero_streak": 0,
@@ -3386,8 +3386,8 @@
       "status": "ok"
     },
     "Bike Mart": {
-      "last_checked": "2026-11-27T03:56:14.293814+00:00",
-      "count_evaluated": 149,
+      "last_checked": "2026-11-27T20:40:04.043550+00:00",
+      "count_evaluated": 155,
       "status": "ok",
       "zero_streak": 0,
       "error": null
@@ -3403,7 +3403,7 @@
       "status": "ok"
     },
     "Slickdeals": {
-      "last_checked": "2026-11-27T04:00:30.982291+00:00",
+      "last_checked": "2026-11-27T20:42:28.102323+00:00",
       "count_evaluated": 26,
       "status": "ok",
       "zero_streak": 0,
@@ -3452,31 +3452,31 @@
       "error": null
     },
     "Craigslist (hardtail)": {
-      "last_checked": "2026-11-27T03:59:39.101047+00:00",
+      "last_checked": "2026-11-27T20:41:45.308102+00:00",
       "count_evaluated": 25,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Craigslist (27.5)": {
-      "last_checked": "2026-11-27T04:00:05.641129+00:00",
-      "count_evaluated": 22,
+      "last_checked": "2026-11-27T20:41:54.583542+00:00",
+      "count_evaluated": 21,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Trek Mountain": {
-      "last_checked": "2026-11-27T03:58:34.273156+00:00",
+      "last_checked": "2026-11-27T20:40:40.344187+00:00",
       "count_evaluated": 0,
       "status": "stale",
-      "zero_streak": 40,
+      "zero_streak": 41,
       "error": null
     },
     "Pinkbike Buy/Sell (hardtail 27.5)": {
-      "last_checked": "2026-11-27T03:58:59.566142+00:00",
-      "count_evaluated": 0,
+      "last_checked": "2026-11-27T20:41:07.758119+00:00",
+      "count_evaluated": 20,
       "status": "ok",
-      "zero_streak": 2,
+      "zero_streak": 0,
       "error": null
     },
     "Pinkbike Buy/Sell (marlin)": {
@@ -3508,29 +3508,29 @@
       "error": null
     },
     "Craigslist (models)": {
-      "last_checked": "2026-11-27T04:00:27.206227+00:00",
-      "count_evaluated": 201,
+      "last_checked": "2026-11-27T20:42:10.924421+00:00",
+      "count_evaluated": 21,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "D&D Bicycles & Hockey": {
-      "last_checked": "2026-11-27T03:56:26.319376+00:00",
+      "last_checked": "2026-11-27T20:40:17.979835+00:00",
       "count_evaluated": 13,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "Village Bike Shop": {
-      "last_checked": "2026-11-27T03:56:36.751445+00:00",
+      "last_checked": "2026-11-27T20:40:31.681055+00:00",
       "count_evaluated": 4,
       "status": "ok",
       "zero_streak": 0,
       "error": null
     },
     "eBay API": {
-      "last_checked": "2026-11-27T03:58:17.398856+00:00",
-      "count_evaluated": 371,
+      "last_checked": "2026-11-27T20:40:35.283809+00:00",
+      "count_evaluated": 369,
       "status": "ok",
       "zero_streak": 0,
       "error": null
@@ -5436,40 +5436,13 @@
       "cached_at": "2026-11-27T03:56:39.121611+00:00",
       "eval_version": 2
     },
-    "https://www.ebay.com/itm/128192635263": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "pickup-only item in Queens Park (too far)",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-11-13T19:11:59.895535+00:00",
-      "eval_version": 2
-    },
-    "https://www.ebay.com/itm/128192563383": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "pickup-only item in Salinas, California (too far)",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-11-13T19:11:59.895535+00:00",
-      "eval_version": 2
-    },
-    "https://www.ebay.com/itm/860140246904": {
-      "score": 0,
-      "verdict": "reject",
-      "reason": "pickup-only item in Harrisville, West Virginia (too far)",
-      "reject": true,
-      "size_confirmed": false,
-      "cached_at": "2026-11-13T19:11:59.895535+00:00",
-      "eval_version": 2
-    },
     "https://www.craigslist.org/view/d/cincinnati-275-ozark-trail-vibe-speed/o67eMh3siUVUhoXQxnNEia": {
       "score": 0,
       "verdict": "reject",
-      "reason": "Ozark Trail is a Walmart house brand (reject tier); listing location Cincinnati is ~250 miles from East Lansing, exceeding 100-mile travel radius.",
+      "reason": "Ozark Trail is a Walmart house brand (explicitly reject list); 'hybrid' designation suggests this is not a true hardtail mountain bike; located in Cincinnati, OH, which exceeds the 100-mile travel radius from East Lansing, MI.",
       "reject": true,
       "size_confirmed": false,
-      "cached_at": "2026-11-13T19:13:08.094185+00:00",
+      "cached_at": "2026-11-27T20:41:54.586176+00:00",
       "eval_version": 2
     },
     "https://www.bikemart.com/products/2025-sirrus-x-3-0-st-km": {
@@ -6658,6 +6631,150 @@
       "reject": true,
       "size_confirmed": false,
       "cached_at": "2026-11-27T04:00:05.643594+00:00",
+      "eval_version": 2
+    },
+    "https://www.bikemart.com/products/unified-bike-co-racello-deore-12-ship-to-your-door-hardtail": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Racello is not a recognized reputable brand; unknown manufacturer fails Tier 1\u20133 criteria and cannot be verified for quality/component authenticity.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-27T20:39:59.005481+00:00",
+      "eval_version": 2
+    },
+    "https://www.bikemart.com/products/2025-tempt-1-hardtail-mountain-bike": {
+      "score": 3,
+      "verdict": "skip",
+      "reason": "Liv Tempt 1 is a Tier 3 women's model at $900 (above acceptable stretch for entry-spec), and only XS (27.5\") fits this rider\u2014verify frame geometry against standard measurements before committing, as Liv's sizing may differ from unisex brands.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-27T20:39:59.005481+00:00",
+      "eval_version": 2
+    },
+    "https://www.ebay.com/itm/128220220536": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "pickup-only item in Queens Park (too far)",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T20:40:34.759243+00:00",
+      "eval_version": 2
+    },
+    "https://www.pinkbike.com/buysell/4065274/": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Kelowna, British Columbia is approximately 1,400+ miles from East Lansing, MI\u2014far beyond the 100-mile travel limit stated by the buyer.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T20:41:07.759966+00:00",
+      "eval_version": 2
+    },
+    "https://www.pinkbike.com/buysell/4248831/": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Coatesville, PA is approximately 540 miles from East Lansing, MI\u2014far beyond the 100-mile travel limit.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-27T20:41:07.759966+00:00",
+      "eval_version": 2
+    },
+    "https://www.pinkbike.com/buysell/4208472/": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Listing is located in Mancos, Colorado, which is approximately 1,400+ miles from East Lansing, MI\u2014far beyond the 100-mile travel limit; additionally, size, wheel diameter, drivetrain, and brake specifications are entirely missing and cannot be verified.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T20:41:07.759966+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/search/city/east-lansing-mi?cat=sss&max_price=950&min_price=150&postal=48823&purveyor=owner&query=mountain%20bike%20hardtail&radius=100&sort=date": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "This is a Craigslist search results page listing multiple bikes, not a single bike listing\u2014cannot evaluate. To assess a bike, provide a complete individual listing with brand, model, year, frame size (S/M), wheel size (27.5\"), drivetrain, brakes, condition, and price.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T20:41:45.311195+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/port-washington-2023-giant-yukon-fat/a45hUJme4T6z6gZU1PtswD": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Giant Yukon 2 is a fat-tire bike (26\" or 29\" wheels) with full suspension, neither of which meets the 27.5\" hardtail requirement; fat bikes are unsuitable for a beginner-intermediate rider on neighborhood/bike-path use.",
+      "reject": true,
+      "size_confirmed": true,
+      "cached_at": "2026-11-27T20:41:54.586176+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/macedonia-diamondback-ladies-mountain/aVE435LLTo2AigwqAxLpKB": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "21-speed drivetrain (3x system) is outdated and explicitly rejected per requirements; insufficient specs to verify frame size, wheel size, brake type, or frame material.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T20:41:54.586176+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/clarendon-hills-diamondback-recoil-275/4ipLX9wPkSZiGCR5gwcRPs": {
+      "score": 3,
+      "verdict": "skip",
+      "reason": "Diamondback Recoil is a solid Tier 2 hardtail at excellent price ($400), but frame size is unknown, condition is not stated, and listing is sparse (no specs, brakes, drivetrain, year, or location distance details provided)\u2014verify size/condition and location distance before contacting seller.",
+      "reject": false,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T20:41:54.586176+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/search/city/east-lansing-mi?cat=sss&max_price=950&min_price=150&postal=48823&purveyor=owner&query=marlin%7Ctalon%7Crockhopper%7Cbobcat%7Chardrock%7Ckahuna%7Caggressor&radius=100&sort=date": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "Listing is a Craigslist search results page, not an actual bike listing\u2014contains multiple unrelated items (scooters, guitars, cars) with no coherent product information to evaluate.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T20:42:10.927290+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/royal-oak-michigan-bobcat/83ieSADkiYToBFjFzxNQMm": {
+      "score": 2,
+      "verdict": "skip",
+      "reason": "Listing is too sparse to verify size, wheel size, drivetrain, brakes, or condition; Royal Oak is ~95 miles from East Lansing (borderline within 100-mile radius) but insufficient detail prevents confident evaluation.",
+      "reject": false,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T20:42:10.927290+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/warren-drive-medical-bobcat-wheel/oPWtQWCxfo6K8NdLNSag13": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "This is a mobility scooter, not a mountain bike; does not meet any hard requirements for the bicycle being evaluated.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T20:42:10.927290+00:00",
+      "eval_version": 2
+    },
+    "https://www.craigslist.org/view/d/willis-tracks-loegering/sbraawRWxuNyGku9ihCgHv": {
+      "score": 0,
+      "verdict": "reject",
+      "reason": "This listing is for tire tracks/accessories (Loegering Trailblazers), not a bicycle; it fails the fundamental requirement of being a mountain bike.",
+      "reject": true,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T20:42:10.927290+00:00",
+      "eval_version": 2
+    },
+    "https://slickdeals.net/f/19877106-giant-fathom-1-hardtail-mountain-bike-knight-shield-699-99?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+      "score": 5,
+      "verdict": "fair",
+      "reason": "Giant Fathom 1 is a recognized Tier 2 hardtail with solid geometry and likely 27.5\" wheels and disc brakes at a good price point ($699.99 is near ideal budget), but frame size is not stated and must be confirmed before purchase to ensure it fits a 5'5\" rider; verify Small or XS-to-Medium availability and actual drivetrain/brake specs (Fathom 1 typically ships with mechanical disc and entry-level drivetrain).",
+      "reject": false,
+      "size_confirmed": false,
+      "cached_at": "2026-11-27T20:42:22.589679+00:00",
+      "eval_version": 2
+    },
+    "https://slickdeals.net/f/16216396-diamondback-sync-r-50-off-750?utm_source=rss&utm_content=def&utm_medium=RSS2": {
+      "score": 6,
+      "verdict": "fair",
+      "reason": "Diamondback Sync'r is a solid Tier 2 hardtail available in Small (27.5\", disc brakes), but at $750 (claimed 50% off) the value is marginal\u2014verify actual MSRP, drivetrain spec (Deore vs. Alivio), and brake type (hydraulic vs. mechanical) before committing.",
+      "reject": false,
+      "size_confirmed": true,
+      "cached_at": "2026-11-27T20:42:22.589679+00:00",
       "eval_version": 2
     }
   }
